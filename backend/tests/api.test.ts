@@ -20,7 +20,7 @@ describe('LogiTrack API Endpoints', () => {
     const res = await request(app).get('/api/warehouses');
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBe(4);
+    expect(res.body.length).toBe(5);
   });
 
   it('should retrieve list of drivers', async () => {

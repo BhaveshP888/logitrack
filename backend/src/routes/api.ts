@@ -99,10 +99,11 @@ router.post('/reset', async (req, res) => {
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
 
-  const w1 = await prisma.warehouse.create({ data: { name: "Seattle Hub (W1)", latitude: 47.6062, longitude: -122.3321 } });
-  const w2 = await prisma.warehouse.create({ data: { name: "Los Angeles Hub (W2)", latitude: 34.0522, longitude: -118.2437 } });
-  const w3 = await prisma.warehouse.create({ data: { name: "Chicago Hub (W3)", latitude: 41.8781, longitude: -87.6298 } });
-  const w4 = await prisma.warehouse.create({ data: { name: "New York Hub (W4)", latitude: 40.7128, longitude: -74.0060 } });
+  const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)", latitude: 19.0760, longitude: 72.8777 } });
+  const w2 = await prisma.warehouse.create({ data: { name: "Pune Hub (W2)", latitude: 18.5204, longitude: 73.8567 } });
+  const w3 = await prisma.warehouse.create({ data: { name: "Nagpur Hub (W3)", latitude: 21.1458, longitude: 79.0882 } });
+  const w4 = await prisma.warehouse.create({ data: { name: "Nashik Hub (W4)", latitude: 19.9975, longitude: 73.7898 } });
+  const w5 = await prisma.warehouse.create({ data: { name: "Aurangabad Hub (W5)", latitude: 19.8762, longitude: 75.3433 } });
 
   await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", latitude: w1.latitude, longitude: w1.longitude, warehouseId: w1.id } });
   await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", latitude: w2.latitude, longitude: w2.longitude, warehouseId: w2.id } });

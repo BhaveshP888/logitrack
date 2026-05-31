@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/index.js';
+import { useAppSelector } from '../store/hooks.js';
 
 export default function MetricsGrid() {
-  const shipments = useSelector((state: RootState) => state.shipments.items);
-  const drivers = useSelector((state: RootState) => state.drivers.items);
+  const shipments = useAppSelector((state) => state.shipments.items);
+  const drivers = useAppSelector((state) => state.drivers.items);
   const [metrics, setMetrics] = useState({
     activeCount: 0,
     totalCount: 0,

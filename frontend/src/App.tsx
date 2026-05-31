@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from './store/index.js';
+import { useAppDispatch } from './store/hooks.js';
 import { fetchShipments } from './store/shipmentsSlice.js';
 import { fetchDrivers } from './store/driversSlice.js';
 import { fetchWarehouses } from './store/warehousesSlice.js';
@@ -12,7 +11,7 @@ import ShipmentsList from './components/ShipmentsList.js';
 import ControlCenter from './components/ControlCenter.js';
 
 export default function App() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Connect to Socket server
@@ -27,7 +26,7 @@ export default function App() {
   return (
     <div className="flex h-screen w-screen bg-bg-main">
       <Sidebar />
-      <main className="flex-1 flex flex-col p-8 gap-6 overflow-y-auto min-w-0">
+      <main className="flex-1 flex flex-col p-8 gap-6 h-full overflow-hidden min-w-0">
         <header className="flex justify-between items-center">
           <h1 className="font-display text-3xl font-semibold text-slate-100 tracking-tight">Logistics Command Dashboard</h1>
         </header>

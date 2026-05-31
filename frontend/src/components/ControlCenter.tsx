@@ -1,14 +1,13 @@
 import { useState, FormEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store/index.js';
+import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { addShipment, fetchShipments } from '../store/shipmentsSlice.js';
 import { fetchDrivers } from '../store/driversSlice.js';
 
 export default function ControlCenter() {
-  const dispatch = useDispatch<AppDispatch>();
-  const warehouses = useSelector((state: RootState) => state.warehouses.items);
-  const selectedShipmentId = useSelector((state: RootState) => state.shipments.selectedId);
-  const shipments = useSelector((state: RootState) => state.shipments.items);
+  const dispatch = useAppDispatch();
+  const warehouses = useAppSelector((state) => state.warehouses.items);
+  const selectedShipmentId = useAppSelector((state) => state.shipments.selectedId);
+  const shipments = useAppSelector((state) => state.shipments.items);
   
   const selectedShipment = shipments.find(s => s.id === selectedShipmentId);
   

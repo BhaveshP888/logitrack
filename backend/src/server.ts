@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 
 startSimulation(io);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.VITEST ? 3002 : (process.env.PORT || 3001);
 // TODO(security): Listen on localhost only for safety during dev/test
 server.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

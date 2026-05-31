@@ -8,18 +8,21 @@ async function main() {
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
 
-  // Create 4 Warehouses at custom coordinates
+  // Create 5 Warehouses in Maharashtra at real coordinates
   const w1 = await prisma.warehouse.create({
-    data: { name: "Seattle Hub (W1)", latitude: 47.6062, longitude: -122.3321 }
+    data: { name: "Mumbai Hub (W1)", latitude: 19.0760, longitude: 72.8777 }
   });
   const w2 = await prisma.warehouse.create({
-    data: { name: "Los Angeles Hub (W2)", latitude: 34.0522, longitude: -118.2437 }
+    data: { name: "Pune Hub (W2)", latitude: 18.5204, longitude: 73.8567 }
   });
   const w3 = await prisma.warehouse.create({
-    data: { name: "Chicago Hub (W3)", latitude: 41.8781, longitude: -87.6298 }
+    data: { name: "Nagpur Hub (W3)", latitude: 21.1458, longitude: 79.0882 }
   });
   const w4 = await prisma.warehouse.create({
-    data: { name: "New York Hub (W4)", latitude: 40.7128, longitude: -74.0060 }
+    data: { name: "Nashik Hub (W4)", latitude: 19.9975, longitude: 73.7898 }
+  });
+  const w5 = await prisma.warehouse.create({
+    data: { name: "Aurangabad Hub (W5)", latitude: 19.8762, longitude: 75.3433 }
   });
 
   console.log("Warehouses seeded");
@@ -43,7 +46,7 @@ async function main() {
       trackingNumber: "TRK-1001",
       status: "PENDING",
       originWarehouseId: w1.id,
-      destinationWarehouseId: w3.id,
+      destinationWarehouseId: w2.id,
       currentLatitude: w1.latitude,
       currentLongitude: w1.longitude,
       progress: 0.0

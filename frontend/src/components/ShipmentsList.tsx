@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index.js';
+import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { selectShipment } from '../store/shipmentsSlice.js';
 
 export default function ShipmentsList() {
-  const dispatch = useDispatch();
-  const shipments = useSelector((state: RootState) => state.shipments.items);
-  const selectedId = useSelector((state: RootState) => state.shipments.selectedId);
+  const dispatch = useAppDispatch();
+  const shipments = useAppSelector((state) => state.shipments.items);
+  const selectedId = useAppSelector((state) => state.shipments.selectedId);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('ALL');
