@@ -47,4 +47,26 @@ describe('Auth HTTP Endpoints', () => {
     
     expect(res.status).toBe(401);
   });
+
+  it('should register a new driver successfully and set a session cookie', async () => {
+    const email = `new_driver_${Date.now()}@logitrack.com`;
+    const res = await request(app)
+      .post('/api/auth/register')
+      .send({ name: 'Jane Driver', email, password: 'password123' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.user).toBeDefined();
+    expect(res.body.user.role).toBe('DRIVER');
+    expect(res.body.user.email).toBe(email);
+    expect(res.body.user.driverId).not.toBeNull();
+    expect(res.headers['set-cookie']).toBeDefined();
+
+    // Verify driver is in the database
+    const dbDriver = await prisma.driver.findUnique({
+      where: { id: res.body.user.driverId }
+    });
+    expect(dbDriver).toBeDefined();
+    expect(dbDriver?.name).toBe('Jane Driver');
+    expect(dbDriver?.status).toBe('AVAILABLE');
+  });
 });

@@ -103,6 +103,7 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.warehouse.deleteMany();
 
   const adminPasswordHash = await bcrypt.hash('admin123', 10);
+  const newAdminPasswordHash = await bcrypt.hash('adminlogin1212', 10);
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)", latitude: 19.0760, longitude: 72.8777 } });
@@ -117,6 +118,10 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
 
   await prisma.user.create({
     data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
+  });
+
+  await prisma.user.create({
+    data: { email: 'admin@email.com', passwordHash: newAdminPasswordHash, role: 'ADMIN' }
   });
 
   await prisma.user.create({

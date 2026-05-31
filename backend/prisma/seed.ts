@@ -12,6 +12,7 @@ async function main() {
 
   // Hash passwords
   const adminPasswordHash = await bcrypt.hash('admin123', 10);
+  const newAdminPasswordHash = await bcrypt.hash('adminlogin1212', 10);
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   // Create warehouses
@@ -27,6 +28,10 @@ async function main() {
 
   await prisma.user.create({
     data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
+  });
+
+  await prisma.user.create({
+    data: { email: 'admin@email.com', passwordHash: newAdminPasswordHash, role: 'ADMIN' }
   });
 
   await prisma.user.create({
