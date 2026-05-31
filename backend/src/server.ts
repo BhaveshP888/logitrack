@@ -2,8 +2,10 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import apiRouter from './routes/api.js';
+import { authRouter } from './routes/auth.js';
 import { startSimulation } from './simulation.js';
 
 dotenv.config();
@@ -18,8 +20,10 @@ const io = new Server(server, {
 });
 
 app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cookieParser());
 app.use(express.json());
 
+app.use('/api/auth', authRouter);
 app.use('/api', apiRouter);
 
 // Healthcheck
@@ -38,8 +42,10 @@ startSimulation(io);
 
 const PORT = process.env.VITEST ? 3002 : (process.env.PORT || 3001);
 // TODO(security): Listen on localhost only for safety during dev/test
-server.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
+if (!process.env.VITEST) {
+  server.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+  });
+}
 
 export { app, server };

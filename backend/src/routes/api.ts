@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -95,9 +96,13 @@ router.post('/shipments/:id/delay', async (req, res) => {
 
 // Reset database simulation
 router.post('/reset', async (req, res) => {
+  await prisma.user.deleteMany();
   await prisma.shipment.deleteMany();
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
+
+  const adminPasswordHash = await bcrypt.hash('admin123', 10);
+  const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)", latitude: 19.0760, longitude: 72.8777 } });
   const w2 = await prisma.warehouse.create({ data: { name: "Pune Hub (W2)", latitude: 18.5204, longitude: 73.8567 } });
@@ -105,9 +110,21 @@ router.post('/reset', async (req, res) => {
   const w4 = await prisma.warehouse.create({ data: { name: "Nashik Hub (W4)", latitude: 19.9975, longitude: 73.7898 } });
   const w5 = await prisma.warehouse.create({ data: { name: "Aurangabad Hub (W5)", latitude: 19.8762, longitude: 75.3433 } });
 
-  await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", latitude: w1.latitude, longitude: w1.longitude, warehouseId: w1.id } });
-  await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", latitude: w2.latitude, longitude: w2.longitude, warehouseId: w2.id } });
-  await prisma.driver.create({ data: { name: "Bob Johnson", status: "AVAILABLE", latitude: w3.latitude, longitude: w3.longitude, warehouseId: w3.id } });
+  const d1 = await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", latitude: w1.latitude, longitude: w1.longitude, warehouseId: w1.id } });
+  const d2 = await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", latitude: w2.latitude, longitude: w2.longitude, warehouseId: w2.id } });
+  const d3 = await prisma.driver.create({ data: { name: "Bob Johnson", status: "AVAILABLE", latitude: w3.latitude, longitude: w3.longitude, warehouseId: w3.id } });
+
+  await prisma.user.create({
+    data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
+  });
+
+  await prisma.user.create({
+    data: { email: 'driver1@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d1.id }
+  });
+
+  await prisma.user.create({
+    data: { email: 'driver2@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d2.id }
+  });
 
   res.json({ message: "Reset complete" });
 });
