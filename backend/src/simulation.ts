@@ -7,7 +7,12 @@ export function startSimulation(io: Server) {
   setInterval(async () => {
     try {
       const activeShipments = await prisma.shipment.findMany({
-        where: { status: { in: ['EN_ROUTE', 'DELAYED'] } },
+        where: { 
+          status: { in: ['EN_ROUTE', 'DELAYED'] },
+          driver: {
+            user: null
+          }
+        },
         include: { originWarehouse: true, destinationWarehouse: true, driver: true }
       });
 
