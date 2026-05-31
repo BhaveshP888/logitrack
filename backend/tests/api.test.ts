@@ -5,9 +5,19 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+let adminCookie: string;
+
 beforeAll(async () => {
+  const loginRes = await request(app)
+    .post('/api/auth/login')
+    .send({ email: 'admin@logitrack.com', password: 'admin123' });
+  const cookies = loginRes.headers['set-cookie'];
+  adminCookie = Array.isArray(cookies) ? cookies[0] : cookies || '';
+
   // Run seed logic
-  await request(app).post('/api/reset');
+  await request(app)
+    .post('/api/reset')
+    .set('Cookie', adminCookie);
 });
 
 afterAll(async () => {
@@ -44,11 +54,24 @@ describe('LogiTrack API Endpoints', () => {
 
     const res = await request(app)
       .post('/api/shipments/dispatch')
+      .set('Cookie', adminCookie)
       .send({ originId: origin, destinationId: dest });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('trackingNumber');
     expect(res.body.status).toBe('EN_ROUTE');
     expect(res.body.driverId).not.toBeNull();
+  });
+
+  it('should block unauthenticated dispatches', async () => {
+    const warehouses = await prisma.warehouse.findMany();
+    const origin = warehouses[0].id;
+    const dest = warehouses[1].id;
+
+    const res = await request(app)
+      .post('/api/shipments/dispatch')
+      .send({ originId: origin, destinationId: dest });
+
+    expect(res.status).toBe(401);
   });
 });

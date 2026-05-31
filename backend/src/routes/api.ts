@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { verifyToken, requireRole } from '../middleware/auth.js';
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -38,7 +39,7 @@ router.get('/metrics', async (req, res) => {
 });
 
 // Create & dispatch new shipment
-router.post('/shipments/dispatch', async (req, res) => {
+router.post('/shipments/dispatch', verifyToken, requireRole('ADMIN'), async (req, res) => {
   const { originId, destinationId } = req.body;
   if (!originId || !destinationId) {
     return res.status(400).json({ error: "Missing originId or destinationId" });
@@ -80,7 +81,7 @@ router.post('/shipments/dispatch', async (req, res) => {
 });
 
 // Simulate a delay on a shipment
-router.post('/shipments/:id/delay', async (req, res) => {
+router.post('/shipments/:id/delay', verifyToken, async (req, res) => {
   const { id } = req.params;
   const shipment = await prisma.shipment.findUnique({ where: { id } });
   if (!shipment || shipment.status !== 'EN_ROUTE') {
@@ -95,7 +96,7 @@ router.post('/shipments/:id/delay', async (req, res) => {
 });
 
 // Reset database simulation
-router.post('/reset', async (req, res) => {
+router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.user.deleteMany();
   await prisma.shipment.deleteMany();
   await prisma.driver.deleteMany();
