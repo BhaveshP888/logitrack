@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { logoutUser } from '../store/authSlice.js';
 import { Shipment } from '../store/shipmentsSlice.js';
@@ -90,7 +90,7 @@ function ActiveShipmentPanel({ shipment, onDispatch, onReachCheckpoint }: Active
               return (
                 <div key={cp.id} className={`flex items-center justify-between p-4 rounded-xl border relative z-10 transition-all duration-200 ${
                   cp.reached ? 'bg-white/[0.02] border-white/[0.04] text-zinc-500' :
-                  isNext ? 'bg-brand-primary/8 border-brand-primary/25 scale-[1.01]' :
+                  isNext ? 'bg-brand-primary/10 border-brand-primary/20 scale-[1.01]' :
                   'bg-transparent border-white/[0.04] text-zinc-600'
                 }`}>
                   <div className="flex items-center gap-3">
@@ -128,32 +128,51 @@ function ActiveShipmentPanel({ shipment, onDispatch, onReachCheckpoint }: Active
 
 // ─── Main component ────────────────────────────────────────────────────────────
 
+const API_BASE = 'http://localhost:3001/api';
+
 export default function DriverPortal() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user);
 
   const [allShipments, setAllShipments] = useState<Shipment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadShipments = () => {
-    fetch('http://localhost:3001/api/shipments', { credentials: 'include' })
-      .then(res => res.json())
+  const loadShipments = useCallback(() => {
+    fetch(`${API_BASE}/shipments`, { credentials: 'include' })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch shipments');
+        return res.json();
+      })
       .then((data: Shipment[]) => {
-        const mine = data.filter(s => s.driverId === user?.driverId);
+        if (!user?.driverId) {
+          setAllShipments([]);
+          setLoading(false);
+          return;
+        }
+        const mine = data.filter(s => s.driverId === user.driverId);
         setAllShipments(mine);
         setLoading(false);
+        setError(null);
       })
-      .catch(err => { console.error(err); setLoading(false); });
-  };
+      .catch(err => { 
+        console.error(err); 
+        setLoading(false);
+        setError("Could not load shipments");
+      });
+  }, [user]);
 
   useEffect(() => {
     loadShipments();
     const interval = setInterval(loadShipments, 5000);
     return () => clearInterval(interval);
-  }, [user]);
+  }, [loadShipments]);
 
   // Derived data
-  const activeShipment = allShipments.find(s => s.status !== 'DELIVERED') ?? null;
+  const activeShipment = allShipments
+    .filter(s => s.status !== 'DELIVERED')
+    .sort((a, b) => new Date(a.targetDispatchDate).getTime() - new Date(b.targetDispatchDate).getTime())[0] ?? null;
+    
   const completedShipments = allShipments
     .filter(s => s.status === 'DELIVERED')
     .sort((a, b) => new Date(b.targetDispatchDate).getTime() - new Date(a.targetDispatchDate).getTime());
@@ -165,33 +184,34 @@ export default function DriverPortal() {
     s => new Date(s.targetDispatchDate) >= oneWeekAgo
   ).length;
   const totalAssigned = allShipments.length;
-  const onTimeRate = totalAssigned > 0
+  const completionRate = totalAssigned > 0
     ? Math.round((totalDeliveries / totalAssigned) * 100)
     : 0;
 
   // Handlers
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:3001/api/auth/logout', { method: 'POST', credentials: 'include' });
+      await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
       dispatch(logoutUser());
-      window.location.reload();
     } catch (err) { console.error(err); }
   };
 
   const handleDispatch = async () => {
     if (!activeShipment) return;
     try {
-      await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
+      const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to dispatch');
       loadShipments();
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); setError("Failed to dispatch route"); }
   };
 
   const handleReachCheckpoint = async (checkpointId: string) => {
     if (!activeShipment) return;
     try {
-      await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
+      const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to reach checkpoint');
       loadShipments();
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); setError("Failed to confirm checkpoint"); }
   };
 
   // Initials from email
@@ -200,6 +220,14 @@ export default function DriverPortal() {
   const statusColor = activeShipment
     ? 'text-brand-primary border-brand-primary/30 bg-brand-primary/10'
     : 'text-status-success border-status-success/30 bg-status-success/10';
+
+  if (!user?.driverId) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-bg-main text-status-danger font-body">
+        Error: User is not configured as a driver.
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -222,6 +250,12 @@ export default function DriverPortal() {
           Sign Out
         </button>
       </header>
+
+      {error && (
+        <div className="bg-status-danger/10 text-status-danger p-2 text-center text-xs font-semibold shrink-0">
+          {error}
+        </div>
+      )}
 
       {/* Two-column body */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-[320px_1fr] min-h-0 overflow-hidden">
@@ -249,7 +283,7 @@ export default function DriverPortal() {
             {([
               { label: 'Total Deliveries', value: totalDeliveries },
               { label: 'This Week', value: thisWeekDeliveries },
-              { label: 'On-Time Rate', value: `${onTimeRate}%` },
+              { label: 'Completion Rate', value: `${completionRate}%` },
               { label: 'Total Assigned', value: totalAssigned },
             ] as { label: string; value: string | number }[]).map(({ label, value }) => (
               <div key={label} className="card p-4 flex flex-col gap-1">
