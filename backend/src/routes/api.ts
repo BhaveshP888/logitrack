@@ -18,7 +18,7 @@ router.get('/drivers', async (req, res) => {
 
 router.get('/shipments', async (req, res) => {
   const data = await prisma.shipment.findMany({
-    include: { originWarehouse: true, destinationWarehouse: true, driver: true }
+    include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
   res.json(data);
 });
@@ -38,66 +38,121 @@ router.get('/metrics', async (req, res) => {
   res.json({ activeCount: active, totalCount: total, deliveredCount: delivered, utilizationRate, onTimeRate });
 });
 
-// Create & dispatch new shipment
-router.post('/shipments/dispatch', verifyToken, requireRole('ADMIN'), async (req, res) => {
-  const { originId, destinationId } = req.body;
-  if (!originId || !destinationId) {
-    return res.status(400).json({ error: "Missing originId or destinationId" });
+// Admin: Create a new pending shipment
+router.post('/shipments', verifyToken, requireRole('ADMIN'), async (req, res) => {
+  const { originId, destinationId, driverId, targetDispatchDate, checkpoints } = req.body;
+  if (!originId || !destinationId || !targetDispatchDate || !driverId) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
-
-  const availableDriver = await prisma.driver.findFirst({ where: { status: "AVAILABLE" } });
-  if (!availableDriver) {
-    return res.status(400).json({ error: "No available drivers" });
-  }
-
-  const origin = await prisma.warehouse.findUnique({ where: { id: originId } });
-  if (!origin) return res.status(404).json({ error: "Origin warehouse not found" });
 
   const trk = `TRK-${Math.floor(100000 + Math.random() * 900000)}`;
 
-  const shipment = await prisma.$transaction(async (tx) => {
-    // Set driver status
-    await tx.driver.update({
-      where: { id: availableDriver.id },
-      data: { status: "ON_DELIVERY" }
-    });
-
-    return tx.shipment.create({
-      data: {
-        trackingNumber: trk,
-        status: "EN_ROUTE",
-        originWarehouseId: originId,
-        destinationWarehouseId: destinationId,
-        driverId: availableDriver.id,
-        currentLatitude: origin.latitude,
-        currentLongitude: origin.longitude,
-        progress: 0.0
-      },
-      include: { originWarehouse: true, destinationWarehouse: true, driver: true }
-    });
+  const shipment = await prisma.shipment.create({
+    data: {
+      trackingNumber: trk,
+      status: "PENDING",
+      originWarehouseId: originId,
+      destinationWarehouseId: destinationId,
+      driverId: driverId,
+      targetDispatchDate: new Date(targetDispatchDate),
+      checkpoints: {
+        create: checkpoints?.map((cp: { name: string }, i: number) => ({
+          name: cp.name,
+          orderIndex: i + 1
+        })) || []
+      }
+    },
+    include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
 
   res.json(shipment);
 });
 
-// Simulate a delay on a shipment
-router.post('/shipments/:id/delay', verifyToken, async (req, res) => {
+// Driver: Dispatch shipment
+router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async (req, res) => {
   const { id } = req.params;
   const shipment = await prisma.shipment.findUnique({ where: { id } });
-  if (!shipment || shipment.status !== 'EN_ROUTE') {
-    return res.status(400).json({ error: "Shipment not found or not active" });
+  
+  // @ts-ignore
+  if (!shipment || shipment.driverId !== req.user?.driverId) {
+    return res.status(403).json({ error: "Not authorized to dispatch this shipment" });
   }
-  const updated = await prisma.shipment.update({
-    where: { id },
-    data: { status: 'DELAYED' },
-    include: { originWarehouse: true, destinationWarehouse: true, driver: true }
+  if (shipment.status !== 'PENDING' && shipment.status !== 'DELAYED') {
+    return res.status(400).json({ error: "Shipment cannot be dispatched" });
+  }
+
+  const updated = await prisma.$transaction(async (tx) => {
+    await tx.driver.update({
+      where: { id: shipment.driverId },
+      data: { status: "ON_DELIVERY" }
+    });
+
+    return tx.shipment.update({
+      where: { id },
+      data: { status: "EN_ROUTE", actualDispatchDate: new Date() },
+      include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
+    });
   });
+
+  req.app.get('io').emit('SHIPMENT_DISPATCHED', { id: shipment.id });
+
   res.json(updated);
 });
+
+// Driver: Mark Checkpoint Reached
+router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, requireRole('DRIVER'), async (req, res) => {
+  const { id, checkpointId } = req.params;
+  const shipment = await prisma.shipment.findUnique({ where: { id }, include: { checkpoints: true } });
+
+  // @ts-ignore
+  if (!shipment || shipment.driverId !== req.user?.driverId) {
+    return res.status(403).json({ error: "Not authorized to update this shipment" });
+  }
+
+  await prisma.shipmentCheckpoint.update({
+    where: { id: checkpointId },
+    data: { reached: true, reachedAt: new Date() }
+  });
+
+  // Check if all checkpoints reached
+  const updatedShipment = await prisma.shipment.findUnique({ where: { id }, include: { checkpoints: true } });
+  const allReached = updatedShipment?.checkpoints.every(cp => cp.reached);
+
+  if (allReached) {
+    await prisma.$transaction(async (tx) => {
+      await tx.shipment.update({
+        where: { id },
+        data: { status: 'DELIVERED' }
+      });
+      if (shipment.driverId) {
+        await tx.driver.update({
+          where: { id: shipment.driverId },
+          data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId }
+        });
+      }
+    });
+  }
+
+  const finalShipment = await prisma.shipment.findUnique({
+    where: { id },
+    include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
+  });
+
+  if (allReached) {
+    req.app.get('io').emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
+  } else {
+    req.app.get('io').emit('CHECKPOINT_REACHED', { shipmentId: shipment.id, checkpointId });
+  }
+
+  res.json(finalShipment);
+});
+
+
 
 // Reset database simulation
 router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.user.deleteMany();
+  await prisma.shipmentCheckpoint.deleteMany();
   await prisma.shipment.deleteMany();
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
@@ -106,15 +161,15 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   const newAdminPasswordHash = await bcrypt.hash('adminlogin1212', 10);
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
-  const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)", latitude: 19.0760, longitude: 72.8777 } });
-  const w2 = await prisma.warehouse.create({ data: { name: "Pune Hub (W2)", latitude: 18.5204, longitude: 73.8567 } });
-  const w3 = await prisma.warehouse.create({ data: { name: "Nagpur Hub (W3)", latitude: 21.1458, longitude: 79.0882 } });
-  const w4 = await prisma.warehouse.create({ data: { name: "Nashik Hub (W4)", latitude: 19.9975, longitude: 73.7898 } });
-  const w5 = await prisma.warehouse.create({ data: { name: "Aurangabad Hub (W5)", latitude: 19.8762, longitude: 75.3433 } });
+  const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)" } });
+  const w2 = await prisma.warehouse.create({ data: { name: "Pune Hub (W2)" } });
+  const w3 = await prisma.warehouse.create({ data: { name: "Nagpur Hub (W3)" } });
+  const w4 = await prisma.warehouse.create({ data: { name: "Nashik Hub (W4)" } });
+  const w5 = await prisma.warehouse.create({ data: { name: "Aurangabad Hub (W5)" } });
 
-  const d1 = await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", latitude: w1.latitude, longitude: w1.longitude, warehouseId: w1.id } });
-  const d2 = await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", latitude: w2.latitude, longitude: w2.longitude, warehouseId: w2.id } });
-  const d3 = await prisma.driver.create({ data: { name: "Bob Johnson", status: "AVAILABLE", latitude: w3.latitude, longitude: w3.longitude, warehouseId: w3.id } });
+  const d1 = await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", warehouseId: w1.id } });
+  const d2 = await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", warehouseId: w2.id } });
+  const d3 = await prisma.driver.create({ data: { name: "Bob Johnson", status: "AVAILABLE", warehouseId: w3.id } });
 
   await prisma.user.create({
     data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
@@ -130,6 +185,27 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
 
   await prisma.user.create({
     data: { email: 'driver2@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d2.id }
+  });
+
+  const now = new Date();
+  const futureDispatch = new Date(now.getTime() + 1000 * 60 * 60 * 2);
+
+  await prisma.shipment.create({
+    data: {
+      trackingNumber: 'TRK-SEED-001',
+      status: 'PENDING',
+      originWarehouseId: w1.id,
+      destinationWarehouseId: w3.id,
+      driverId: d1.id,
+      targetDispatchDate: futureDispatch,
+      checkpoints: {
+        create: [
+          { name: 'Thane Sorting Center', orderIndex: 1 },
+          { name: 'Kalyan Toll Plaza', orderIndex: 2 },
+          { name: 'Igatpuri Checkpost', orderIndex: 3 }
+        ]
+      }
+    }
   });
 
   res.json({ message: "Reset complete" });

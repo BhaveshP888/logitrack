@@ -15,16 +15,18 @@ const prisma = new PrismaClient();
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173", // Vite default port
     methods: ["GET", "POST"]
   }
 });
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
+
+app.set('io', io);
 
 app.use('/api/auth', authRouter);
 app.use('/api', apiRouter);
@@ -36,77 +38,6 @@ app.get('/health', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(`Socket client connected: ${socket.id}`);
-
-  socket.on('DRIVER_TELEMETRY', async (data: { driverId: string; latitude: number; longitude: number; shipmentId?: string; progress?: number }) => {
-    // Broadcast driver update to all clients
-    io.emit('DRIVER_UPDATE', { id: data.driverId, latitude: data.latitude, longitude: data.longitude });
-
-    if (data.shipmentId) {
-      const shipment = await prisma.shipment.findUnique({
-        where: { id: data.shipmentId },
-        include: { originWarehouse: true, destinationWarehouse: true }
-      });
-
-      if (shipment) {
-        const reached = (data.progress !== undefined && data.progress >= 100) ||
-          (Math.abs(data.latitude - shipment.destinationWarehouse.latitude) < 0.0001 &&
-           Math.abs(data.longitude - shipment.destinationWarehouse.longitude) < 0.0001);
-
-        if (reached) {
-          await prisma.$transaction(async (tx) => {
-            await tx.shipment.update({
-              where: { id: data.shipmentId },
-              data: {
-                progress: 100,
-                status: 'DELIVERED',
-                currentLatitude: data.latitude,
-                currentLongitude: data.longitude
-              }
-            });
-            if (data.driverId) {
-              await tx.driver.update({
-                where: { id: data.driverId },
-                data: {
-                  status: 'AVAILABLE',
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                  warehouseId: shipment.destinationWarehouseId
-                }
-              });
-            }
-          });
-          io.emit('SHIPMENT_DELIVERED', { shipmentId: data.shipmentId, driverId: data.driverId });
-        } else {
-          const progress = data.progress !== undefined ? data.progress : shipment.progress;
-          await prisma.$transaction(async (tx) => {
-            await tx.shipment.update({
-              where: { id: data.shipmentId },
-              data: {
-                currentLatitude: data.latitude,
-                currentLongitude: data.longitude,
-                progress
-              }
-            });
-            if (data.driverId) {
-              await tx.driver.update({
-                where: { id: data.driverId },
-                data: {
-                  latitude: data.latitude,
-                  longitude: data.longitude
-                }
-              });
-            }
-          });
-          io.emit('SHIPMENT_UPDATE', {
-            id: data.shipmentId,
-            progress,
-            currentLatitude: data.latitude,
-            currentLongitude: data.longitude
-          });
-        }
-      }
-    }
-  });
 
   socket.on('disconnect', () => {
     console.log(`Socket client disconnected: ${socket.id}`);

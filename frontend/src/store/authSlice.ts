@@ -20,7 +20,7 @@ const initialState: AuthState = {
 };
 
 export const checkSession = createAsyncThunk('auth/checkSession', async () => {
-  const res = await fetch('http://localhost:3001/api/auth/me');
+  const res = await fetch('http://localhost:3001/api/auth/me', { credentials: 'include' });
   if (!res.ok) throw new Error("No session");
   return (await res.json()) as { user: User };
 });

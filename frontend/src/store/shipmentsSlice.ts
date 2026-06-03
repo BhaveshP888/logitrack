@@ -7,27 +7,33 @@ export interface Warehouse {
   longitude: number;
 }
 
+export interface ShipmentCheckpoint {
+  id: string;
+  name: string;
+  orderIndex: number;
+  reached: boolean;
+  reachedAt: string | null;
+}
+
 export interface Driver {
   id: string;
   name: string;
   status: string;
-  latitude: number;
-  longitude: number;
 }
 
 export interface Shipment {
   id: string;
   trackingNumber: string;
-  status: string;
+  status: 'PENDING' | 'EN_ROUTE' | 'DELIVERED' | 'DELAYED';
+  targetDispatchDate: string;
+  actualDispatchDate: string | null;
   originWarehouseId: string;
   originWarehouse: Warehouse;
   destinationWarehouseId: string;
   destinationWarehouse: Warehouse;
-  driverId: string | null;
-  driver: Driver | null;
-  currentLatitude: number;
-  currentLongitude: number;
-  progress: number;
+  driverId: string;
+  driver: Driver;
+  checkpoints: ShipmentCheckpoint[];
   updatedAt: string;
 }
 
@@ -55,18 +61,32 @@ const shipmentsSlice = createSlice({
   name: 'shipments',
   initialState,
   reducers: {
-    updateShipmentCoords: (state, action: PayloadAction<{ id: string; progress: number; currentLatitude: number; currentLongitude: number }>) => {
-      const shipment = state.items.find(item => item.id === action.payload.id);
+    shipmentDelayed: (state, action: PayloadAction<{ shipmentId: string }>) => {
+      const shipment = state.items.find(item => item.id === action.payload.shipmentId);
       if (shipment) {
-        shipment.progress = action.payload.progress;
-        shipment.currentLatitude = action.payload.currentLatitude;
-        shipment.currentLongitude = action.payload.currentLongitude;
+        shipment.status = 'DELAYED';
+      }
+    },
+    shipmentDispatched: (state, action: PayloadAction<{ shipmentId: string, actualDispatchDate: string }>) => {
+      const shipment = state.items.find(item => item.id === action.payload.shipmentId);
+      if (shipment) {
+        shipment.status = 'EN_ROUTE';
+        shipment.actualDispatchDate = action.payload.actualDispatchDate;
+      }
+    },
+    checkpointReached: (state, action: PayloadAction<{ shipmentId: string; checkpointId: string; reachedAt: string }>) => {
+      const shipment = state.items.find(item => item.id === action.payload.shipmentId);
+      if (shipment) {
+        const cp = shipment.checkpoints.find(c => c.id === action.payload.checkpointId);
+        if (cp) {
+          cp.reached = true;
+          cp.reachedAt = action.payload.reachedAt;
+        }
       }
     },
     shipmentDelivered: (state, action: PayloadAction<{ shipmentId: string }>) => {
       const shipment = state.items.find(item => item.id === action.payload.shipmentId);
       if (shipment) {
-        shipment.progress = 100;
         shipment.status = 'DELIVERED';
       }
     },
@@ -91,5 +111,5 @@ const shipmentsSlice = createSlice({
   }
 });
 
-export const { updateShipmentCoords, shipmentDelivered, addShipment, selectShipment } = shipmentsSlice.actions;
+export const { shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment } = shipmentsSlice.actions;
 export default shipmentsSlice.reducer;

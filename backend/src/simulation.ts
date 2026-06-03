@@ -6,112 +6,84 @@ const prisma = new PrismaClient();
 export function startSimulation(io: Server) {
   setInterval(async () => {
     try {
-      const activeShipments = await prisma.shipment.findMany({
-        where: { 
-          status: { in: ['EN_ROUTE', 'DELAYED'] },
-          driver: {
-            user: null
-          }
-        },
-        include: { originWarehouse: true, destinationWarehouse: true, driver: true }
+      // 1. Check for PENDING shipments that missed their targetDispatchDate
+      const now = new Date();
+      const missedShipments = await prisma.shipment.findMany({
+        where: {
+          status: 'PENDING',
+          targetDispatchDate: { lt: now }
+        }
       });
 
-      for (const shipment of activeShipments) {
-        const stepSize = shipment.status === 'DELAYED' ? 2.5 : 5.0; // Delays slow it down
-        const newProgress = Math.min(shipment.progress + stepSize, 100);
+      for (const shipment of missedShipments) {
+        await prisma.shipment.update({
+          where: { id: shipment.id },
+          data: { status: 'DELAYED' }
+        });
+        
+        io.emit('SHIPMENT_DELAYED', { id: shipment.id });
+      }
 
-        const origin = shipment.originWarehouse;
-        const dest = shipment.destinationWarehouse;
+      // 2. Automate fake drivers (drivers with no linked User account)
+      const activeBotShipments = await prisma.shipment.findMany({
+        where: {
+          status: { in: ['EN_ROUTE', 'DELAYED'] },
+          driver: { user: null }
+        },
+        include: { checkpoints: { orderBy: { orderIndex: 'asc' } } }
+      });
 
-        // Linear interpolation of coordinates
-        const ratio = newProgress / 100;
-        const newLat = origin.latitude + (dest.latitude - origin.latitude) * ratio;
-        const newLng = origin.longitude + (dest.longitude - origin.longitude) * ratio;
-
-        if (newProgress >= 100) {
-          // Completed delivery
-          await prisma.$transaction(async (tx) => {
-            await tx.shipment.update({
-              where: { id: shipment.id },
-              data: {
-                progress: 100,
-                status: 'DELIVERED',
-                currentLatitude: dest.latitude,
-                currentLongitude: dest.longitude
-              }
+      for (const shipment of activeBotShipments) {
+        const nextCp = shipment.checkpoints.find(cp => !cp.reached);
+        if (nextCp) {
+          // 10% chance to reach next checkpoint every interval
+          if (Math.random() < 0.1) {
+            await prisma.shipmentCheckpoint.update({
+              where: { id: nextCp.id },
+              data: { reached: true, reachedAt: new Date() }
             });
-
-            if (shipment.driverId) {
-              await tx.driver.update({
-                where: { id: shipment.driverId },
-                data: {
-                  status: 'AVAILABLE',
-                  latitude: dest.latitude,
-                  longitude: dest.longitude,
-                  warehouseId: dest.id
+            
+            const isLast = shipment.checkpoints[shipment.checkpoints.length - 1].id === nextCp.id;
+            if (isLast) {
+              await prisma.$transaction(async (tx) => {
+                await tx.shipment.update({ where: { id: shipment.id }, data: { status: 'DELIVERED' } });
+                if (shipment.driverId) {
+                  await tx.driver.update({ where: { id: shipment.driverId }, data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId } });
                 }
               });
+              io.emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
+            } else {
+              io.emit('CHECKPOINT_REACHED', { shipmentId: shipment.id, checkpointId: nextCp.id });
             }
-          });
-
-          // Emit completion events
-          io.emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
-        } else {
-          // Update active coordinates
-          await prisma.$transaction(async (tx) => {
-            await tx.shipment.update({
-              where: { id: shipment.id },
-              data: {
-                progress: newProgress,
-                currentLatitude: newLat,
-                currentLongitude: newLng
-              }
-            });
-
-            if (shipment.driverId) {
-              await tx.driver.update({
-                where: { id: shipment.driverId },
-                data: {
-                  latitude: newLat,
-                  longitude: newLng
-                }
-              });
-            }
-          });
-
-          // Emit update events
-          io.emit('SHIPMENT_UPDATE', {
-            id: shipment.id,
-            progress: newProgress,
-            currentLatitude: newLat,
-            currentLongitude: newLng
-          });
-
-          if (shipment.driverId) {
-            io.emit('DRIVER_UPDATE', {
-              id: shipment.driverId,
-              latitude: newLat,
-              longitude: newLng
-            });
           }
+        } else if (shipment.checkpoints.length === 0) {
+            // Edge case: no checkpoints, just deliver it randomly
+            if (Math.random() < 0.05) {
+                await prisma.$transaction(async (tx) => {
+                  await tx.shipment.update({ where: { id: shipment.id }, data: { status: 'DELIVERED' } });
+                  if (shipment.driverId) {
+                    await tx.driver.update({ where: { id: shipment.driverId }, data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId } });
+                  }
+                });
+                io.emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
+            }
         }
       }
 
-      // Periodically broadcast updated metrics
-      if (activeShipments.length > 0) {
-        const total = await prisma.shipment.count();
-        const active = await prisma.shipment.count({ where: { status: { in: ['EN_ROUTE', 'DELAYED'] } } });
-        const delivered = await prisma.shipment.count({ where: { status: 'DELIVERED' } });
-        const totalDrivers = await prisma.driver.count();
-        const activeDrivers = await prisma.driver.count({ where: { status: 'ON_DELIVERY' } });
-        const utilizationRate = totalDrivers > 0 ? (activeDrivers / totalDrivers) * 100 : 0;
-        const delayed = await prisma.shipment.count({ where: { status: 'DELAYED' } });
-        const onTimeRate = total > 0 ? ((total - delayed) / total) * 100 : 100;
+      // 3. Broadcast Metrics
+      const total = await prisma.shipment.count();
+      const active = await prisma.shipment.count({ where: { status: { in: ['EN_ROUTE', 'DELAYED'] } } });
+      const delivered = await prisma.shipment.count({ where: { status: 'DELIVERED' } });
+      const totalDrivers = await prisma.driver.count();
+      const activeDrivers = await prisma.driver.count({ where: { status: 'ON_DELIVERY' } });
+      const utilizationRate = totalDrivers > 0 ? (activeDrivers / totalDrivers) * 100 : 0;
+      const delayed = await prisma.shipment.count({ where: { status: 'DELAYED' } });
+      const onTimeRate = total > 0 ? ((total - delayed) / total) * 100 : 100;
 
-        io.emit('METRICS_UPDATE', { activeCount: active, totalCount: total, deliveredCount: delivered, utilizationRate, onTimeRate });
-      }
+      io.emit('METRICS_UPDATE', { activeCount: active, totalCount: total, deliveredCount: delivered, utilizationRate, onTimeRate });
+
     } catch (err) {
       console.error("Simulation run error:", err);
     }
-  }, 2000);
+  }, 5000);
 }

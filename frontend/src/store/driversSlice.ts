@@ -23,19 +23,10 @@ const driversSlice = createSlice({
   name: 'drivers',
   initialState,
   reducers: {
-    updateDriverCoords: (state, action: PayloadAction<{ id: string; latitude: number; longitude: number }>) => {
-      const driver = state.items.find(d => d.id === action.payload.id);
-      if (driver) {
-        driver.latitude = action.payload.latitude;
-        driver.longitude = action.payload.longitude;
-      }
-    },
-    driverStatusChange: (state, action: PayloadAction<{ id: string; status: string; latitude?: number; longitude?: number }>) => {
+    driverStatusChange: (state, action: PayloadAction<{ id: string; status: string }>) => {
       const driver = state.items.find(d => d.id === action.payload.id);
       if (driver) {
         driver.status = action.payload.status;
-        if (action.payload.latitude !== undefined) driver.latitude = action.payload.latitude;
-        if (action.payload.longitude !== undefined) driver.longitude = action.payload.longitude;
       }
     }
   },
@@ -53,5 +44,5 @@ const driversSlice = createSlice({
   }
 });
 
-export const { updateDriverCoords, driverStatusChange } = driversSlice.actions;
+export const { driverStatusChange } = driversSlice.actions;
 export default driversSlice.reducer;

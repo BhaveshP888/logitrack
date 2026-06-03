@@ -16,15 +16,15 @@ async function main() {
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   // Create warehouses
-  const w1 = await prisma.warehouse.create({ data: { name: 'Mumbai Hub', latitude: 19.0760, longitude: 72.8777 } });
-  const w2 = await prisma.warehouse.create({ data: { name: 'Pune Hub', latitude: 18.5204, longitude: 73.8567 } });
-  const w3 = await prisma.warehouse.create({ data: { name: 'Nagpur Hub', latitude: 21.1458, longitude: 79.0882 } });
-  const w4 = await prisma.warehouse.create({ data: { name: 'Nashik Hub', latitude: 19.9975, longitude: 73.7898 } });
-  const w5 = await prisma.warehouse.create({ data: { name: 'Aurangabad Hub', latitude: 19.8762, longitude: 75.3433 } });
+  const w1 = await prisma.warehouse.create({ data: { name: 'Mumbai Hub' } });
+  const w2 = await prisma.warehouse.create({ data: { name: 'Pune Hub' } });
+  const w3 = await prisma.warehouse.create({ data: { name: 'Nagpur Hub' } });
+  const w4 = await prisma.warehouse.create({ data: { name: 'Nashik Hub' } });
+  const w5 = await prisma.warehouse.create({ data: { name: 'Aurangabad Hub' } });
 
   // Create drivers and link to users
-  const d1 = await prisma.driver.create({ data: { name: 'Rajesh Kumar', status: 'AVAILABLE', latitude: 19.0760, longitude: 72.8777, warehouseId: w1.id } });
-  const d2 = await prisma.driver.create({ data: { name: 'Amit Patil', status: 'AVAILABLE', latitude: 18.5204, longitude: 73.8567, warehouseId: w2.id } });
+  const d1 = await prisma.driver.create({ data: { name: 'Rajesh Kumar', status: 'AVAILABLE', warehouseId: w1.id } });
+  const d2 = await prisma.driver.create({ data: { name: 'Amit Patil', status: 'AVAILABLE', warehouseId: w2.id } });
 
   await prisma.user.create({
     data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
@@ -40,6 +40,28 @@ async function main() {
 
   await prisma.user.create({
     data: { email: 'driver2@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d2.id }
+  });
+
+  // Seed sample shipment with checkpoints
+  const now = new Date();
+  const futureDispatch = new Date(now.getTime() + 1000 * 60 * 60 * 2); // +2 hours
+
+  await prisma.shipment.create({
+    data: {
+      trackingNumber: 'TRK-SEED-001',
+      status: 'PENDING',
+      originWarehouseId: w1.id,
+      destinationWarehouseId: w3.id,
+      driverId: d1.id,
+      targetDispatchDate: futureDispatch,
+      checkpoints: {
+        create: [
+          { name: 'Thane Sorting Center', orderIndex: 1 },
+          { name: 'Kalyan Toll Plaza', orderIndex: 2 },
+          { name: 'Igatpuri Checkpost', orderIndex: 3 }
+        ]
+      }
+    }
   });
 }
 

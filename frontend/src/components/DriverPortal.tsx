@@ -1,52 +1,36 @@
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { logoutUser } from '../store/authSlice.js';
-import { io } from 'socket.io-client';
-
-let socket: any;
+import { Shipment } from '../store/shipmentsSlice.js';
 
 export default function DriverPortal() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user);
-  const [assignedShipment, setAssignedShipment] = useState<any>(null);
-  const [isSimulating, setIsSimulating] = useState(false);
+  const [assignedShipment, setAssignedShipment] = useState<Shipment | null>(null);
+
+  const loadShipment = () => {
+    fetch('http://localhost:3001/api/shipments')
+      .then(res => res.json())
+      .then((data: Shipment[]) => {
+        // Find active shipment for this driver (PENDING, DELAYED, EN_ROUTE)
+        const active = data.find(s => s.driverId === user?.driverId && s.status !== 'DELIVERED');
+        if (active) setAssignedShipment(active);
+        else setAssignedShipment(null);
+      })
+      .catch(err => console.error(err));
+  };
 
   useEffect(() => {
-    if (!socket) {
-      socket = io('http://localhost:3001');
-    }
-
-    const loadShipment = () => {
-      fetch('http://localhost:3001/api/shipments')
-        .then(res => res.json())
-        .then((data: any[]) => {
-          const active = data.find(s => s.driverId === user?.driverId && (s.status === 'EN_ROUTE' || s.status === 'DELAYED'));
-          if (active) setAssignedShipment(active);
-          else setAssignedShipment(null);
-        })
-        .catch(err => console.error(err));
-    };
-
     loadShipment();
-
-    // Listen for socket events to keep current state in sync
-    socket.on('SHIPMENT_DELIVERED', (data: { shipmentId: string }) => {
-      if (assignedShipment && data.shipmentId === assignedShipment.id) {
-        setAssignedShipment(null);
-        setIsSimulating(false);
-      }
-    });
-
-    return () => {
-      if (socket) {
-        socket.off('SHIPMENT_DELIVERED');
-      }
-    };
-  }, [user, assignedShipment]);
+    // In a real app, we'd listen to socket events to update the shipment data.
+    // For simplicity, we just poll or rely on manual refresh for the driver's own actions.
+    const interval = setInterval(loadShipment, 5000);
+    return () => clearInterval(interval);
+  }, [user]);
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:3001/api/auth/logout', { method: 'POST' });
+      await fetch('http://localhost:3001/api/auth/logout', { method: 'POST', credentials: 'include' });
       dispatch(logoutUser());
       window.location.reload();
     } catch (err) {
@@ -54,103 +38,134 @@ export default function DriverPortal() {
     }
   };
 
-  // Simulate location updates periodically
-  useEffect(() => {
-    if (!isSimulating || !assignedShipment) return;
+  const handleDispatch = async () => {
+    if (!assignedShipment) return;
+    try {
+      await fetch(`http://localhost:3001/api/shipments/${assignedShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
+      loadShipment();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    let pct = assignedShipment.progress;
-    const interval = setInterval(() => {
-      pct += 2;
-      if (pct >= 100) {
-        pct = 100;
-        setIsSimulating(false);
-        // Complete delivery
-        socket.emit('DRIVER_TELEMETRY', {
-          driverId: user?.driverId,
-          latitude: assignedShipment.destinationWarehouse.latitude,
-          longitude: assignedShipment.destinationWarehouse.longitude,
-          shipmentId: assignedShipment.id,
-          progress: 100
-        });
-        setAssignedShipment(null);
-        clearInterval(interval);
-      } else {
-        // Linear interpolation for coordinate telemetry
-        const origin = assignedShipment.originWarehouse;
-        const dest = assignedShipment.destinationWarehouse;
-        const currentLat = origin.latitude + (dest.latitude - origin.latitude) * (pct / 100);
-        const currentLng = origin.longitude + (dest.longitude - origin.longitude) * (pct / 100);
-
-        socket.emit('DRIVER_TELEMETRY', {
-          driverId: user?.driverId,
-          latitude: currentLat,
-          longitude: currentLng,
-          shipmentId: assignedShipment.id,
-          progress: pct
-        });
-
-        setAssignedShipment((prev: any) => prev ? { ...prev, progress: pct } : null);
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isSimulating, assignedShipment, user]);
+  const handleReachCheckpoint = async (checkpointId: string) => {
+    if (!assignedShipment) return;
+    try {
+      await fetch(`http://localhost:3001/api/shipments/${assignedShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
+      loadShipment();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-    <div className="flex h-screen w-screen bg-bg-main text-slate-100 flex-col font-body p-6">
+    <div className="flex h-screen w-screen bg-transparent relative z-0 text-zinc-100 flex-col font-body p-6">
       <header className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="font-display text-xl font-bold">Driver Terminal</h1>
-          <p className="text-xs text-slate-400">{user?.email}</p>
+          <h1 className="font-display text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">Driver Terminal</h1>
+          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 mt-1">{user?.email}</p>
         </div>
-        <button onClick={handleLogout} className="py-2 px-4 rounded-lg bg-white/5 border border-border-color text-sm transition hover:bg-bg-surface-hover cursor-pointer">
+        <button onClick={handleLogout} className="glass-button p-2 px-4 text-xs">
           Logout
         </button>
       </header>
 
       {assignedShipment ? (
-        <div className="bg-bg-surface border border-border-color rounded-xl p-6 shadow-md flex flex-col gap-4 max-w-md w-full mx-auto">
-          <div>
-            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Assigned Shipment</span>
-            <h2 className="text-lg font-bold font-display text-slate-100">{assignedShipment.trackingNumber}</h2>
+        <div className="glass-panel p-8 flex flex-col gap-5 max-w-md w-full mx-auto overflow-y-auto custom-scrollbar">
+          <div className="relative">
+            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1">Assigned Shipment</span>
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold font-display text-zinc-100 tracking-wider">{assignedShipment.trackingNumber}</h2>
+              <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                assignedShipment.status === 'DELAYED' ? 'bg-status-danger/10 text-status-danger border border-status-danger/30 shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-pulse' :
+                assignedShipment.status === 'EN_ROUTE' ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]' :
+                'bg-zinc-800/50 text-zinc-400 border border-zinc-700'
+              }`}>
+                {assignedShipment.status.replace('_', ' ')}
+              </span>
+            </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-2 gap-4 text-sm border-b border-white/10 pb-5">
             <div>
-              <span className="text-xs text-slate-500">From</span>
+              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">From</span>
               <p className="font-semibold">{assignedShipment.originWarehouse.name}</p>
             </div>
             <div>
-              <span className="text-xs text-slate-500">To</span>
+              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">To</span>
               <p className="font-semibold">{assignedShipment.destinationWarehouse.name}</p>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Transit Progress</span>
-              <span className="font-semibold text-brand-primary">{assignedShipment.progress.toFixed(0)}%</span>
+          {(assignedShipment.status === 'PENDING' || assignedShipment.status === 'DELAYED') && (
+            <div className="flex flex-col gap-3 pt-2">
+              <div className="text-sm">
+                <span className="text-zinc-400 text-[10px] uppercase tracking-wider mr-2">Target Dispatch</span>
+                <span className="font-mono font-bold text-zinc-200">{new Date(assignedShipment.targetDispatchDate).toLocaleString()}</span>
+              </div>
+              <button 
+                onClick={handleDispatch}
+                className="glass-button p-3 flex justify-center items-center gap-2 font-bold"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                Begin Route
+              </button>
             </div>
-            <div className="bg-white/5 h-1.5 rounded-sm overflow-hidden mb-2">
-              <div 
-                className="h-full bg-brand-primary transition-all duration-300"
-                style={{ width: `${assignedShipment.progress}%` }}
-              />
-            </div>
+          )}
 
-            <button 
-              onClick={() => setIsSimulating(!isSimulating)}
-              className={`w-full py-3 rounded-lg font-semibold text-sm transition cursor-pointer ${
-                isSimulating ? 'bg-status-danger text-white hover:bg-red-600' : 'bg-brand-primary text-white hover:bg-blue-600'
-              }`}
-            >
-              {isSimulating ? "Stop Live Simulation" : "Start Live Simulation"}
-            </button>
-          </div>
+          {assignedShipment.status === 'EN_ROUTE' && (
+            <div className="flex flex-col gap-3 pt-2">
+              <h3 className="text-[10px] font-bold text-brand-accent uppercase tracking-wider">Route Progress</h3>
+              <div className="flex flex-col gap-3 relative">
+                <div className="absolute left-3.5 top-2 bottom-6 w-0.5 bg-white/5 z-0"></div>
+                {assignedShipment.checkpoints.map((cp, idx) => {
+                  const isNextUnreached = !cp.reached && (idx === 0 || assignedShipment.checkpoints[idx - 1].reached);
+                  
+                  return (
+                    <div key={cp.id} className={`flex justify-between items-center p-4 rounded-xl border backdrop-blur-md relative z-10 transition-all ${
+                      cp.reached ? 'bg-white/5 border-transparent text-zinc-400' : 
+                      isNextUnreached ? 'border-brand-primary/50 bg-brand-primary/10 shadow-[0_0_15px_rgba(79,70,229,0.2)] scale-[1.02]' : 
+                      'border-white/10 bg-black/20 text-zinc-500'
+                    }`}>
+                      <div className="flex items-center gap-4">
+                        <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
+                          cp.reached ? 'bg-status-success shadow-[0_0_10px_rgba(16,185,129,0.8)]' : 
+                          isNextUnreached ? 'bg-brand-primary shadow-[0_0_10px_rgba(79,70,229,0.8)]' : 
+                          'bg-zinc-700'
+                        }`}>
+                        </div>
+                        <span className="text-sm font-semibold tracking-wide">{cp.name}</span>
+                      </div>
+                      
+                      {isNextUnreached && (
+                        <button 
+                          onClick={() => handleReachCheckpoint(cp.id)}
+                          className="glass-button px-3 py-1.5 text-xs flex items-center gap-1"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                          Confirm
+                        </button>
+                      )}
+                      
+                      {cp.reached && cp.reachedAt && (
+                        <span className="text-[10px] font-mono text-status-success">{new Date(cp.reachedAt).toLocaleTimeString()}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
-        <div className="bg-bg-surface border border-border-color rounded-xl p-8 text-center text-slate-400 max-w-md w-full mx-auto">
-          No active en-route shipments assigned. Standby for dispatch.
+        <div className="glass-panel p-8 text-center max-w-md w-full mx-auto flex flex-col items-center gap-4">
+          <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-500">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-display font-semibold text-zinc-200 mb-1">Standby Mode</h3>
+            <p className="text-sm text-zinc-400">No active shipments assigned to your unit.</p>
+          </div>
         </div>
       )}
     </div>

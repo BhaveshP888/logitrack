@@ -19,25 +19,30 @@ export default function MetricsGrid() {
       .catch(err => console.error(err));
   }, [shipments, drivers]);
 
-  const cardBase = "bg-bg-surface border border-border-color rounded-xl p-6 transition-all duration-250 shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:border-bg-surface-hover hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] flex flex-col gap-2 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-1 before:h-full";
-
   return (
-    <div className="grid grid-cols-4 gap-6">
-      <div className={`${cardBase} before:bg-brand-primary`}>
-        <span className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Active Shipments</span>
-        <span className="font-display text-4xl font-bold text-slate-100 tracking-tight leading-none">{metrics.activeCount}</span>
+    <div className="grid grid-cols-4 gap-4">
+      <div className="glass-panel p-5 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-1 h-full bg-zinc-500"></div>
+        <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-1">Total Shipments</p>
+        <p className="text-3xl font-display font-light text-white tracking-tight">{metrics.totalCount}</p>
       </div>
-      <div className={`${cardBase} before:bg-brand-accent`}>
-        <span className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Total Shipments</span>
-        <span className="font-display text-4xl font-bold text-slate-100 tracking-tight leading-none">{metrics.totalCount}</span>
+      
+      <div className="glass-panel p-5 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-1 h-full bg-brand-accent"></div>
+        <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-1">Active Shipments</p>
+        <p className="text-3xl font-display font-light text-white tracking-tight">{metrics.activeCount}</p>
       </div>
-      <div className={`${cardBase} before:bg-status-success`}>
-        <span className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Driver Utilization</span>
-        <span className="font-display text-4xl font-bold text-slate-100 tracking-tight leading-none">{metrics.utilizationRate.toFixed(1)}%</span>
+
+      <div className="glass-panel p-5 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-1 h-full bg-status-success"></div>
+        <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-1">Driver Utilization</p>
+        <p className="text-3xl font-display font-light text-white tracking-tight">{metrics.utilizationRate.toFixed(1)}%</p>
       </div>
-      <div className={`${cardBase} before:bg-status-warning`}>
-        <span className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">On-Time Rate</span>
-        <span className="font-display text-4xl font-bold text-slate-100 tracking-tight leading-none">{metrics.onTimeRate.toFixed(1)}%</span>
+
+      <div className="glass-panel p-5 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-1 h-full bg-status-warning"></div>
+        <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-1">On-Time Rate</p>
+        <p className="text-3xl font-display font-light text-white tracking-tight">{metrics.onTimeRate.toFixed(1)}%</p>
       </div>
     </div>
   );

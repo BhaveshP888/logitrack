@@ -47,29 +47,40 @@ describe('LogiTrack API Endpoints', () => {
     expect(res.body).toHaveProperty('utilizationRate');
   });
 
-  it('should dispatch a new shipment successfully', async () => {
+  it('should create a new pending shipment successfully', async () => {
     const warehouses = await prisma.warehouse.findMany();
     const origin = warehouses[0].id;
     const dest = warehouses[1].id;
+    const driver = await prisma.driver.findFirst();
+
+    const futureDate = new Date();
+    futureDate.setHours(futureDate.getHours() + 2);
 
     const res = await request(app)
-      .post('/api/shipments/dispatch')
+      .post('/api/shipments')
       .set('Cookie', adminCookie)
-      .send({ originId: origin, destinationId: dest });
+      .send({
+        originId: origin,
+        destinationId: dest,
+        driverId: driver?.id,
+        targetDispatchDate: futureDate.toISOString(),
+        checkpoints: [{ name: "Checkpoint A" }]
+      });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('trackingNumber');
-    expect(res.body.status).toBe('EN_ROUTE');
+    expect(res.body.status).toBe('PENDING');
     expect(res.body.driverId).not.toBeNull();
+    expect(res.body.checkpoints).toHaveLength(1);
   });
 
-  it('should block unauthenticated dispatches', async () => {
+  it('should block unauthenticated shipment creation', async () => {
     const warehouses = await prisma.warehouse.findMany();
     const origin = warehouses[0].id;
     const dest = warehouses[1].id;
 
     const res = await request(app)
-      .post('/api/shipments/dispatch')
+      .post('/api/shipments')
       .send({ originId: origin, destinationId: dest });
 
     expect(res.status).toBe(401);

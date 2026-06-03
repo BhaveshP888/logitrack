@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { useAppDispatch } from '../store/hooks.js';
 import { setUser } from '../store/authSlice.js';
 
-export default function Login() {
+interface LoginProps {
+  initialIsRegister?: boolean;
+  onBack?: () => void;
+}
+
+export default function Login({ initialIsRegister = false, onBack }: LoginProps) {
   const dispatch = useAppDispatch();
-  const [isRegister, setIsRegister] = useState(false);
+  const [isRegister, setIsRegister] = useState(initialIsRegister);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +25,7 @@ export default function Login() {
       const res = await fetch(`http://localhost:3001${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(payload)
       });
       const data = await res.json();
@@ -27,6 +33,8 @@ export default function Login() {
         setError(data.error || `${isRegister ? "Registration" : "Login"} failed`);
       } else {
         dispatch(setUser(data.user));
+        setEmail("")
+        setPassword("")
       }
     } catch (err) {
       setError("Network error");
@@ -34,84 +42,82 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-bg-main font-body">
-      <form onSubmit={handleSubmit} className="w-[400px] bg-bg-surface border border-border-color rounded-xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col gap-6">
-        <div className="text-center">
-          <h1 className="font-display text-2xl font-bold text-slate-100 tracking-tight mb-1">
-            {isRegister ? "Driver Registration" : "LogiTrack Command"}
+    <div className="flex h-screen w-screen items-center justify-center bg-transparent relative z-0 font-body">
+      <form onSubmit={handleSubmit} className="w-[400px] card border border-white/[0.06] bg-bg-surface backdrop-blur-xl p-10 flex flex-col gap-5">
+        <div className="text-center relative">
+          {onBack && (
+            <button 
+              type="button" 
+              onClick={onBack}
+              className="absolute left-0 top-0.5 text-zinc-500 hover:text-zinc-200 transition-colors p-1"
+              aria-label="Back"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </button>
+          )}
+          <h1 className="font-display text-xl font-bold text-zinc-100 tracking-tight mb-1">
+            {isRegister ? "Driver Registration" : "Sign In"}
           </h1>
-          <p className="text-xs text-slate-400">
-            {isRegister ? "Create a new driver account to start tracking deliveries" : "Enter your credentials to enter the logistics hub"}
+          <p className="text-xs text-zinc-500">
+            {isRegister ? "Create your driver account" : "Enter your credentials"}
           </p>
         </div>
 
         {isRegister && (
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Driver Full Name</label>
+            <label className="text-[11px] font-medium text-zinc-500 tracking-wide">Full Name</label>
             <input 
               type="text" 
               value={name}
               onChange={e => setName(e.target.value)}
-              className="px-3.5 py-2.5 bg-bg-main border border-border-color rounded-lg text-slate-100 text-sm outline-none transition focus:border-brand-primary"
+              className="glass-input p-3"
               required 
             />
           </div>
         )}
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Email Address</label>
+          <label className="text-[11px] font-medium text-zinc-500 tracking-wide">Email</label>
           <input 
             type="email" 
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="px-3.5 py-2.5 bg-bg-main border border-border-color rounded-lg text-slate-100 text-sm outline-none transition focus:border-brand-primary"
+            className="glass-input p-3"
             required 
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Password</label>
+          <label className="text-[11px] font-medium text-zinc-500 tracking-wide">Password</label>
           <input 
             type="password" 
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className="px-3.5 py-2.5 bg-bg-main border border-border-color rounded-lg text-slate-100 text-sm outline-none transition focus:border-brand-primary"
+            className="glass-input p-3"
             required 
           />
         </div>
 
-        {error && <p className="text-status-danger text-xs font-semibold">{error}</p>}
+        {error && <p className="text-status-danger text-xs font-medium">{error}</p>}
 
-        <div className="flex flex-col gap-2">
-          <button type="submit" className="py-3 px-4 rounded-lg bg-brand-primary text-white font-semibold text-sm cursor-pointer transition hover:bg-blue-600">
-            {isRegister ? "Register & Enter" : "Secure Entry"}
-          </button>
-          
-          <div className="text-center text-xs text-slate-400 mt-2">
-            {isRegister ? (
-              <>
-                Already have an account?{' '}
-                <button 
-                  type="button" 
-                  onClick={() => { setIsRegister(false); setError(''); }}
-                  className="text-brand-primary font-semibold hover:underline cursor-pointer bg-transparent border-none p-0"
-                >
-                  Sign In
-                </button>
-              </>
-            ) : (
-              <>
-                New driver?{' '}
-                <button 
-                  type="button" 
-                  onClick={() => { setIsRegister(true); setError(''); }}
-                  className="text-brand-primary font-semibold hover:underline cursor-pointer bg-transparent border-none p-0"
-                >
-                  Register Account
-                </button>
-              </>
-            )}
-          </div>
+        <button type="submit" className="glass-button p-3 mt-1">
+          {isRegister ? "Create Account" : "Continue"}
+        </button>
+        
+        <div className="text-center text-xs text-zinc-500 mt-1">
+          {isRegister ? (
+            <>
+              Have an account?{' '}
+              <button type="button" onClick={() => { setIsRegister(false); setError(''); }} className="text-brand-primary font-medium hover:text-brand-accent cursor-pointer bg-transparent border-none p-0 transition-colors">Sign In</button>
+            </>
+          ) : (
+            <>
+              New driver?{' '}
+              <button type="button" onClick={() => { setIsRegister(true); setError(''); }} className="text-brand-primary font-medium hover:text-brand-accent cursor-pointer bg-transparent border-none p-0 transition-colors">Register</button>
+            </>
+          )}
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
-import { updateShipmentCoords, shipmentDelivered } from './shipmentsSlice.js';
-import { updateDriverCoords, driverStatusChange } from './driversSlice.js';
+import { shipmentDelivered, shipmentDelayed, shipmentDispatched, checkpointReached } from './shipmentsSlice.js';
+import { driverStatusChange } from './driversSlice.js';
 
 let socket: Socket;
 
@@ -16,12 +16,16 @@ export const socketMiddleware: Middleware = store => next => action => {
         console.log("Connected to WebSocket backend server");
       });
 
-      socket.on('SHIPMENT_UPDATE', (data: { id: string; progress: number; currentLatitude: number; currentLongitude: number }) => {
-        store.dispatch(updateShipmentCoords(data));
+      socket.on('SHIPMENT_DELAYED', (data: { shipmentId: string }) => {
+        store.dispatch(shipmentDelayed(data));
       });
 
-      socket.on('DRIVER_UPDATE', (data: { id: string; latitude: number; longitude: number }) => {
-        store.dispatch(updateDriverCoords(data));
+      socket.on('SHIPMENT_DISPATCHED', (data: { shipmentId: string; actualDispatchDate: string }) => {
+        store.dispatch(shipmentDispatched(data));
+      });
+
+      socket.on('CHECKPOINT_REACHED', (data: { shipmentId: string; checkpointId: string; reachedAt: string }) => {
+        store.dispatch(checkpointReached(data));
       });
 
       socket.on('SHIPMENT_DELIVERED', (data: { shipmentId: string; driverId: string | null }) => {
