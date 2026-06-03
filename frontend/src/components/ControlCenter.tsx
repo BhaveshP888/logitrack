@@ -15,6 +15,8 @@ export default function ControlCenter() {
   const [targetDispatchDate, setTargetDispatchDate] = useState('');
   const [checkpoints, setCheckpoints] = useState<{name: string}[]>([{name: ''}]);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const inputClass = "glass-input p-2 w-full text-xs";
 
@@ -35,6 +37,8 @@ export default function ControlCenter() {
   const handleCreateShipment = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
+    
     if (!originId || !destId || !driverId || !targetDispatchDate) {
       setError("Please fill all required fields");
       return;
@@ -46,7 +50,12 @@ export default function ControlCenter() {
 
     const validCheckpoints = checkpoints.filter(c => c.name.trim() !== '');
 
+    setIsSubmitting(true);
+
     try {
+      // Artificial delay of 1s
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       const res = await fetch('http://localhost:3001/api/shipments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -70,9 +79,13 @@ export default function ControlCenter() {
         setDriverId('');
         setTargetDispatchDate('');
         setCheckpoints([{name: ''}]);
+        setSuccessMsg('Shipment created successfully!');
+        setTimeout(() => setSuccessMsg(''), 3000);
       }
     } catch (err) {
       setError("Connection error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -90,12 +103,13 @@ export default function ControlCenter() {
   const driverOptions = drivers.map(d => ({ value: d.id, label: `${d.name} (${d.status})` }));
 
   return (
-    <div className="glass-panel p-6 flex flex-col gap-5">
+    <div className="glass-panel p-6 flex flex-col gap-5 relative">
       <div className="flex justify-between items-center">
         <h3 className="font-display font-semibold text-zinc-100 tracking-wide">Dispatch Control</h3>
       </div>
 
       {error && <div className="p-3 bg-status-danger/10 text-status-danger border border-status-danger/30 rounded-lg text-sm">{error}</div>}
+      {successMsg && <div className="p-3 bg-status-success/10 text-status-success border border-status-success/30 rounded-lg text-sm transition-all">{successMsg}</div>}
       
       <form onSubmit={handleCreateShipment} className="flex flex-col gap-3">
         <div className="grid grid-cols-2 gap-3">
@@ -149,12 +163,22 @@ export default function ControlCenter() {
           <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-xs font-semibold self-start hover:text-brand-accent transition">+ Add Checkpoint</button>
         </div>
 
-        {error && <p className="text-status-danger text-xs font-semibold">{error}</p>}
         <button 
           type="submit" 
-          className="w-full py-2.5 px-4 mt-1 rounded-lg bg-brand-primary text-zinc-950 font-semibold text-sm cursor-pointer transition duration-150 flex items-center justify-center gap-2 hover:bg-brand-accent disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSubmitting}
+          className="w-full py-2.5 px-4 mt-1 rounded-lg bg-brand-primary text-zinc-950 font-semibold text-sm cursor-pointer transition duration-150 flex items-center justify-center gap-2 hover:bg-brand-accent disabled:opacity-50 disabled:cursor-wait"
         >
-          Create Shipment
+          {isSubmitting ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating...
+            </>
+          ) : (
+            'Create Shipment'
+          )}
         </button>
       </form>
 
