@@ -3,10 +3,137 @@ import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { logoutUser } from '../store/authSlice.js';
 import { Shipment } from '../store/shipmentsSlice.js';
 
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function StandbyPanel() {
+  return (
+    <div className="flex flex-col items-center justify-center h-full gap-6 text-center">
+      <div className="w-20 h-20 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-600">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <span className="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+          <span className="text-[11px] font-semibold text-status-success uppercase tracking-widest">On Standby</span>
+        </div>
+        <h2 className="text-2xl font-bold font-display text-zinc-200 mb-2">Ready for Dispatch</h2>
+        <p className="text-sm text-zinc-500 max-w-xs">Awaiting dispatch assignment from operations. You'll see your shipment details here once assigned.</p>
+      </div>
+    </div>
+  );
+}
+
+interface ActiveShipmentPanelProps {
+  shipment: Shipment;
+  onDispatch: () => void;
+  onReachCheckpoint: (id: string) => void;
+}
+
+function ActiveShipmentPanel({ shipment, onDispatch, onReachCheckpoint }: ActiveShipmentPanelProps) {
+  const statusStyle = (
+    shipment.status === 'DELAYED' ? 'bg-status-danger/10 text-status-danger border-status-danger/30 animate-pulse' :
+    shipment.status === 'EN_ROUTE' ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/30' :
+    'bg-zinc-800/50 text-zinc-400 border-zinc-700'
+  );
+
+  return (
+    <div className="glass-panel p-8 flex flex-col gap-6 max-w-xl w-full mx-auto">
+      {/* Shipment header */}
+      <div className="flex justify-between items-start">
+        <div>
+          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider block mb-1">Assigned Shipment</span>
+          <h2 className="text-2xl font-bold font-mono text-zinc-100">{shipment.trackingNumber}</h2>
+        </div>
+        <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider border ${statusStyle}`}>
+          {shipment.status.replace('_', ' ')}
+        </span>
+      </div>
+
+      {/* Route */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+        <div>
+          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">From</span>
+          <p className="font-semibold text-zinc-200 text-sm">{shipment.originWarehouse.name}</p>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-600"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <div className="text-right">
+          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">To</span>
+          <p className="font-semibold text-zinc-200 text-sm">{shipment.destinationWarehouse.name}</p>
+        </div>
+      </div>
+
+      {/* Dispatch date */}
+      <div className="flex items-center gap-2 text-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-500"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+        <span className="text-zinc-500 text-[11px] uppercase tracking-wider">Target Dispatch</span>
+        <span className="font-mono text-zinc-300 font-medium ml-1">{new Date(shipment.targetDispatchDate).toLocaleString()}</span>
+      </div>
+
+      {/* Begin Route button */}
+      {(shipment.status === 'PENDING' || shipment.status === 'DELAYED') && (
+        <button onClick={onDispatch} className="glass-button py-3 flex justify-center items-center gap-2 font-semibold w-full">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Begin Route
+        </button>
+      )}
+
+      {/* Checkpoint timeline */}
+      {shipment.status === 'EN_ROUTE' && shipment.checkpoints.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h3 className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Route Progress</h3>
+          <div className="flex flex-col gap-2 relative">
+            <div className="absolute left-[11px] top-5 bottom-5 w-px bg-white/[0.06] z-0"></div>
+            {shipment.checkpoints.map((cp, idx) => {
+              const isNext = !cp.reached && (idx === 0 || shipment.checkpoints[idx - 1].reached);
+              return (
+                <div key={cp.id} className={`flex items-center justify-between p-4 rounded-xl border relative z-10 transition-all duration-200 ${
+                  cp.reached ? 'bg-white/[0.02] border-white/[0.04] text-zinc-500' :
+                  isNext ? 'bg-brand-primary/8 border-brand-primary/25 scale-[1.01]' :
+                  'bg-transparent border-white/[0.04] text-zinc-600'
+                }`}>
+                  <div className="flex items-center gap-3">
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                      cp.reached ? 'bg-status-success border-status-success' :
+                      isNext ? 'border-brand-primary bg-brand-primary/20' :
+                      'border-zinc-700 bg-transparent'
+                    }`}>
+                      {cp.reached && (
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      )}
+                    </div>
+                    <div>
+                      <p className={`text-sm font-medium ${isNext ? 'text-zinc-100' : ''}`}>{cp.name}</p>
+                      {cp.reached && cp.reachedAt && (
+                        <p className="text-[10px] font-mono text-status-success mt-0.5">{new Date(cp.reachedAt).toLocaleTimeString()}</p>
+                      )}
+                    </div>
+                  </div>
+                  {isNext && (
+                    <button onClick={() => onReachCheckpoint(cp.id)} className="glass-button px-3 py-1.5 text-xs flex items-center gap-1 shrink-0">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      Confirm
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Main component ────────────────────────────────────────────────────────────
+
 export default function DriverPortal() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user);
+
   const [allShipments, setAllShipments] = useState<Shipment[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const loadShipments = () => {
     fetch('http://localhost:3001/api/shipments', { credentials: 'include' })
@@ -14,8 +141,9 @@ export default function DriverPortal() {
       .then((data: Shipment[]) => {
         const mine = data.filter(s => s.driverId === user?.driverId);
         setAllShipments(mine);
+        setLoading(false);
       })
-      .catch(err => { console.error(err); });
+      .catch(err => { console.error(err); setLoading(false); });
   };
 
   useEffect(() => {
@@ -24,16 +152,30 @@ export default function DriverPortal() {
     return () => clearInterval(interval);
   }, [user]);
 
+  // Derived data
   const activeShipment = allShipments.find(s => s.status !== 'DELIVERED') ?? null;
+  const completedShipments = allShipments
+    .filter(s => s.status === 'DELIVERED')
+    .sort((a, b) => new Date(b.targetDispatchDate).getTime() - new Date(a.targetDispatchDate).getTime());
 
+  // Stats
+  const totalDeliveries = completedShipments.length;
+  const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const thisWeekDeliveries = completedShipments.filter(
+    s => new Date(s.targetDispatchDate) >= oneWeekAgo
+  ).length;
+  const totalAssigned = allShipments.length;
+  const onTimeRate = totalAssigned > 0
+    ? Math.round((totalDeliveries / totalAssigned) * 100)
+    : 0;
+
+  // Handlers
   const handleLogout = async () => {
     try {
       await fetch('http://localhost:3001/api/auth/logout', { method: 'POST', credentials: 'include' });
       dispatch(logoutUser());
       window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const handleDispatch = async () => {
@@ -41,9 +183,7 @@ export default function DriverPortal() {
     try {
       await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
       loadShipments();
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const handleReachCheckpoint = async (checkpointId: string) => {
@@ -51,121 +191,115 @@ export default function DriverPortal() {
     try {
       await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
       loadShipments();
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
+  // Initials from email
+  const initials = (user?.email ?? 'D').split('@')[0].slice(0, 2).toUpperCase();
+  const statusLabel = activeShipment ? 'EN ROUTE' : 'AVAILABLE';
+  const statusColor = activeShipment
+    ? 'text-brand-primary border-brand-primary/30 bg-brand-primary/10'
+    : 'text-status-success border-status-success/30 bg-status-success/10';
+
+  if (loading) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-bg-main text-zinc-500 font-body">
+        Loading...
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-screen w-screen bg-transparent relative z-0 text-zinc-100 flex-col font-body p-6">
-      <header className="flex justify-between items-center mb-6">
+    <div className="flex flex-col h-screen w-screen bg-transparent font-body text-zinc-100">
+      {/* Header */}
+      <header className="flex justify-between items-center px-8 py-5 border-b border-white/[0.04] shrink-0">
         <div>
-          <h1 className="font-display text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">Driver Terminal</h1>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 mt-1">{user?.email}</p>
+          <h1 className="font-display text-xl font-bold text-zinc-100">Driver Terminal</h1>
+          <p className="text-[11px] text-zinc-500 mt-0.5 uppercase tracking-widest">{user?.email}</p>
         </div>
-        <button onClick={handleLogout} className="glass-button p-2 px-4 text-xs">
-          Logout
+        <button onClick={handleLogout} className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] font-medium text-zinc-500 hover:text-status-danger hover:bg-status-danger/8 border border-transparent hover:border-status-danger/15 transition-all duration-150 cursor-pointer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
         </button>
       </header>
 
-      {activeShipment ? (
-        <div className="glass-panel p-8 flex flex-col gap-5 max-w-md w-full mx-auto overflow-y-auto custom-scrollbar">
-          <div className="relative">
-            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1">Assigned Shipment</span>
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold font-display text-zinc-100 tracking-wider">{activeShipment.trackingNumber}</h2>
-              <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
-                activeShipment.status === 'DELAYED' ? 'bg-status-danger/10 text-status-danger border border-status-danger/30 shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-pulse' :
-                activeShipment.status === 'EN_ROUTE' ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]' :
-                'bg-zinc-800/50 text-zinc-400 border border-zinc-700'
-              }`}>
-                {activeShipment.status.replace('_', ' ')}
+      {/* Two-column body */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-[320px_1fr] min-h-0 overflow-hidden">
+
+        {/* LEFT COLUMN */}
+        <aside className="border-r border-white/[0.04] flex flex-col gap-5 p-6 overflow-y-auto custom-scrollbar">
+
+          {/* Profile card */}
+          <div className="glass-panel p-5 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-brand-primary/20 border border-brand-primary/30 flex items-center justify-center text-brand-primary font-bold text-lg font-display shrink-0">
+              {initials}
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-zinc-100 truncate">{(user?.email ?? '').split('@')[0]}</p>
+              <p className="text-[11px] text-zinc-500 truncate mt-0.5">{user?.email}</p>
+              <span className={`inline-flex items-center gap-1.5 mt-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${statusColor}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span>
+                {statusLabel}
               </span>
             </div>
           </div>
-          
-          <div className="grid grid-cols-2 gap-4 text-sm border-b border-white/10 pb-5">
-            <div>
-              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">From</span>
-              <p className="font-semibold">{activeShipment.originWarehouse.name}</p>
-            </div>
-            <div>
-              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">To</span>
-              <p className="font-semibold">{activeShipment.destinationWarehouse.name}</p>
-            </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-3">
+            {([
+              { label: 'Total Deliveries', value: totalDeliveries },
+              { label: 'This Week', value: thisWeekDeliveries },
+              { label: 'On-Time Rate', value: `${onTimeRate}%` },
+              { label: 'Total Assigned', value: totalAssigned },
+            ] as { label: string; value: string | number }[]).map(({ label, value }) => (
+              <div key={label} className="card p-4 flex flex-col gap-1">
+                <span className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider">{label}</span>
+                <span className="text-2xl font-bold text-zinc-100 font-display">{value}</span>
+              </div>
+            ))}
           </div>
 
-          {(activeShipment.status === 'PENDING' || activeShipment.status === 'DELAYED') && (
-            <div className="flex flex-col gap-3 pt-2">
-              <div className="text-sm">
-                <span className="text-zinc-400 text-[10px] uppercase tracking-wider mr-2">Target Dispatch</span>
-                <span className="font-mono font-bold text-zinc-200">{new Date(activeShipment.targetDispatchDate).toLocaleString()}</span>
-              </div>
-              <button 
-                onClick={handleDispatch}
-                className="glass-button p-3 flex justify-center items-center gap-2 font-bold"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                Begin Route
-              </button>
-            </div>
-          )}
-
-          {activeShipment.status === 'EN_ROUTE' && (
-            <div className="flex flex-col gap-3 pt-2">
-              <h3 className="text-[10px] font-bold text-brand-accent uppercase tracking-wider">Route Progress</h3>
-              <div className="flex flex-col gap-3 relative">
-                <div className="absolute left-3.5 top-2 bottom-6 w-0.5 bg-white/5 z-0"></div>
-                {activeShipment.checkpoints.map((cp, idx) => {
-                  const isNextUnreached = !cp.reached && (idx === 0 || activeShipment.checkpoints[idx - 1].reached);
-                  
-                  return (
-                    <div key={cp.id} className={`flex justify-between items-center p-4 rounded-xl border backdrop-blur-md relative z-10 transition-all ${
-                      cp.reached ? 'bg-white/5 border-transparent text-zinc-400' : 
-                      isNextUnreached ? 'border-brand-primary/50 bg-brand-primary/10 shadow-[0_0_15px_rgba(79,70,229,0.2)] scale-[1.02]' : 
-                      'border-white/10 bg-black/20 text-zinc-500'
-                    }`}>
-                      <div className="flex items-center gap-4">
-                        <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                          cp.reached ? 'bg-status-success shadow-[0_0_10px_rgba(16,185,129,0.8)]' : 
-                          isNextUnreached ? 'bg-brand-primary shadow-[0_0_10px_rgba(79,70,229,0.8)]' : 
-                          'bg-zinc-700'
-                        }`}>
-                        </div>
-                        <span className="text-sm font-semibold tracking-wide">{cp.name}</span>
-                      </div>
-                      
-                      {isNextUnreached && (
-                        <button 
-                          onClick={() => handleReachCheckpoint(cp.id)}
-                          className="glass-button px-3 py-1.5 text-xs flex items-center gap-1"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                          Confirm
-                        </button>
-                      )}
-                      
-                      {cp.reached && cp.reachedAt && (
-                        <span className="text-[10px] font-mono text-status-success">{new Date(cp.reachedAt).toLocaleTimeString()}</span>
-                      )}
+          {/* Delivery History */}
+          <div className="glass-panel p-4 flex flex-col gap-3 flex-1 min-h-0">
+            <h3 className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider shrink-0">Delivery History</h3>
+            {completedShipments.length === 0 ? (
+              <p className="text-zinc-600 text-sm italic text-center py-6">No completed deliveries yet</p>
+            ) : (
+              <div className="flex flex-col gap-2 overflow-y-auto custom-scrollbar">
+                {completedShipments.map(s => (
+                  <div key={s.id} className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <div className="min-w-0">
+                      <p className="font-mono text-xs text-zinc-300 font-medium">{s.trackingNumber}</p>
+                      <p className="text-[10px] text-zinc-600 truncate mt-0.5">
+                        {s.originWarehouse.name.split(' ')[0]} → {s.destinationWarehouse.name.split(' ')[0]}
+                      </p>
+                      <p className="text-[10px] text-zinc-600 mt-0.5">
+                        {new Date(s.targetDispatchDate).toLocaleDateString()}
+                      </p>
                     </div>
-                  );
-                })}
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-status-success/10 text-status-success border border-status-success/20 shrink-0 ml-2">
+                      Delivered
+                    </span>
+                  </div>
+                ))}
               </div>
-            </div>
+            )}
+          </div>
+        </aside>
+
+        {/* RIGHT COLUMN */}
+        <main className="flex flex-col p-6 overflow-y-auto custom-scrollbar">
+          {activeShipment ? (
+            <ActiveShipmentPanel
+              shipment={activeShipment}
+              onDispatch={handleDispatch}
+              onReachCheckpoint={handleReachCheckpoint}
+            />
+          ) : (
+            <StandbyPanel />
           )}
-        </div>
-      ) : (
-        <div className="glass-panel p-8 text-center max-w-md w-full mx-auto flex flex-col items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-500">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <h3 className="text-lg font-display font-semibold text-zinc-200 mb-1">Standby Mode</h3>
-            <p className="text-sm text-zinc-400">No active shipments assigned to your unit.</p>
-          </div>
-        </div>
-      )}
+        </main>
+      </div>
     </div>
   );
 }
