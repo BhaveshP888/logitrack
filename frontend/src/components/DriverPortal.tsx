@@ -6,27 +6,25 @@ import { Shipment } from '../store/shipmentsSlice.js';
 export default function DriverPortal() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user);
-  const [assignedShipment, setAssignedShipment] = useState<Shipment | null>(null);
+  const [allShipments, setAllShipments] = useState<Shipment[]>([]);
 
-  const loadShipment = () => {
-    fetch('http://localhost:3001/api/shipments')
+  const loadShipments = () => {
+    fetch('http://localhost:3001/api/shipments', { credentials: 'include' })
       .then(res => res.json())
       .then((data: Shipment[]) => {
-        // Find active shipment for this driver (PENDING, DELAYED, EN_ROUTE)
-        const active = data.find(s => s.driverId === user?.driverId && s.status !== 'DELIVERED');
-        if (active) setAssignedShipment(active);
-        else setAssignedShipment(null);
+        const mine = data.filter(s => s.driverId === user?.driverId);
+        setAllShipments(mine);
       })
-      .catch(err => console.error(err));
+      .catch(err => { console.error(err); });
   };
 
   useEffect(() => {
-    loadShipment();
-    // In a real app, we'd listen to socket events to update the shipment data.
-    // For simplicity, we just poll or rely on manual refresh for the driver's own actions.
-    const interval = setInterval(loadShipment, 5000);
+    loadShipments();
+    const interval = setInterval(loadShipments, 5000);
     return () => clearInterval(interval);
   }, [user]);
+
+  const activeShipment = allShipments.find(s => s.status !== 'DELIVERED') ?? null;
 
   const handleLogout = async () => {
     try {
@@ -39,20 +37,20 @@ export default function DriverPortal() {
   };
 
   const handleDispatch = async () => {
-    if (!assignedShipment) return;
+    if (!activeShipment) return;
     try {
-      await fetch(`http://localhost:3001/api/shipments/${assignedShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
-      loadShipment();
+      await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
+      loadShipments();
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleReachCheckpoint = async (checkpointId: string) => {
-    if (!assignedShipment) return;
+    if (!activeShipment) return;
     try {
-      await fetch(`http://localhost:3001/api/shipments/${assignedShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
-      loadShipment();
+      await fetch(`http://localhost:3001/api/shipments/${activeShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
+      loadShipments();
     } catch (err) {
       console.error(err);
     }
@@ -70,18 +68,18 @@ export default function DriverPortal() {
         </button>
       </header>
 
-      {assignedShipment ? (
+      {activeShipment ? (
         <div className="glass-panel p-8 flex flex-col gap-5 max-w-md w-full mx-auto overflow-y-auto custom-scrollbar">
           <div className="relative">
             <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1">Assigned Shipment</span>
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold font-display text-zinc-100 tracking-wider">{assignedShipment.trackingNumber}</h2>
+              <h2 className="text-xl font-bold font-display text-zinc-100 tracking-wider">{activeShipment.trackingNumber}</h2>
               <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
-                assignedShipment.status === 'DELAYED' ? 'bg-status-danger/10 text-status-danger border border-status-danger/30 shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-pulse' :
-                assignedShipment.status === 'EN_ROUTE' ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]' :
+                activeShipment.status === 'DELAYED' ? 'bg-status-danger/10 text-status-danger border border-status-danger/30 shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-pulse' :
+                activeShipment.status === 'EN_ROUTE' ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/30 shadow-[0_0_15px_rgba(79,70,229,0.3)]' :
                 'bg-zinc-800/50 text-zinc-400 border border-zinc-700'
               }`}>
-                {assignedShipment.status.replace('_', ' ')}
+                {activeShipment.status.replace('_', ' ')}
               </span>
             </div>
           </div>
@@ -89,19 +87,19 @@ export default function DriverPortal() {
           <div className="grid grid-cols-2 gap-4 text-sm border-b border-white/10 pb-5">
             <div>
               <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">From</span>
-              <p className="font-semibold">{assignedShipment.originWarehouse.name}</p>
+              <p className="font-semibold">{activeShipment.originWarehouse.name}</p>
             </div>
             <div>
               <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">To</span>
-              <p className="font-semibold">{assignedShipment.destinationWarehouse.name}</p>
+              <p className="font-semibold">{activeShipment.destinationWarehouse.name}</p>
             </div>
           </div>
 
-          {(assignedShipment.status === 'PENDING' || assignedShipment.status === 'DELAYED') && (
+          {(activeShipment.status === 'PENDING' || activeShipment.status === 'DELAYED') && (
             <div className="flex flex-col gap-3 pt-2">
               <div className="text-sm">
                 <span className="text-zinc-400 text-[10px] uppercase tracking-wider mr-2">Target Dispatch</span>
-                <span className="font-mono font-bold text-zinc-200">{new Date(assignedShipment.targetDispatchDate).toLocaleString()}</span>
+                <span className="font-mono font-bold text-zinc-200">{new Date(activeShipment.targetDispatchDate).toLocaleString()}</span>
               </div>
               <button 
                 onClick={handleDispatch}
@@ -113,13 +111,13 @@ export default function DriverPortal() {
             </div>
           )}
 
-          {assignedShipment.status === 'EN_ROUTE' && (
+          {activeShipment.status === 'EN_ROUTE' && (
             <div className="flex flex-col gap-3 pt-2">
               <h3 className="text-[10px] font-bold text-brand-accent uppercase tracking-wider">Route Progress</h3>
               <div className="flex flex-col gap-3 relative">
                 <div className="absolute left-3.5 top-2 bottom-6 w-0.5 bg-white/5 z-0"></div>
-                {assignedShipment.checkpoints.map((cp, idx) => {
-                  const isNextUnreached = !cp.reached && (idx === 0 || assignedShipment.checkpoints[idx - 1].reached);
+                {activeShipment.checkpoints.map((cp, idx) => {
+                  const isNextUnreached = !cp.reached && (idx === 0 || activeShipment.checkpoints[idx - 1].reached);
                   
                   return (
                     <div key={cp.id} className={`flex justify-between items-center p-4 rounded-xl border backdrop-blur-md relative z-10 transition-all ${
