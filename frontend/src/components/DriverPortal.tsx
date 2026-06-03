@@ -200,18 +200,30 @@ export default function DriverPortal() {
     if (!activeShipment) return;
     try {
       const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/dispatch`, { method: 'POST', credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to dispatch');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to dispatch');
+      }
       loadShipments();
-    } catch (err) { console.error(err); setError("Failed to dispatch route"); }
+    } catch (err: any) { 
+      console.error(err); 
+      setError(err.message || "Failed to dispatch route"); 
+    }
   };
 
   const handleReachCheckpoint = async (checkpointId: string) => {
     if (!activeShipment) return;
     try {
       const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/checkpoints/${checkpointId}/reach`, { method: 'POST', credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to reach checkpoint');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to reach checkpoint');
+      }
       loadShipments();
-    } catch (err) { console.error(err); setError("Failed to confirm checkpoint"); }
+    } catch (err: any) { 
+      console.error(err); 
+      setError(err.message || "Failed to confirm checkpoint"); 
+    }
   };
 
   // Initials from email
