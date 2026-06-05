@@ -1,10 +1,8 @@
 import { Router, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { verifyToken, AuthRequest } from '../middleware/auth.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../db.js';
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-super-secret-key-12345';
 
 export const authRouter = Router();

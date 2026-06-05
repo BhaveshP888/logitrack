@@ -30,7 +30,7 @@ export function verifyToken(req: AuthRequest, res: Response, next: NextFunction)
 export function requireRole(role: 'ADMIN' | 'DRIVER') {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user || req.user.role !== role) {
-      return res.status(403).json({ error: `Forbidden. Requires ${role} role.` });
+      return res.status(403).json({ error: `Forbidden. Requires ${role} role. (You have: ${req.user?.role})` });
     }
     next();
   };

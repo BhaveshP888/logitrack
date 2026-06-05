@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { verifyToken, requireRole } from '../middleware/auth.js';
+import { prisma } from '../db.js';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.get('/warehouses', async (req, res) => {
   const data = await prisma.warehouse.findMany();
@@ -158,7 +157,7 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.warehouse.deleteMany();
 
   const adminPasswordHash = await bcrypt.hash('admin123', 10);
-  const newAdminPasswordHash = await bcrypt.hash('adminlogin1212', 10);
+  const newAdminPasswordHash = await bcrypt.hash(process.env.ADMIN_PASS, 10);
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)" } });

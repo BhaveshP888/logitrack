@@ -1,9 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { PrismaClient } from '@prisma/client';
 import request from 'supertest';
 import { app } from '../src/server.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../src/db.js';
 
 beforeAll(async () => {
   await request(app).post('/api/reset');

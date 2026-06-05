@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { Server } from 'socket.io';
-
-const prisma = new PrismaClient();
+import { prisma } from './db.js';
 
 export function startSimulation(io: Server) {
   setInterval(async () => {
