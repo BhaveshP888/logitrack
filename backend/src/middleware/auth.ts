@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-super-secret-key-12345';
+const secret = process.env.JWT_SECRET;
+if (!secret && process.env.NODE_ENV === 'production') {
+  throw new Error("FATAL: JWT_SECRET environment variable is required in production.");
+}
+export const JWT_SECRET = secret || 'dev-fallback-super-secret-key-12345';
 
 export interface AuthRequest extends Request {
   user?: {

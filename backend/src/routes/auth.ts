@@ -1,9 +1,8 @@
 import { Router, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { verifyToken, AuthRequest } from '../middleware/auth.js';
+import { verifyToken, AuthRequest, JWT_SECRET } from '../middleware/auth.js';
 import { prisma } from '../db.js';
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-super-secret-key-12345';
 
 export const authRouter = Router();
 
@@ -44,6 +43,9 @@ authRouter.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Name, email, and password are required" });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: "Password must be at least 8 characters long" });
   }
 
   try {

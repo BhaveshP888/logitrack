@@ -5,24 +5,24 @@ import { prisma } from '../db.js';
 
 const router = Router();
 
-router.get('/warehouses', async (req, res) => {
+router.get('/warehouses', verifyToken, async (req, res) => {
   const data = await prisma.warehouse.findMany();
   res.json(data);
 });
 
-router.get('/drivers', async (req, res) => {
+router.get('/drivers', verifyToken, async (req, res) => {
   const data = await prisma.driver.findMany({ include: { warehouse: true } });
   res.json(data);
 });
 
-router.get('/shipments', async (req, res) => {
+router.get('/shipments', verifyToken, async (req, res) => {
   const data = await prisma.shipment.findMany({
     include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
   res.json(data);
 });
 
-router.get('/metrics', async (req, res) => {
+router.get('/metrics', verifyToken, async (req, res) => {
   const total = await prisma.shipment.count();
   const active = await prisma.shipment.count({ where: { status: { in: ['EN_ROUTE', 'DELAYED'] } } });
   const delivered = await prisma.shipment.count({ where: { status: 'DELIVERED' } });
@@ -106,6 +106,12 @@ router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, requi
   // @ts-ignore
   if (!shipment || shipment.driverId !== req.user?.driverId) {
     return res.status(403).json({ error: "Not authorized to update this shipment" });
+  }
+
+  // Verify that the checkpoint belongs to the validated shipment
+  const checkpoint = shipment.checkpoints.find(cp => cp.id === checkpointId);
+  if (!checkpoint) {
+    return res.status(404).json({ error: "Checkpoint not found for this shipment" });
   }
 
   await prisma.shipmentCheckpoint.update({
