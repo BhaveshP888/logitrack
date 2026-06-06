@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { logoutUser } from '../store/authSlice.js';
 import { Shipment } from '../store/shipmentsSlice.js';
+import { API_BASE as GLOBAL_API_BASE } from '../config.js';
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -128,7 +129,7 @@ function ActiveShipmentPanel({ shipment, onDispatch, onReachCheckpoint }: Active
 
 // ─── Main component ────────────────────────────────────────────────────────────
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = `${GLOBAL_API_BASE}/api`;
 
 export default function DriverPortal() {
   const dispatch = useAppDispatch();

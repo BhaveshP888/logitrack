@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppDispatch } from '../store/hooks.js';
 import { logoutUser } from '../store/authSlice.js';
+import { API_BASE } from '../config.js';
 
 export type ViewMode = 'dashboard' | 'analytics' | 'fleet' | 'tracking';
 
@@ -14,7 +15,7 @@ export default function Sidebar({ activeView, onNavigate }: SidebarProps) {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:3001/api/auth/logout', { method: 'POST', credentials: 'include' });
+      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
     } catch (_) { /* proceed anyway */ }
     dispatch(logoutUser());
   };

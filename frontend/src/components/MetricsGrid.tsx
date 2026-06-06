@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../store/hooks.js';
+import { API_BASE } from '../config.js';
 
 export default function MetricsGrid() {
   const shipments = useAppSelector((state) => state.shipments.items);
@@ -13,7 +14,7 @@ export default function MetricsGrid() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/metrics')
+    fetch(`${API_BASE}/api/metrics`)
       .then(res => res.json())
       .then(data => setMetrics(data))
       .catch(err => console.error(err));

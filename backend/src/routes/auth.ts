@@ -22,10 +22,11 @@ authRouter.post('/login', async (req, res) => {
     const payload = { id: user.id, email: user.email, role: user.role, driverId: user.driverId };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
@@ -65,8 +66,6 @@ authRouter.post('/register', async (req, res) => {
         data: {
           name,
           status: 'AVAILABLE',
-          latitude: warehouse.latitude,
-          longitude: warehouse.longitude,
           warehouseId: warehouse.id
         }
       });
@@ -85,10 +84,11 @@ authRouter.post('/register', async (req, res) => {
     const payload = { id: user.id, email: user.email, role: user.role, driverId: user.driverId };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 

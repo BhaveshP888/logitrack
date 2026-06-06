@@ -2,6 +2,7 @@ import { Middleware } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
 import { shipmentDelivered, shipmentDelayed, shipmentDispatched, checkpointReached } from './shipmentsSlice.js';
 import { driverStatusChange } from './driversSlice.js';
+import { WS_URL } from '../config.js';
 
 let socket: Socket;
 
@@ -10,7 +11,7 @@ export const socketMiddleware: Middleware = store => next => action => {
   // Initialize connection on app boot or custom action
   if (act && act.type === 'socket/connect') {
     if (!socket) {
-      socket = io('http://localhost:3001');
+      socket = io(WS_URL);
 
       socket.on('connect', () => {
         console.log("Connected to WebSocket backend server");

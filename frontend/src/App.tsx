@@ -4,6 +4,7 @@ import { fetchShipments } from './store/shipmentsSlice.js';
 import { fetchDrivers } from './store/driversSlice.js';
 import { fetchWarehouses } from './store/warehousesSlice.js';
 import { checkSession, logoutUser } from './store/authSlice.js';
+import { API_BASE } from './config.js';
 
 import Sidebar, { ViewMode } from './components/Sidebar.js';
 import DashboardView from './components/DashboardView.js';
@@ -22,7 +23,7 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:3001/api/auth/logout', { method: 'POST', credentials: 'include' });
+      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
     } catch (_) {}
     dispatch(logoutUser());
   };

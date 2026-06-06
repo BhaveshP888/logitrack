@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { API_BASE } from '../config.js';
 
 export interface User {
   id: string;
@@ -20,7 +21,7 @@ const initialState: AuthState = {
 };
 
 export const checkSession = createAsyncThunk('auth/checkSession', async () => {
-  const res = await fetch('http://localhost:3001/api/auth/me', { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
   if (!res.ok) throw new Error("No session");
   return (await res.json()) as { user: User };
 });

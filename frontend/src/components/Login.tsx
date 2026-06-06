@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../store/hooks.js';
 import { setUser } from '../store/authSlice.js';
+import { API_BASE } from '../config.js';
 
 interface LoginProps {
   initialIsRegister?: boolean;
@@ -22,7 +23,7 @@ export default function Login({ initialIsRegister = false, onBack }: LoginProps)
     const payload = isRegister ? { name, email, password } : { email, password };
 
     try {
-      const res = await fetch(`http://localhost:3001${endpoint}`, {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

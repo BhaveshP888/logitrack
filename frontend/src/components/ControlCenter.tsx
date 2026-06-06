@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks.js';
 import { addShipment } from '../store/shipmentsSlice.js';
 import { fetchDrivers } from '../store/driversSlice.js';
 import CustomSelect from './CustomSelect.js';
+import { API_BASE } from '../config.js';
 
 export default function ControlCenter() {
   const dispatch = useAppDispatch();
@@ -56,7 +57,7 @@ export default function ControlCenter() {
       // Artificial delay of 1s
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      const res = await fetch('http://localhost:3001/api/shipments', {
+      const res = await fetch(`${API_BASE}/api/shipments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -92,7 +93,7 @@ export default function ControlCenter() {
   const handleReset = async () => {
     if (!confirm("Reset database state?")) return;
     try {
-      await fetch('http://localhost:3001/api/reset', { method: 'POST', credentials: 'include' });
+      await fetch(`${API_BASE}/api/reset`, { method: 'POST', credentials: 'include' });
       window.location.reload();
     } catch (err) {
       console.error(err);

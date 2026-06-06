@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Driver } from './shipmentsSlice.js';
+import { API_BASE } from '../config.js';
 
 interface DriversState {
   items: Driver[];
@@ -14,7 +15,7 @@ const initialState: DriversState = {
 };
 
 export const fetchDrivers = createAsyncThunk('drivers/fetchDrivers', async () => {
-  const res = await fetch('http://localhost:3001/api/drivers');
+  const res = await fetch(`${API_BASE}/api/drivers`);
   if (!res.ok) throw new Error("Failed to fetch drivers");
   return (await res.json()) as Driver[];
 });
@@ -26,7 +27,7 @@ const driversSlice = createSlice({
     driverStatusChange: (state, action: PayloadAction<{ id: string; status: string }>) => {
       const driver = state.items.find(d => d.id === action.payload.id);
       if (driver) {
-        driver.status = action.payload.status;
+        driver.status = action.payload.status as Driver['status'];
       }
     }
   },

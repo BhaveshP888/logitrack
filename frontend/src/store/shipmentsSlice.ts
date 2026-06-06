@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { API_BASE } from '../config.js';
 
 export interface Warehouse {
   id: string;
@@ -18,22 +19,24 @@ export interface ShipmentCheckpoint {
 export interface Driver {
   id: string;
   name: string;
-  status: string;
+  status: 'AVAILABLE' | 'ON_DELIVERY' | 'OFFLINE';
+  latitude: number;
+  longitude: number;
+  warehouseId: string;
 }
 
 export interface Shipment {
   id: string;
   trackingNumber: string;
   status: 'PENDING' | 'EN_ROUTE' | 'DELIVERED' | 'DELAYED';
+  originWarehouse: Warehouse;
+  destinationWarehouse: Warehouse;
+  driver: Driver | null;
+  driverId?: string | null;
   targetDispatchDate: string;
   actualDispatchDate: string | null;
-  originWarehouseId: string;
-  originWarehouse: Warehouse;
-  destinationWarehouseId: string;
-  destinationWarehouse: Warehouse;
-  driverId: string;
-  driver: Driver;
   checkpoints: ShipmentCheckpoint[];
+  createdAt: string;
   updatedAt: string;
 }
 
@@ -52,7 +55,7 @@ const initialState: ShipmentsState = {
 };
 
 export const fetchShipments = createAsyncThunk('shipments/fetchShipments', async () => {
-  const res = await fetch('http://localhost:3001/api/shipments');
+  const res = await fetch(`${API_BASE}/api/shipments`);
   if (!res.ok) throw new Error("Failed to fetch shipments");
   return (await res.json()) as Shipment[];
 });

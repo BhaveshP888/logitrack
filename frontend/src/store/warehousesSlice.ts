@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Warehouse } from './shipmentsSlice.js';
+import { API_BASE } from '../config.js';
 
 interface WarehousesState {
   items: Warehouse[];
@@ -14,7 +15,7 @@ const initialState: WarehousesState = {
 };
 
 export const fetchWarehouses = createAsyncThunk('warehouses/fetchWarehouses', async () => {
-  const res = await fetch('http://localhost:3001/api/warehouses');
+  const res = await fetch(`${API_BASE}/api/warehouses`);
   if (!res.ok) throw new Error("Failed to fetch warehouses");
   return (await res.json()) as Warehouse[];
 });

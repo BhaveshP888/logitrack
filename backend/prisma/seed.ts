@@ -14,6 +14,13 @@ const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  // Check if database is already seeded
+  const userCount = await prisma.user.count();
+  if (userCount > 0) {
+    console.log("Database already seeded. Skipping seeding.");
+    return;
+  }
+
   // Clear old data
   await prisma.user.deleteMany({});
   await prisma.shipment.deleteMany({});

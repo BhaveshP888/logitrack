@@ -82,7 +82,7 @@ router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async
 
   const updated = await prisma.$transaction(async (tx) => {
     await tx.driver.update({
-      where: { id: shipment.driverId },
+      where: { id: shipment.driverId || undefined },
       data: { status: "ON_DELIVERY" }
     });
 
@@ -157,7 +157,7 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.warehouse.deleteMany();
 
   const adminPasswordHash = await bcrypt.hash('admin123', 10);
-  const newAdminPasswordHash = await bcrypt.hash(process.env.ADMIN_PASS, 10);
+  const newAdminPasswordHash = await bcrypt.hash(process.env.ADMIN_PASS || 'adminlogin1212', 10);
   const driverPasswordHash = await bcrypt.hash('driver123', 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)" } });

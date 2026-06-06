@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../store/hooks.js';
 import ControlCenter from './ControlCenter.js';
+import { API_BASE } from '../config.js';
 
 export default function DashboardView() {
   const shipments = useAppSelector(state => state.shipments.items);
@@ -15,7 +16,7 @@ export default function DashboardView() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/metrics')
+    fetch(`${API_BASE}/api/metrics`)
       .then(res => res.json())
       .then(data => setMetrics(data))
       .catch(err => console.error(err));
