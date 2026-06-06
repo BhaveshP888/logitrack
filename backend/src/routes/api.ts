@@ -156,9 +156,9 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
 
-  const adminPasswordHash = await bcrypt.hash('admin123', 10);
-  const newAdminPasswordHash = await bcrypt.hash(process.env.ADMIN_PASS || 'adminlogin1212', 10);
-  const driverPasswordHash = await bcrypt.hash('driver123', 10);
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.ADMIN_MAIL || 'admin@email.com';
+  const adminPass = process.env.ADMIN_PASS || 'adminlogin1212';
+  const adminPasswordHash = await bcrypt.hash(adminPass, 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)" } });
   const w2 = await prisma.warehouse.create({ data: { name: "Pune Hub (W2)" } });
@@ -166,24 +166,8 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   const w4 = await prisma.warehouse.create({ data: { name: "Nashik Hub (W4)" } });
   const w5 = await prisma.warehouse.create({ data: { name: "Aurangabad Hub (W5)" } });
 
-  const d1 = await prisma.driver.create({ data: { name: "John Doe", status: "AVAILABLE", warehouseId: w1.id } });
-  const d2 = await prisma.driver.create({ data: { name: "Alice Smith", status: "AVAILABLE", warehouseId: w2.id } });
-  const d3 = await prisma.driver.create({ data: { name: "Bob Johnson", status: "AVAILABLE", warehouseId: w3.id } });
-
   await prisma.user.create({
-    data: { email: 'admin@logitrack.com', passwordHash: adminPasswordHash, role: 'ADMIN' }
-  });
-
-  await prisma.user.create({
-    data: { email: 'admin@email.com', passwordHash: newAdminPasswordHash, role: 'ADMIN' }
-  });
-
-  await prisma.user.create({
-    data: { email: 'driver1@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d1.id }
-  });
-
-  await prisma.user.create({
-    data: { email: 'driver2@logitrack.com', passwordHash: driverPasswordHash, role: 'DRIVER', driverId: d2.id }
+    data: { email: adminEmail, passwordHash: adminPasswordHash, role: 'ADMIN' }
   });
 
   const now = new Date();
@@ -195,7 +179,7 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
       status: 'PENDING',
       originWarehouseId: w1.id,
       destinationWarehouseId: w3.id,
-      driverId: d1.id,
+      driverId: null,
       targetDispatchDate: futureDispatch,
       checkpoints: {
         create: [
