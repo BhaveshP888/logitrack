@@ -55,7 +55,7 @@ const initialState: ShipmentsState = {
 };
 
 export const fetchShipments = createAsyncThunk('shipments/fetchShipments', async () => {
-  const res = await fetch(`${API_BASE}/api/shipments`);
+  const res = await fetch(`${API_BASE}/api/shipments`, { credentials: 'include' });
   if (!res.ok) throw new Error("Failed to fetch shipments");
   return (await res.json()) as Shipment[];
 });

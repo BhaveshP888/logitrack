@@ -16,7 +16,7 @@ export default function DashboardView() {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/metrics`)
+    fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setMetrics(data))
       .catch(err => console.error(err));

@@ -15,7 +15,7 @@ const initialState: WarehousesState = {
 };
 
 export const fetchWarehouses = createAsyncThunk('warehouses/fetchWarehouses', async () => {
-  const res = await fetch(`${API_BASE}/api/warehouses`);
+  const res = await fetch(`${API_BASE}/api/warehouses`, { credentials: 'include' });
   if (!res.ok) throw new Error("Failed to fetch warehouses");
   return (await res.json()) as Warehouse[];
 });

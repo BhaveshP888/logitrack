@@ -15,7 +15,7 @@ const initialState: DriversState = {
 };
 
 export const fetchDrivers = createAsyncThunk('drivers/fetchDrivers', async () => {
-  const res = await fetch(`${API_BASE}/api/drivers`);
+  const res = await fetch(`${API_BASE}/api/drivers`, { credentials: 'include' });
   if (!res.ok) throw new Error("Failed to fetch drivers");
   return (await res.json()) as Driver[];
 });
