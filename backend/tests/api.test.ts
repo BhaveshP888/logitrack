@@ -3,19 +3,18 @@ import request from 'supertest';
 import { app, server } from '../src/server.js';
 import { prisma } from '../src/db.js';
 
+import { resetAndSeedDatabase } from './helpers.js';
+
 let adminCookie: string;
 
 beforeAll(async () => {
+  await resetAndSeedDatabase();
+
   const loginRes = await request(app)
     .post('/api/auth/login')
     .send({ email: 'admin@logitrack.com', password: 'admin123' });
   const cookies = loginRes.headers['set-cookie'];
   adminCookie = Array.isArray(cookies) ? cookies[0] : cookies || '';
-
-  // Run seed logic
-  await request(app)
-    .post('/api/reset')
-    .set('Cookie', adminCookie);
 });
 
 afterAll(async () => {
@@ -25,21 +24,27 @@ afterAll(async () => {
 
 describe('LogiTrack API Endpoints', () => {
   it('should retrieve list of warehouses', async () => {
-    const res = await request(app).get('/api/warehouses');
+    const res = await request(app)
+      .get('/api/warehouses')
+      .set('Cookie', adminCookie);
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBe(5);
   });
 
   it('should retrieve list of drivers', async () => {
-    const res = await request(app).get('/api/drivers');
+    const res = await request(app)
+      .get('/api/drivers')
+      .set('Cookie', adminCookie);
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBe(3);
   });
 
   it('should retrieve initial dashboard metrics', async () => {
-    const res = await request(app).get('/api/metrics');
+    const res = await request(app)
+      .get('/api/metrics')
+      .set('Cookie', adminCookie);
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('activeCount');
     expect(res.body).toHaveProperty('utilizationRate');

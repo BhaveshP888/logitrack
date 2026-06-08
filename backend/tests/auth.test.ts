@@ -2,9 +2,10 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import { app } from '../src/server.js';
 import { prisma } from '../src/db.js';
+import { resetAndSeedDatabase } from './helpers.js';
 
 beforeAll(async () => {
-  await request(app).post('/api/reset');
+  await resetAndSeedDatabase();
 });
 
 afterAll(async () => {
