@@ -5,7 +5,7 @@ interface LandingProps {
 
 export default function Landing({ onLogin, onRegister }: LandingProps) {
   return (
-    <div className="relative flex flex-col min-h-screen w-screen bg-bg-main overflow-hidden font-body text-zinc-100">
+    <div className="relative flex flex-col h-screen w-screen bg-bg-main overflow-y-auto overflow-x-hidden font-body text-zinc-100">
       
       {/* Background ambient */}
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[160px] pointer-events-none"></div>
