@@ -18,7 +18,11 @@ export default function DashboardView() {
   useEffect(() => {
     fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })
       .then(res => res.json())
-      .then(data => setMetrics(data))
+      .then(data => {
+        if (data && !data.error) {
+          setMetrics(data);
+        }
+      })
       .catch(err => console.error(err));
   }, [shipments, drivers]);
 
