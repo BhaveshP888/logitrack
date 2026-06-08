@@ -9,7 +9,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "prisma db seed",
-    "test": "vitest run --fileParallelism=false"
+    "test": "vitest run"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
