@@ -8,19 +8,34 @@ import apiRouter from './routes/api.js';
 import { authRouter } from './routes/auth.js';
 import { startSimulation } from './simulation.js';
 
+dotenv.config();
 
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+// Support comma-separated origins for Vercel preview deployments
+// e.g. FRONTEND_URL=https://logitrack-beta.vercel.app,https://logitrack-git-*.vercel.app
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean);
+
+function checkOrigin(origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+  if (!origin || allowedOrigins.includes(origin)) {
+    callback(null, true);
+  } else {
+    callback(null, false);
+  }
+}
 
 const app = express();
 const server = http.createServer(app);
 export const io = new Server(server, {
   cors: {
-    origin: frontendUrl,
-    methods: ["GET", "POST"]
+    origin: checkOrigin,
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 
-app.use(cors({ origin: frontendUrl, credentials: true }));
+app.use(cors({ origin: checkOrigin, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 
