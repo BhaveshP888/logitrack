@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "properties": {
+        "simpleName": "ci.yml",
+        "path": ".github/workflows/ci.yml",
+        "summary": "GitHub Actions workflow configured to run backend tests (with a PostgreSQL service container) and build the frontend application upon push or pull requests to the main branch.",
+        "complexity": "simple",
+        "tags": [
+          "ci-cd",
+          "github-actions",
+          "testing",
+          "build",
+          "postgres"
+        ]
+      }
+    }
+  ],
+  "edges": []
+}

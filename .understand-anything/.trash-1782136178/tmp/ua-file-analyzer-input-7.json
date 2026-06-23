@@ -1,0 +1,9 @@
+{
+  "projectRoot": "c:\\Users\\Plbha\\Desktop\\logitrack",
+  "batchFiles": [
+    {"path": ".understand-anything/tmp/ua-import-map-input.json", "language": "json", "sizeLines": 359, "fileCategory": "config"},
+    {"path": ".understand-anything/tmp/ua-import-map-output.json", "language": "json", "sizeLines": 171, "fileCategory": "config"},
+    {"path": ".understand-anything/tmp/ua-scan-files.json", "language": "json", "sizeLines": 387, "fileCategory": "config"}
+  ],
+  "batchImportData": {}
+}

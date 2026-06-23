@@ -1,0 +1,538 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/src/db.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "getInstance",
+          "startLine": 12,
+          "endLine": 22,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "prisma",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get",
+          "callee": "getInstance",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/middleware/auth.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "verifyToken",
+          "startLine": 19,
+          "endLine": 32,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        },
+        {
+          "name": "requireRole",
+          "startLine": 34,
+          "endLine": 41,
+          "params": [
+            "role"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "JWT_SECRET",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "verifyToken",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "requireRole",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verifyToken",
+          "callee": "res.status(401).json",
+          "lineNumber": 22
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status",
+          "lineNumber": 22
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "jwt.verify",
+          "lineNumber": 26
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "next",
+          "lineNumber": 28
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status(401).json",
+          "lineNumber": 30
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status",
+          "lineNumber": 30
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status(403).json",
+          "lineNumber": 37
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status",
+          "lineNumber": 37
+        },
+        {
+          "caller": "requireRole",
+          "callee": "next",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/api.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 203,
+      "nonEmptyLines": 166,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/routes/auth.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 95,
+      "exports": [
+        {
+          "name": "authRouter",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "checkOrigin",
+          "startLine": 20,
+          "endLine": 26,
+          "params": [
+            "origin",
+            "callback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "io",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "app",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "server",
+          "line": 70,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkOrigin",
+          "callee": "allowedOrigins.includes",
+          "lineNumber": 21
+        },
+        {
+          "caller": "checkOrigin",
+          "callee": "callback",
+          "lineNumber": 22
+        },
+        {
+          "caller": "checkOrigin",
+          "callee": "callback",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/simulation.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 78,
+      "functions": [
+        {
+          "name": "startSimulation",
+          "startLine": 4,
+          "endLine": 87,
+          "params": [
+            "io"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "startSimulation",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "startSimulation",
+          "callee": "setInterval",
+          "lineNumber": 5
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.findMany",
+          "lineNumber": 9
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.update",
+          "lineNumber": 17
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "io.emit",
+          "lineNumber": 22
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.findMany",
+          "lineNumber": 26
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "shipment.checkpoints.find",
+          "lineNumber": 35
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "Math.random",
+          "lineNumber": 38
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipmentCheckpoint.update",
+          "lineNumber": 39
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.$transaction",
+          "lineNumber": 46
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "tx.shipment.update",
+          "lineNumber": 47
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "tx.driver.update",
+          "lineNumber": 49
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "io.emit",
+          "lineNumber": 52
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "io.emit",
+          "lineNumber": 54
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "Math.random",
+          "lineNumber": 59
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.$transaction",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "tx.shipment.update",
+          "lineNumber": 61
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "tx.driver.update",
+          "lineNumber": 63
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "io.emit",
+          "lineNumber": 66
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.count",
+          "lineNumber": 72
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.count",
+          "lineNumber": 73
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.count",
+          "lineNumber": 74
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.driver.count",
+          "lineNumber": 75
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.driver.count",
+          "lineNumber": 76
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "prisma.shipment.count",
+          "lineNumber": 78
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "io.emit",
+          "lineNumber": 81
+        },
+        {
+          "caller": "startSimulation",
+          "callee": "console.error",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/api.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 76,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/auth.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 59,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/helpers.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "resetAndSeedDatabase",
+          "startLine": 4,
+          "endLine": 40,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "resetAndSeedDatabase",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.user.deleteMany",
+          "lineNumber": 6
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.shipmentCheckpoint.deleteMany",
+          "lineNumber": 7
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.shipment.deleteMany",
+          "lineNumber": 8
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.driver.deleteMany",
+          "lineNumber": 9
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.deleteMany",
+          "lineNumber": 10
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "bcrypt.hash",
+          "lineNumber": 13
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "bcrypt.hash",
+          "lineNumber": 14
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 19
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 21
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.user.create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.driver.create",
+          "lineNumber": 29
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.driver.create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.driver.create",
+          "lineNumber": 31
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.user.create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "resetAndSeedDatabase",
+          "callee": "prisma.user.create",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

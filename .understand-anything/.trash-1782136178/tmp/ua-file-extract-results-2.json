@@ -1,0 +1,855 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/src/components/CheckpointTracker.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "CheckpointTracker",
+          "startLine": 4,
+          "endLine": 128,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CheckpointTracker",
+          "line": 4,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CheckpointTracker",
+          "callee": "useAppSelector",
+          "lineNumber": 5
+        },
+        {
+          "caller": "CheckpointTracker",
+          "callee": "useAppSelector",
+          "lineNumber": 6
+        },
+        {
+          "caller": "CheckpointTracker",
+          "callee": "shipments.find",
+          "lineNumber": 8
+        },
+        {
+          "caller": "CheckpointTracker",
+          "callee": "shipment.checkpoints.map",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CheckpointTracker",
+          "callee": "nodes.map",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/ControlCenter.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 204,
+      "nonEmptyLines": 183,
+      "functions": [
+        {
+          "name": "ControlCenter",
+          "startLine": 8,
+          "endLine": 204,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ControlCenter",
+          "line": 8,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ControlCenter",
+          "callee": "useAppDispatch",
+          "lineNumber": 9
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useAppSelector",
+          "lineNumber": 10
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useAppSelector",
+          "lineNumber": 11
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handleAddCheckpoint",
+          "callee": "setCheckpoints",
+          "lineNumber": 25
+        },
+        {
+          "caller": "handleRemoveCheckpoint",
+          "callee": "setCheckpoints",
+          "lineNumber": 29
+        },
+        {
+          "caller": "handleRemoveCheckpoint",
+          "callee": "checkpoints.filter",
+          "lineNumber": 29
+        },
+        {
+          "caller": "handleCheckpointChange",
+          "callee": "setCheckpoints",
+          "lineNumber": 35
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "e.preventDefault",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setError",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setSuccessMsg",
+          "lineNumber": 41
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setError",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setError",
+          "lineNumber": 48
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "checkpoints.filter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "c.name.trim",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setIsSubmitting",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setTimeout",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "fetch",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "JSON.stringify",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "new Date(targetDispatchDate).toISOString",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "res.json",
+          "lineNumber": 72
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setError",
+          "lineNumber": 74
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "dispatch",
+          "lineNumber": 76
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "addShipment",
+          "lineNumber": 76
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "dispatch",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "fetchDrivers",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setOriginId",
+          "lineNumber": 78
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setDestId",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setDriverId",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setTargetDispatchDate",
+          "lineNumber": 81
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setCheckpoints",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setSuccessMsg",
+          "lineNumber": 83
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setTimeout",
+          "lineNumber": 84
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setSuccessMsg",
+          "lineNumber": 84
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setError",
+          "lineNumber": 87
+        },
+        {
+          "caller": "handleCreateShipment",
+          "callee": "setIsSubmitting",
+          "lineNumber": 89
+        },
+        {
+          "caller": "handleReset",
+          "callee": "confirm",
+          "lineNumber": 94
+        },
+        {
+          "caller": "handleReset",
+          "callee": "fetch",
+          "lineNumber": 96
+        },
+        {
+          "caller": "handleReset",
+          "callee": "window.location.reload",
+          "lineNumber": 97
+        },
+        {
+          "caller": "handleReset",
+          "callee": "console.error",
+          "lineNumber": 99
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "warehouses.map",
+          "lineNumber": 103
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "drivers.map",
+          "lineNumber": 104
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "setTargetDispatchDate",
+          "lineNumber": 138
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "checkpoints.map",
+          "lineNumber": 147
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "handleCheckpointChange",
+          "lineNumber": 153
+        },
+        {
+          "caller": "ControlCenter",
+          "callee": "handleRemoveCheckpoint",
+          "lineNumber": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/CustomSelect.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "CustomSelect",
+          "startLine": 16,
+          "endLine": 74,
+          "params": [
+            "{ value, onChange, options, placeholder = 'Select...', className = '' }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomSelect",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CustomSelect",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "useRef",
+          "lineNumber": 18
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "useEffect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handler",
+          "callee": "ref.current.contains",
+          "lineNumber": 23
+        },
+        {
+          "caller": "handler",
+          "callee": "setOpen",
+          "lineNumber": 23
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "document.addEventListener",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "document.removeEventListener",
+          "lineNumber": 26
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "options.find",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "setOpen",
+          "lineNumber": 36
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "options.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "onChange",
+          "lineNumber": 59
+        },
+        {
+          "caller": "CustomSelect",
+          "callee": "setOpen",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/ShipmentsList.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 102,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "ShipmentsList",
+          "startLine": 6,
+          "endLine": 102,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ShipmentsList",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ShipmentsList",
+          "callee": "useAppDispatch",
+          "lineNumber": 7
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "useAppSelector",
+          "lineNumber": 8
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "useAppSelector",
+          "lineNumber": 9
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "shipments.filter",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.trackingNumber.toLowerCase().includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.trackingNumber.toLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "searchTerm.toLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "(s.driver?.name.toLowerCase() || '').includes",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.driver?.name.toLowerCase",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "searchTerm.toLowerCase",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "setSearchTerm",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "filtered.map",
+          "lineNumber": 69
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "dispatch",
+          "lineNumber": 73
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "selectShipment",
+          "lineNumber": 73
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "badgeClass",
+          "lineNumber": 77
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.status.replace",
+          "lineNumber": 77
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.originWarehouse.name.split",
+          "lineNumber": 81
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.destinationWarehouse.name.split",
+          "lineNumber": 83
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "Math.max",
+          "lineNumber": 94
+        },
+        {
+          "caller": "ShipmentsList",
+          "callee": "s.checkpoints.filter",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/TrackingView.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "TrackingView",
+          "startLine": 4,
+          "endLine": 21,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TrackingView",
+          "line": 4,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/driversSlice.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 44,
+      "exports": [
+        {
+          "name": "fetchDrivers",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "{ driverStatusChange }",
+          "line": 48,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "exports": [
+        {
+          "name": "store",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/shipmentsSlice.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 109,
+      "exports": [
+        {
+          "name": "fetchShipments",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }",
+          "line": 117,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/socketMiddleware.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "socketMiddleware",
+          "startLine": 9,
+          "endLine": 46,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "socketMiddleware",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "socketMiddleware",
+          "callee": "io",
+          "lineNumber": 14
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 16
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 20
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 21
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "shipmentDelayed",
+          "lineNumber": 21
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 24
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 25
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "shipmentDispatched",
+          "lineNumber": 25
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 28
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 29
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "checkpointReached",
+          "lineNumber": 29
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 32
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 33
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "shipmentDelivered",
+          "lineNumber": 33
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 35
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "driverStatusChange",
+          "lineNumber": 35
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "socket.on",
+          "lineNumber": 39
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "store.dispatch",
+          "lineNumber": 40
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "driverStatusChange",
+          "lineNumber": 40
+        },
+        {
+          "caller": "socketMiddleware",
+          "callee": "next",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/warehousesSlice.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 36,
+      "exports": [
+        {
+          "name": "fetchWarehouses",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

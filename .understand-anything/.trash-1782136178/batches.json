@@ -1,0 +1,1029 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 63,
+  "totalBatches": 9,
+  "exportsByPath": {
+    ".understand-anything/.understandignore": [],
+    "backend/prisma.config.ts": [],
+    "backend/prisma/seed.ts": [],
+    "backend/src/db.ts": [
+      "prisma"
+    ],
+    "backend/src/middleware/auth.ts": [
+      "JWT_SECRET",
+      "verifyToken",
+      "requireRole"
+    ],
+    "backend/src/routes/api.ts": [],
+    "backend/src/routes/auth.ts": [
+      "authRouter"
+    ],
+    "backend/src/server.ts": [
+      "io",
+      "app",
+      "server"
+    ],
+    "backend/src/simulation.ts": [
+      "startSimulation"
+    ],
+    "backend/tests/api.test.ts": [],
+    "backend/tests/auth.test.ts": [],
+    "backend/tests/helpers.ts": [
+      "resetAndSeedDatabase"
+    ],
+    "backend/vitest.config.ts": [],
+    "frontend/nginx.conf": [],
+    "frontend/scripts/generate-vercel-config.mjs": [],
+    "frontend/src/App.tsx": [
+      "App"
+    ],
+    "frontend/src/components/AnalyticsView.tsx": [
+      "AnalyticsView"
+    ],
+    "frontend/src/components/CheckpointTracker.tsx": [
+      "CheckpointTracker"
+    ],
+    "frontend/src/components/ControlCenter.tsx": [
+      "ControlCenter"
+    ],
+    "frontend/src/components/CustomSelect.tsx": [
+      "CustomSelect"
+    ],
+    "frontend/src/components/DashboardView.tsx": [
+      "DashboardView"
+    ],
+    "frontend/src/components/DriverPortal.tsx": [
+      "DriverPortal"
+    ],
+    "frontend/src/components/FleetView.tsx": [
+      "FleetView"
+    ],
+    "frontend/src/components/Landing.tsx": [
+      "Landing"
+    ],
+    "frontend/src/components/Login.tsx": [
+      "Login"
+    ],
+    "frontend/src/components/MetricsGrid.tsx": [
+      "MetricsGrid"
+    ],
+    "frontend/src/components/ShipmentsList.tsx": [
+      "ShipmentsList"
+    ],
+    "frontend/src/components/Sidebar.tsx": [
+      "Sidebar"
+    ],
+    "frontend/src/components/TrackingView.tsx": [
+      "TrackingView"
+    ],
+    "frontend/src/config.ts": [
+      "API_BASE",
+      "WS_URL"
+    ],
+    "frontend/src/main.tsx": [],
+    "frontend/src/store/authSlice.ts": [
+      "checkSession",
+      "{ setUser, logoutUser }"
+    ],
+    "frontend/src/store/driversSlice.ts": [
+      "fetchDrivers",
+      "{ driverStatusChange }"
+    ],
+    "frontend/src/store/hooks.ts": [
+      "useAppDispatch",
+      "useAppSelector"
+    ],
+    "frontend/src/store/index.ts": [
+      "store"
+    ],
+    "frontend/src/store/shipmentsSlice.ts": [
+      "fetchShipments",
+      "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }"
+    ],
+    "frontend/src/store/socketMiddleware.ts": [
+      "socketMiddleware"
+    ],
+    "frontend/src/store/warehousesSlice.ts": [
+      "fetchWarehouses"
+    ],
+    "frontend/src/vite-env.d.ts": [],
+    "frontend/vite.config.ts": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "frontend/src/App.tsx",
+          "language": "typescript",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/AnalyticsView.tsx",
+          "language": "typescript",
+          "sizeLines": 173,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/DashboardView.tsx",
+          "language": "typescript",
+          "sizeLines": 291,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/DriverPortal.tsx",
+          "language": "typescript",
+          "sizeLines": 352,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/FleetView.tsx",
+          "language": "typescript",
+          "sizeLines": 102,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Landing.tsx",
+          "language": "typescript",
+          "sizeLines": 136,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Login.tsx",
+          "language": "typescript",
+          "sizeLines": 126,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/MetricsGrid.tsx",
+          "language": "typescript",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Sidebar.tsx",
+          "language": "typescript",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/config.ts",
+          "language": "typescript",
+          "sizeLines": 20,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/authSlice.ts",
+          "language": "typescript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/hooks.ts",
+          "language": "typescript",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/App.tsx": [
+          "frontend/src/components/AnalyticsView.tsx",
+          "frontend/src/components/DashboardView.tsx",
+          "frontend/src/components/DriverPortal.tsx",
+          "frontend/src/components/FleetView.tsx",
+          "frontend/src/components/Landing.tsx",
+          "frontend/src/components/Login.tsx",
+          "frontend/src/components/Sidebar.tsx",
+          "frontend/src/components/TrackingView.tsx",
+          "frontend/src/config.ts",
+          "frontend/src/store/authSlice.ts",
+          "frontend/src/store/driversSlice.ts",
+          "frontend/src/store/hooks.ts",
+          "frontend/src/store/shipmentsSlice.ts",
+          "frontend/src/store/warehousesSlice.ts"
+        ],
+        "frontend/src/components/AnalyticsView.tsx": [
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/components/DashboardView.tsx": [
+          "frontend/src/components/ControlCenter.tsx",
+          "frontend/src/config.ts",
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/components/DriverPortal.tsx": [
+          "frontend/src/config.ts",
+          "frontend/src/store/authSlice.ts",
+          "frontend/src/store/hooks.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/components/FleetView.tsx": [
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/components/Landing.tsx": [],
+        "frontend/src/components/Login.tsx": [
+          "frontend/src/config.ts",
+          "frontend/src/store/authSlice.ts",
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/components/MetricsGrid.tsx": [
+          "frontend/src/config.ts",
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/components/Sidebar.tsx": [
+          "frontend/src/config.ts",
+          "frontend/src/store/authSlice.ts",
+          "frontend/src/store/hooks.ts"
+        ],
+        "frontend/src/config.ts": [],
+        "frontend/src/store/authSlice.ts": [
+          "frontend/src/config.ts"
+        ],
+        "frontend/src/store/hooks.ts": [
+          "frontend/src/store/index.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/App.tsx": [
+          {
+            "path": "frontend/src/components/TrackingView.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "TrackingView"
+            ]
+          },
+          {
+            "path": "frontend/src/store/driversSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchDrivers",
+              "{ driverStatusChange }"
+            ]
+          },
+          {
+            "path": "frontend/src/store/shipmentsSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchShipments",
+              "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }"
+            ]
+          },
+          {
+            "path": "frontend/src/store/warehousesSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchWarehouses"
+            ]
+          },
+          {
+            "path": "frontend/src/main.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/DashboardView.tsx": [
+          {
+            "path": "frontend/src/components/ControlCenter.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "ControlCenter"
+            ]
+          }
+        ],
+        "frontend/src/components/DriverPortal.tsx": [
+          {
+            "path": "frontend/src/store/shipmentsSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchShipments",
+              "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }"
+            ]
+          }
+        ],
+        "frontend/src/config.ts": [
+          {
+            "path": "frontend/src/components/ControlCenter.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "ControlCenter"
+            ]
+          },
+          {
+            "path": "frontend/src/store/driversSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchDrivers",
+              "{ driverStatusChange }"
+            ]
+          },
+          {
+            "path": "frontend/src/store/shipmentsSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchShipments",
+              "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }"
+            ]
+          },
+          {
+            "path": "frontend/src/store/socketMiddleware.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "socketMiddleware"
+            ]
+          },
+          {
+            "path": "frontend/src/store/warehousesSlice.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "fetchWarehouses"
+            ]
+          }
+        ],
+        "frontend/src/store/authSlice.ts": [
+          {
+            "path": "frontend/src/store/index.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "store"
+            ]
+          }
+        ],
+        "frontend/src/store/hooks.ts": [
+          {
+            "path": "frontend/src/store/index.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "store"
+            ]
+          },
+          {
+            "path": "frontend/src/components/CheckpointTracker.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "CheckpointTracker"
+            ]
+          },
+          {
+            "path": "frontend/src/components/ControlCenter.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "ControlCenter"
+            ]
+          },
+          {
+            "path": "frontend/src/components/ShipmentsList.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "ShipmentsList"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "frontend/src/components/CheckpointTracker.tsx",
+          "language": "typescript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/ControlCenter.tsx",
+          "language": "typescript",
+          "sizeLines": 204,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/CustomSelect.tsx",
+          "language": "typescript",
+          "sizeLines": 74,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/ShipmentsList.tsx",
+          "language": "typescript",
+          "sizeLines": 102,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/TrackingView.tsx",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "language": "typescript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/driversSlice.ts",
+          "language": "typescript",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/index.ts",
+          "language": "typescript",
+          "sizeLines": 20,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/shipmentsSlice.ts",
+          "language": "typescript",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/socketMiddleware.ts",
+          "language": "typescript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/store/warehousesSlice.ts",
+          "language": "typescript",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/components/CheckpointTracker.tsx": [
+          "frontend/src/store/hooks.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/components/ControlCenter.tsx": [
+          "frontend/src/components/CustomSelect.tsx",
+          "frontend/src/config.ts",
+          "frontend/src/store/driversSlice.ts",
+          "frontend/src/store/hooks.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/components/CustomSelect.tsx": [],
+        "frontend/src/components/ShipmentsList.tsx": [
+          "frontend/src/components/CustomSelect.tsx",
+          "frontend/src/store/hooks.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/components/TrackingView.tsx": [
+          "frontend/src/components/CheckpointTracker.tsx",
+          "frontend/src/components/ShipmentsList.tsx"
+        ],
+        "frontend/src/main.tsx": [
+          "frontend/src/App.tsx",
+          "frontend/src/index.css",
+          "frontend/src/store/index.ts"
+        ],
+        "frontend/src/store/driversSlice.ts": [
+          "frontend/src/config.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/store/index.ts": [
+          "frontend/src/store/authSlice.ts",
+          "frontend/src/store/driversSlice.ts",
+          "frontend/src/store/shipmentsSlice.ts",
+          "frontend/src/store/socketMiddleware.ts",
+          "frontend/src/store/warehousesSlice.ts"
+        ],
+        "frontend/src/store/shipmentsSlice.ts": [
+          "frontend/src/config.ts"
+        ],
+        "frontend/src/store/socketMiddleware.ts": [
+          "frontend/src/config.ts",
+          "frontend/src/store/driversSlice.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ],
+        "frontend/src/store/warehousesSlice.ts": [
+          "frontend/src/config.ts",
+          "frontend/src/store/shipmentsSlice.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/components/CheckpointTracker.tsx": [
+          {
+            "path": "frontend/src/store/hooks.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "useAppDispatch",
+              "useAppSelector"
+            ]
+          }
+        ],
+        "frontend/src/components/ControlCenter.tsx": [
+          {
+            "path": "frontend/src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "WS_URL"
+            ]
+          },
+          {
+            "path": "frontend/src/store/hooks.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "useAppDispatch",
+              "useAppSelector"
+            ]
+          },
+          {
+            "path": "frontend/src/components/DashboardView.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "DashboardView"
+            ]
+          }
+        ],
+        "frontend/src/components/ShipmentsList.tsx": [
+          {
+            "path": "frontend/src/store/hooks.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "useAppDispatch",
+              "useAppSelector"
+            ]
+          }
+        ],
+        "frontend/src/components/TrackingView.tsx": [
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "App"
+            ]
+          }
+        ],
+        "frontend/src/main.tsx": [
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "App"
+            ]
+          },
+          {
+            "path": "frontend/src/index.css",
+            "batchIndex": 9,
+            "symbols": []
+          }
+        ],
+        "frontend/src/store/driversSlice.ts": [
+          {
+            "path": "frontend/src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "WS_URL"
+            ]
+          },
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "App"
+            ]
+          }
+        ],
+        "frontend/src/store/index.ts": [
+          {
+            "path": "frontend/src/store/authSlice.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "checkSession",
+              "{ setUser, logoutUser }"
+            ]
+          },
+          {
+            "path": "frontend/src/store/hooks.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "useAppDispatch",
+              "useAppSelector"
+            ]
+          }
+        ],
+        "frontend/src/store/shipmentsSlice.ts": [
+          {
+            "path": "frontend/src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "WS_URL"
+            ]
+          },
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "App"
+            ]
+          },
+          {
+            "path": "frontend/src/components/DriverPortal.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "DriverPortal"
+            ]
+          }
+        ],
+        "frontend/src/store/socketMiddleware.ts": [
+          {
+            "path": "frontend/src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "WS_URL"
+            ]
+          }
+        ],
+        "frontend/src/store/warehousesSlice.ts": [
+          {
+            "path": "frontend/src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "WS_URL"
+            ]
+          },
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "App"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "backend/src/db.ts",
+          "language": "typescript",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/middleware/auth.ts",
+          "language": "typescript",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/api.ts",
+          "language": "typescript",
+          "sizeLines": 203,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/routes/auth.ts",
+          "language": "typescript",
+          "sizeLines": 113,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/server.ts",
+          "language": "typescript",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/src/simulation.ts",
+          "language": "typescript",
+          "sizeLines": 87,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/api.test.ts",
+          "language": "typescript",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/auth.test.ts",
+          "language": "typescript",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/helpers.ts",
+          "language": "typescript",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/src/db.ts": [],
+        "backend/src/middleware/auth.ts": [],
+        "backend/src/routes/api.ts": [
+          "backend/src/db.ts",
+          "backend/src/middleware/auth.ts"
+        ],
+        "backend/src/routes/auth.ts": [
+          "backend/src/db.ts",
+          "backend/src/middleware/auth.ts"
+        ],
+        "backend/src/server.ts": [
+          "backend/src/routes/api.ts",
+          "backend/src/routes/auth.ts",
+          "backend/src/simulation.ts"
+        ],
+        "backend/src/simulation.ts": [
+          "backend/src/db.ts"
+        ],
+        "backend/tests/api.test.ts": [
+          "backend/src/db.ts",
+          "backend/src/server.ts",
+          "backend/tests/helpers.ts"
+        ],
+        "backend/tests/auth.test.ts": [
+          "backend/src/db.ts",
+          "backend/src/server.ts",
+          "backend/tests/helpers.ts"
+        ],
+        "backend/tests/helpers.ts": [
+          "backend/src/db.ts"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "backend/.dockerignore",
+          "language": "unknown",
+          "sizeLines": 9,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "backend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 20,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "backend/.dockerignore": [],
+        "backend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "frontend/.dockerignore",
+          "language": "unknown",
+          "sizeLines": 6,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "frontend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 26,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.dockerignore": [],
+        "frontend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "language": "yaml",
+          "sizeLines": 83,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".github/workflows/ci.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": ".understand-anything/tmp/ua-import-map-input.json",
+          "language": "json",
+          "sizeLines": 359,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/tmp/ua-import-map-output.json",
+          "language": "json",
+          "sizeLines": 171,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".understand-anything/tmp/ua-scan-files.json",
+          "language": "json",
+          "sizeLines": 387,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/tmp/ua-import-map-input.json": [],
+        ".understand-anything/tmp/ua-import-map-output.json": [],
+        ".understand-anything/tmp/ua-scan-files.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "frontend/index.html",
+          "language": "html",
+          "sizeLines": 13,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/package.json",
+          "language": "json",
+          "sizeLines": 29,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/tsconfig.json",
+          "language": "json",
+          "sizeLines": 24,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/vercel.json",
+          "language": "json",
+          "sizeLines": 6,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "frontend/index.html": [],
+        "frontend/package.json": [],
+        "frontend/tsconfig.json": [],
+        "frontend/vercel.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".understand-anything/intermediate/scan-result.json",
+          "language": "json",
+          "sizeLines": 618,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/package.json",
+          "language": "json",
+          "sizeLines": 43,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/prisma.config.ts",
+          "language": "typescript",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/prisma/migrations/20260528164951_init/migration.sql",
+          "language": "sql",
+          "sizeLines": 66,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+          "language": "sql",
+          "sizeLines": 23,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+          "language": "sql",
+          "sizeLines": 45,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/migrations/migration_lock.toml",
+          "language": "toml",
+          "sizeLines": 2,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/prisma/schema.prisma",
+          "language": "prisma",
+          "sizeLines": 79,
+          "fileCategory": "data"
+        },
+        {
+          "path": "backend/prisma/seed.ts",
+          "language": "typescript",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tsconfig.json",
+          "language": "json",
+          "sizeLines": 13,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/vitest.config.ts",
+          "language": "typescript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 54,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "frontend/nginx.conf",
+          "language": "conf",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/scripts/generate-vercel-config.mjs",
+          "language": "javascript",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/index.css",
+          "language": "css",
+          "sizeLines": 170,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/src/vite-env.d.ts",
+          "language": "typescript",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/vite.config.ts",
+          "language": "typescript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 149,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/.understandignore": [],
+        ".understand-anything/intermediate/scan-result.json": [],
+        "backend/package.json": [],
+        "backend/prisma.config.ts": [],
+        "backend/prisma/migrations/20260528164951_init/migration.sql": [],
+        "backend/prisma/migrations/20260531123740_add_users/migration.sql": [],
+        "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": [],
+        "backend/prisma/migrations/migration_lock.toml": [],
+        "backend/prisma/schema.prisma": [],
+        "backend/prisma/seed.ts": [],
+        "backend/tsconfig.json": [],
+        "backend/vitest.config.ts": [],
+        "docker-compose.yml": [],
+        "frontend/nginx.conf": [],
+        "frontend/scripts/generate-vercel-config.mjs": [],
+        "frontend/src/index.css": [],
+        "frontend/src/vite-env.d.ts": [],
+        "frontend/vite.config.ts": [],
+        "README.md": []
+      },
+      "neighborMap": {
+        "frontend/src/index.css": [
+          {
+            "path": "frontend/src/main.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    }
+  ]
+}

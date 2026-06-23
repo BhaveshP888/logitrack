@@ -1,0 +1,400 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/db.ts",
+      "type": "file",
+      "name": "db.ts",
+      "filePath": "backend/src/db.ts",
+      "summary": "Initializes and provides the Prisma Client instance to manage connection pool and database queries across the backend application.",
+      "complexity": "simple",
+      "tags": [
+        "database",
+        "prisma",
+        "connection-pool",
+        "utility"
+      ]
+    },
+    {
+      "id": "function:backend/src/db.ts:getInstance",
+      "type": "function",
+      "name": "getInstance",
+      "filePath": "backend/src/db.ts",
+      "summary": "Retrieves the single active instance of the Prisma Client or creates it if it does not exist.",
+      "complexity": "simple",
+      "tags": [
+        "database",
+        "prisma",
+        "singleton"
+      ]
+    },
+    {
+      "id": "file:backend/src/middleware/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "backend/src/middleware/auth.ts",
+      "summary": "Implements JWT token validation and role-based access control middleware for securing API endpoints.",
+      "complexity": "simple",
+      "tags": [
+        "middleware",
+        "authentication",
+        "jwt",
+        "authorization",
+        "security"
+      ]
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "function",
+      "name": "verifyToken",
+      "filePath": "backend/src/middleware/auth.ts",
+      "summary": "Express middleware that verifies the authorization JWT token and assigns the decoded payload to the request object.",
+      "complexity": "simple",
+      "tags": [
+        "middleware",
+        "jwt",
+        "authentication"
+      ]
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "function",
+      "name": "requireRole",
+      "filePath": "backend/src/middleware/auth.ts",
+      "summary": "Express middleware factory that enforces specific roles for authenticated users on routes.",
+      "complexity": "simple",
+      "tags": [
+        "middleware",
+        "authorization",
+        "rbac"
+      ]
+    },
+    {
+      "id": "file:backend/src/routes/api.ts",
+      "type": "file",
+      "name": "api.ts",
+      "filePath": "backend/src/routes/api.ts",
+      "summary": "Defines Express router endpoints for managing warehouses, drivers, shipments, and shipment checkpoints, along with simulated updates.",
+      "complexity": "complex",
+      "tags": [
+        "api-router",
+        "express-router",
+        "endpoints",
+        "business-logic"
+      ]
+    },
+    {
+      "id": "file:backend/src/routes/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "backend/src/routes/auth.ts",
+      "summary": "Defines Express authentication routes including register, login, and user profile queries.",
+      "complexity": "moderate",
+      "tags": [
+        "auth-router",
+        "express-router",
+        "endpoints",
+        "jwt",
+        "registration",
+        "login"
+      ]
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "backend/src/server.ts",
+      "summary": "Starts the HTTP and WebSocket servers, registers Express middlewares and routes, and initializes the background simulation.",
+      "complexity": "moderate",
+      "tags": [
+        "entry-point",
+        "server",
+        "express",
+        "socket-io",
+        "cors"
+      ]
+    },
+    {
+      "id": "file:backend/src/simulation.ts",
+      "type": "file",
+      "name": "simulation.ts",
+      "filePath": "backend/src/simulation.ts",
+      "summary": "Runs a background simulation cycle that periodically updates active shipments and emits state updates via Socket.IO.",
+      "complexity": "moderate",
+      "tags": [
+        "simulation",
+        "socket-io",
+        "realtime",
+        "cron",
+        "background-worker"
+      ]
+    },
+    {
+      "id": "function:backend/src/simulation.ts:startSimulation",
+      "type": "function",
+      "name": "startSimulation",
+      "filePath": "backend/src/simulation.ts",
+      "summary": "Starts the interval loop that fetches shipments from the database, drives their state transitions, and notifies clients via WebSocket.",
+      "complexity": "moderate",
+      "tags": [
+        "simulation",
+        "websocket-broadcast",
+        "database-transaction",
+        "interval"
+      ]
+    },
+    {
+      "id": "file:backend/tests/api.test.ts",
+      "type": "file",
+      "name": "api.test.ts",
+      "filePath": "backend/tests/api.test.ts",
+      "summary": "Contains integration tests verifying API handlers for warehouses, drivers, shipments, metrics, and reset flows.",
+      "complexity": "moderate",
+      "tags": [
+        "test",
+        "integration-test",
+        "api-test",
+        "supertest"
+      ]
+    },
+    {
+      "id": "file:backend/tests/auth.test.ts",
+      "type": "file",
+      "name": "auth.test.ts",
+      "filePath": "backend/tests/auth.test.ts",
+      "summary": "Contains integration tests verifying authentication features like user registration, login, and access restriction.",
+      "complexity": "moderate",
+      "tags": [
+        "test",
+        "integration-test",
+        "auth-test",
+        "supertest"
+      ]
+    },
+    {
+      "id": "file:backend/tests/helpers.ts",
+      "type": "file",
+      "name": "helpers.ts",
+      "filePath": "backend/tests/helpers.ts",
+      "summary": "Provides database reset and seed helper utilities for clean integration testing environments.",
+      "complexity": "moderate",
+      "tags": [
+        "test-utility",
+        "database-seeding",
+        "test-helper"
+      ]
+    },
+    {
+      "id": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "function",
+      "name": "resetAndSeedDatabase",
+      "filePath": "backend/tests/helpers.ts",
+      "summary": "Clears user, shipment, checkpoint, driver, and warehouse tables, hashes passwords, and creates initial seed data for testing.",
+      "complexity": "moderate",
+      "tags": [
+        "test-utility",
+        "database-seeding",
+        "reset-db"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/api.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/auth.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/simulation.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/db.ts",
+      "target": "function:backend/src/db.ts:getInstance",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/tests/api.test.ts",
+      "type": "tested_by",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/tests/auth.test.ts",
+      "type": "tested_by",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "calls",
+      "weight": 0.8
+    }
+  ]
+}

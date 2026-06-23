@@ -1,0 +1,1937 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    "file:frontend/src/App.tsx",
+    "file:frontend/src/main.tsx",
+    "file:backend/src/server.ts",
+    "document:README.md",
+    "file:frontend/src/components/MetricsGrid.tsx",
+    "file:.understand-anything/.understandignore",
+    "file:backend/vitest.config.ts",
+    "file:frontend/scripts/generate-vercel-config.mjs",
+    "file:frontend/src/vite-env.d.ts"
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:frontend/src/config.ts",
+      "count": 12
+    },
+    {
+      "id": "file:frontend/src/store/hooks.ts",
+      "count": 11
+    },
+    {
+      "id": "file:frontend/src/store/shipmentsSlice.ts",
+      "count": 9
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "count": 7
+    },
+    {
+      "id": "file:backend/src/db.ts",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/store/authSlice.ts",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/store/driversSlice.ts",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "count": 4
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:verifyToken",
+      "count": 4
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:requireRole",
+      "count": 4
+    },
+    {
+      "id": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "count": 4
+    },
+    {
+      "id": "config:backend/package.json",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/Landing.tsx:Landing",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/Login.tsx:Login",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/authSlice.ts:checkSession",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "count": 3
+    },
+    {
+      "id": "function:backend/src/simulation.ts:startSimulation",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/index.html",
+      "count": 3
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "count": 3
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/components/CustomSelect.tsx",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/store/index.ts",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/store/warehousesSlice.ts",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "count": 2
+    },
+    {
+      "id": "file:backend/src/middleware/auth.ts",
+      "count": 2
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "count": 2
+    },
+    {
+      "id": "file:backend/tests/helpers.ts",
+      "count": 2
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "count": 2
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "count": 2
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/App.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/AnalyticsView.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/DashboardView.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/DriverPortal.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/FleetView.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/Landing.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/Login.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/CheckpointTracker.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/ControlCenter.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/ShipmentsList.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/TrackingView.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/store/socketMiddleware.ts",
+      "count": 1
+    },
+    {
+      "id": "function:backend/src/db.ts:getInstance",
+      "count": 1
+    },
+    {
+      "id": "file:backend/src/routes/api.ts",
+      "count": 1
+    },
+    {
+      "id": "file:backend/src/routes/auth.ts",
+      "count": 1
+    },
+    {
+      "id": "file:backend/src/simulation.ts",
+      "count": 1
+    },
+    {
+      "id": "file:backend/tests/api.test.ts",
+      "count": 1
+    },
+    {
+      "id": "file:backend/tests/auth.test.ts",
+      "count": 1
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "count": 1
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "count": 1
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "count": 1
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "count": 1
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "count": 1
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "count": 1
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "count": 1
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "count": 1
+    },
+    {
+      "id": "function:backend/prisma/seed.ts:main",
+      "count": 1
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/components/MetricsGrid.tsx",
+      "count": 0
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "count": 0
+    },
+    {
+      "id": "service:frontend/.dockerignore",
+      "count": 0
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "count": 0
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "count": 0
+    },
+    {
+      "id": "config:frontend/package.json",
+      "count": 0
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "count": 0
+    },
+    {
+      "id": "config:frontend/vercel.json",
+      "count": 0
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "count": 0
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "count": 0
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "count": 0
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "count": 0
+    },
+    {
+      "id": "file:backend/vitest.config.ts",
+      "count": 0
+    },
+    {
+      "id": "file:frontend/scripts/generate-vercel-config.mjs",
+      "count": 0
+    },
+    {
+      "id": "file:frontend/src/vite-env.d.ts",
+      "count": 0
+    },
+    {
+      "id": "document:README.md",
+      "count": 0
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:frontend/src/App.tsx",
+      "count": 16
+    },
+    {
+      "id": "file:frontend/src/store/shipmentsSlice.ts",
+      "count": 15
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "count": 13
+    },
+    {
+      "id": "file:frontend/src/components/DriverPortal.tsx",
+      "count": 8
+    },
+    {
+      "id": "file:frontend/src/components/ControlCenter.tsx",
+      "count": 8
+    },
+    {
+      "id": "file:frontend/src/components/ShipmentsList.tsx",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/store/driversSlice.ts",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/components/DashboardView.tsx",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/components/Login.tsx",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/store/index.ts",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/store/socketMiddleware.ts",
+      "count": 5
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "count": 5
+    },
+    {
+      "id": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "count": 5
+    },
+    {
+      "id": "file:backend/src/routes/api.ts",
+      "count": 5
+    },
+    {
+      "id": "file:backend/src/routes/auth.ts",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/components/MetricsGrid.tsx",
+      "count": 4
+    },
+    {
+      "id": "file:frontend/src/components/CheckpointTracker.tsx",
+      "count": 4
+    },
+    {
+      "id": "file:frontend/src/components/TrackingView.tsx",
+      "count": 4
+    },
+    {
+      "id": "file:frontend/src/store/warehousesSlice.ts",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "count": 4
+    },
+    {
+      "id": "file:backend/src/middleware/auth.ts",
+      "count": 4
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "count": 4
+    },
+    {
+      "id": "file:backend/tests/api.test.ts",
+      "count": 4
+    },
+    {
+      "id": "file:backend/tests/auth.test.ts",
+      "count": 4
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "count": 4
+    },
+    {
+      "id": "file:frontend/src/components/AnalyticsView.tsx",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/src/components/FleetView.tsx",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/src/store/authSlice.ts",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/src/store/hooks.ts",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "count": 3
+    },
+    {
+      "id": "file:backend/src/simulation.ts",
+      "count": 3
+    },
+    {
+      "id": "file:backend/tests/helpers.ts",
+      "count": 3
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "count": 3
+    },
+    {
+      "id": "file:frontend/src/components/Landing.tsx",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "count": 2
+    },
+    {
+      "id": "file:frontend/src/components/CustomSelect.tsx",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "count": 2
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "count": 2
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "count": 2
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "count": 2
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "count": 2
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "count": 2
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "count": 2
+    },
+    {
+      "id": "document:README.md",
+      "count": 2
+    },
+    {
+      "id": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "count": 1
+    },
+    {
+      "id": "function:frontend/src/components/Login.tsx:Login",
+      "count": 1
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "count": 1
+    },
+    {
+      "id": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "count": 1
+    },
+    {
+      "id": "file:backend/src/db.ts",
+      "count": 1
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "count": 1
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "count": 1
+    },
+    {
+      "id": "service:frontend/.dockerignore",
+      "count": 1
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "count": 1
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/index.html",
+      "count": 1
+    },
+    {
+      "id": "config:frontend/package.json",
+      "count": 1
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "count": 1
+    },
+    {
+      "id": "config:frontend/vercel.json",
+      "count": 1
+    },
+    {
+      "id": "config:backend/package.json",
+      "count": 1
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "count": 1
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "count": 1
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "count": 1
+    },
+    {
+      "id": "file:backend/vitest.config.ts",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/scripts/generate-vercel-config.mjs",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/vite-env.d.ts",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "count": 1
+    },
+    {
+      "id": "file:frontend/src/config.ts",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/Landing.tsx:Landing",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/authSlice.ts:checkSession",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "count": 0
+    },
+    {
+      "id": "function:backend/src/db.ts:getInstance",
+      "count": 0
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:verifyToken",
+      "count": 0
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:requireRole",
+      "count": 0
+    },
+    {
+      "id": "function:backend/src/simulation.ts:startSimulation",
+      "count": 0
+    },
+    {
+      "id": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "count": 0
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "count": 0
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "count": 0
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "count": 0
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "count": 0
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "count": 0
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "count": 0
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "count": 0
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "count": 0
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "count": 0
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "count": 0
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "count": 0
+    },
+    {
+      "id": "function:backend/prisma/seed.ts:main",
+      "count": 0
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "count": 0
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "count": 0
+    }
+  ],
+  "bfsTraversal": {
+    "file:frontend/src/App.tsx": {
+      "visitedNodeIds": [
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/components/AnalyticsView.tsx",
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/FleetView.tsx",
+        "file:frontend/src/components/Landing.tsx",
+        "file:frontend/src/components/Login.tsx",
+        "file:frontend/src/components/Sidebar.tsx",
+        "file:frontend/src/components/TrackingView.tsx",
+        "file:frontend/src/config.ts",
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/hooks.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/warehousesSlice.ts",
+        "function:frontend/src/App.tsx:App",
+        "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "function:frontend/src/components/DashboardView.tsx:DashboardView",
+        "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+        "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+        "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+        "function:frontend/src/components/FleetView.tsx:FleetView",
+        "function:frontend/src/components/Landing.tsx:Landing",
+        "function:frontend/src/components/Login.tsx:Login",
+        "function:frontend/src/components/Sidebar.tsx:Sidebar",
+        "file:frontend/src/components/CheckpointTracker.tsx",
+        "file:frontend/src/components/ShipmentsList.tsx",
+        "function:frontend/src/components/TrackingView.tsx:TrackingView",
+        "function:frontend/src/store/authSlice.ts:checkSession",
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+        "file:frontend/src/store/index.ts",
+        "function:frontend/src/store/hooks.ts:useAppDispatch",
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+        "file:frontend/src/components/CustomSelect.tsx",
+        "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+        "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+        "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+        "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+        "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+        "function:frontend/src/store/hooks.ts:useAppSelector",
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware"
+      ],
+      "depths": {
+        "file:frontend/src/App.tsx": 0,
+        "file:frontend/src/components/AnalyticsView.tsx": 1,
+        "file:frontend/src/components/DashboardView.tsx": 1,
+        "file:frontend/src/components/DriverPortal.tsx": 1,
+        "file:frontend/src/components/FleetView.tsx": 1,
+        "file:frontend/src/components/Landing.tsx": 1,
+        "file:frontend/src/components/Login.tsx": 1,
+        "file:frontend/src/components/Sidebar.tsx": 1,
+        "file:frontend/src/components/TrackingView.tsx": 1,
+        "file:frontend/src/config.ts": 1,
+        "file:frontend/src/store/authSlice.ts": 1,
+        "file:frontend/src/store/driversSlice.ts": 1,
+        "file:frontend/src/store/hooks.ts": 1,
+        "file:frontend/src/store/shipmentsSlice.ts": 1,
+        "file:frontend/src/store/warehousesSlice.ts": 1,
+        "function:frontend/src/App.tsx:App": 1,
+        "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView": 2,
+        "file:frontend/src/components/ControlCenter.tsx": 2,
+        "function:frontend/src/components/DashboardView.tsx:DashboardView": 2,
+        "function:frontend/src/components/DriverPortal.tsx:StandbyPanel": 2,
+        "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel": 2,
+        "function:frontend/src/components/DriverPortal.tsx:DriverPortal": 2,
+        "function:frontend/src/components/FleetView.tsx:FleetView": 2,
+        "function:frontend/src/components/Landing.tsx:Landing": 2,
+        "function:frontend/src/components/Login.tsx:Login": 2,
+        "function:frontend/src/components/Sidebar.tsx:Sidebar": 2,
+        "file:frontend/src/components/CheckpointTracker.tsx": 2,
+        "file:frontend/src/components/ShipmentsList.tsx": 2,
+        "function:frontend/src/components/TrackingView.tsx:TrackingView": 2,
+        "function:frontend/src/store/authSlice.ts:checkSession": 2,
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers": 2,
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange": 2,
+        "file:frontend/src/store/index.ts": 2,
+        "function:frontend/src/store/hooks.ts:useAppDispatch": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment": 2,
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment": 2,
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses": 2,
+        "file:frontend/src/components/CustomSelect.tsx": 3,
+        "function:frontend/src/components/ControlCenter.tsx:ControlCenter": 3,
+        "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment": 3,
+        "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker": 3,
+        "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList": 3,
+        "function:frontend/src/components/ShipmentsList.tsx:badgeClass": 3,
+        "file:frontend/src/store/socketMiddleware.ts": 3,
+        "function:frontend/src/components/CustomSelect.tsx:CustomSelect": 4,
+        "function:frontend/src/store/hooks.ts:useAppSelector": 4,
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware": 4
+      }
+    },
+    "file:frontend/src/main.tsx": {
+      "visitedNodeIds": [
+        "file:frontend/src/main.tsx",
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/index.css",
+        "file:frontend/src/store/index.ts",
+        "file:frontend/src/components/AnalyticsView.tsx",
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/FleetView.tsx",
+        "file:frontend/src/components/Landing.tsx",
+        "file:frontend/src/components/Login.tsx",
+        "file:frontend/src/components/Sidebar.tsx",
+        "file:frontend/src/components/TrackingView.tsx",
+        "file:frontend/src/config.ts",
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/hooks.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/warehousesSlice.ts",
+        "function:frontend/src/App.tsx:App",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "function:frontend/src/components/DashboardView.tsx:DashboardView",
+        "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+        "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+        "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+        "function:frontend/src/components/FleetView.tsx:FleetView",
+        "function:frontend/src/components/Landing.tsx:Landing",
+        "function:frontend/src/components/Login.tsx:Login",
+        "function:frontend/src/components/Sidebar.tsx:Sidebar",
+        "file:frontend/src/components/CheckpointTracker.tsx",
+        "file:frontend/src/components/ShipmentsList.tsx",
+        "function:frontend/src/components/TrackingView.tsx:TrackingView",
+        "function:frontend/src/store/authSlice.ts:checkSession",
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+        "function:frontend/src/store/hooks.ts:useAppDispatch",
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+        "file:frontend/src/components/CustomSelect.tsx",
+        "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+        "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+        "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+        "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+        "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+        "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+        "function:frontend/src/store/hooks.ts:useAppSelector"
+      ],
+      "depths": {
+        "file:frontend/src/main.tsx": 0,
+        "file:frontend/src/App.tsx": 1,
+        "file:frontend/src/index.css": 1,
+        "file:frontend/src/store/index.ts": 1,
+        "file:frontend/src/components/AnalyticsView.tsx": 2,
+        "file:frontend/src/components/DashboardView.tsx": 2,
+        "file:frontend/src/components/DriverPortal.tsx": 2,
+        "file:frontend/src/components/FleetView.tsx": 2,
+        "file:frontend/src/components/Landing.tsx": 2,
+        "file:frontend/src/components/Login.tsx": 2,
+        "file:frontend/src/components/Sidebar.tsx": 2,
+        "file:frontend/src/components/TrackingView.tsx": 2,
+        "file:frontend/src/config.ts": 2,
+        "file:frontend/src/store/authSlice.ts": 2,
+        "file:frontend/src/store/driversSlice.ts": 2,
+        "file:frontend/src/store/hooks.ts": 2,
+        "file:frontend/src/store/shipmentsSlice.ts": 2,
+        "file:frontend/src/store/warehousesSlice.ts": 2,
+        "function:frontend/src/App.tsx:App": 2,
+        "file:frontend/src/store/socketMiddleware.ts": 2,
+        "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView": 3,
+        "file:frontend/src/components/ControlCenter.tsx": 3,
+        "function:frontend/src/components/DashboardView.tsx:DashboardView": 3,
+        "function:frontend/src/components/DriverPortal.tsx:StandbyPanel": 3,
+        "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel": 3,
+        "function:frontend/src/components/DriverPortal.tsx:DriverPortal": 3,
+        "function:frontend/src/components/FleetView.tsx:FleetView": 3,
+        "function:frontend/src/components/Landing.tsx:Landing": 3,
+        "function:frontend/src/components/Login.tsx:Login": 3,
+        "function:frontend/src/components/Sidebar.tsx:Sidebar": 3,
+        "file:frontend/src/components/CheckpointTracker.tsx": 3,
+        "file:frontend/src/components/ShipmentsList.tsx": 3,
+        "function:frontend/src/components/TrackingView.tsx:TrackingView": 3,
+        "function:frontend/src/store/authSlice.ts:checkSession": 3,
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers": 3,
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange": 3,
+        "function:frontend/src/store/hooks.ts:useAppDispatch": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment": 3,
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment": 3,
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses": 3,
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware": 3,
+        "file:frontend/src/components/CustomSelect.tsx": 4,
+        "function:frontend/src/components/ControlCenter.tsx:ControlCenter": 4,
+        "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment": 4,
+        "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker": 4,
+        "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList": 4,
+        "function:frontend/src/components/ShipmentsList.tsx:badgeClass": 4,
+        "function:frontend/src/components/CustomSelect.tsx:CustomSelect": 5,
+        "function:frontend/src/store/hooks.ts:useAppSelector": 5
+      }
+    },
+    "file:backend/src/server.ts": {
+      "visitedNodeIds": [
+        "file:backend/src/server.ts",
+        "file:backend/src/routes/api.ts",
+        "file:backend/src/routes/auth.ts",
+        "file:backend/src/simulation.ts",
+        "function:backend/src/simulation.ts:startSimulation",
+        "file:backend/src/db.ts",
+        "file:backend/src/middleware/auth.ts",
+        "file:backend/tests/api.test.ts",
+        "function:backend/src/middleware/auth.ts:verifyToken",
+        "function:backend/src/middleware/auth.ts:requireRole",
+        "file:backend/tests/auth.test.ts",
+        "function:backend/src/db.ts:getInstance",
+        "file:backend/tests/helpers.ts",
+        "function:backend/tests/helpers.ts:resetAndSeedDatabase"
+      ],
+      "depths": {
+        "file:backend/src/server.ts": 0,
+        "file:backend/src/routes/api.ts": 1,
+        "file:backend/src/routes/auth.ts": 1,
+        "file:backend/src/simulation.ts": 1,
+        "function:backend/src/simulation.ts:startSimulation": 1,
+        "file:backend/src/db.ts": 2,
+        "file:backend/src/middleware/auth.ts": 2,
+        "file:backend/tests/api.test.ts": 2,
+        "function:backend/src/middleware/auth.ts:verifyToken": 2,
+        "function:backend/src/middleware/auth.ts:requireRole": 2,
+        "file:backend/tests/auth.test.ts": 2,
+        "function:backend/src/db.ts:getInstance": 3,
+        "file:backend/tests/helpers.ts": 3,
+        "function:backend/tests/helpers.ts:resetAndSeedDatabase": 3
+      }
+    },
+    "document:README.md": {
+      "visitedNodeIds": [
+        "document:README.md",
+        "service:docker-compose.yml",
+        "config:backend/package.json",
+        "file:frontend/nginx.conf",
+        "file:backend/prisma.config.ts",
+        "file:frontend/vite.config.ts",
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts",
+        "file:frontend/src/index.css",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+        "function:backend/prisma/seed.ts:main",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint"
+      ],
+      "depths": {
+        "document:README.md": 0,
+        "service:docker-compose.yml": 1,
+        "config:backend/package.json": 1,
+        "file:frontend/nginx.conf": 2,
+        "file:backend/prisma.config.ts": 2,
+        "file:frontend/vite.config.ts": 3,
+        "schema:backend/prisma/schema.prisma": 3,
+        "file:backend/prisma/seed.ts": 3,
+        "file:frontend/src/index.css": 4,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql": 4,
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": 4,
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": 4,
+        "function:backend/prisma/seed.ts:main": 4,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": 5,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": 5,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": 5,
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": 5,
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": 5
+      }
+    },
+    "file:frontend/src/components/MetricsGrid.tsx": {
+      "visitedNodeIds": [
+        "file:frontend/src/components/MetricsGrid.tsx",
+        "file:frontend/src/config.ts",
+        "file:frontend/src/store/hooks.ts",
+        "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+        "file:frontend/src/store/index.ts",
+        "function:frontend/src/store/hooks.ts:useAppDispatch",
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "file:frontend/src/store/warehousesSlice.ts",
+        "function:frontend/src/store/authSlice.ts:checkSession",
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses"
+      ],
+      "depths": {
+        "file:frontend/src/components/MetricsGrid.tsx": 0,
+        "file:frontend/src/config.ts": 1,
+        "file:frontend/src/store/hooks.ts": 1,
+        "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid": 1,
+        "file:frontend/src/store/index.ts": 2,
+        "function:frontend/src/store/hooks.ts:useAppDispatch": 2,
+        "file:frontend/src/store/authSlice.ts": 3,
+        "file:frontend/src/store/driversSlice.ts": 3,
+        "file:frontend/src/store/shipmentsSlice.ts": 3,
+        "file:frontend/src/store/socketMiddleware.ts": 3,
+        "file:frontend/src/store/warehousesSlice.ts": 3,
+        "function:frontend/src/store/authSlice.ts:checkSession": 4,
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers": 4,
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment": 4,
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment": 4,
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware": 4,
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses": 4
+      }
+    },
+    "file:.understand-anything/.understandignore": {
+      "visitedNodeIds": [
+        "file:.understand-anything/.understandignore"
+      ],
+      "depths": {
+        "file:.understand-anything/.understandignore": 0
+      }
+    },
+    "file:backend/vitest.config.ts": {
+      "visitedNodeIds": [
+        "file:backend/vitest.config.ts",
+        "config:backend/package.json",
+        "file:backend/prisma.config.ts",
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+        "function:backend/prisma/seed.ts:main",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint"
+      ],
+      "depths": {
+        "file:backend/vitest.config.ts": 0,
+        "config:backend/package.json": 1,
+        "file:backend/prisma.config.ts": 2,
+        "schema:backend/prisma/schema.prisma": 3,
+        "file:backend/prisma/seed.ts": 3,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql": 4,
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": 4,
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": 4,
+        "function:backend/prisma/seed.ts:main": 4,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": 5,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": 5,
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": 5,
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": 5,
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": 5
+      }
+    },
+    "file:frontend/scripts/generate-vercel-config.mjs": {
+      "visitedNodeIds": [
+        "file:frontend/scripts/generate-vercel-config.mjs",
+        "file:frontend/vite.config.ts",
+        "file:frontend/src/index.css"
+      ],
+      "depths": {
+        "file:frontend/scripts/generate-vercel-config.mjs": 0,
+        "file:frontend/vite.config.ts": 1,
+        "file:frontend/src/index.css": 2
+      }
+    },
+    "file:frontend/src/vite-env.d.ts": {
+      "visitedNodeIds": [
+        "file:frontend/src/vite-env.d.ts",
+        "file:frontend/vite.config.ts",
+        "file:frontend/src/index.css"
+      ],
+      "depths": {
+        "file:frontend/src/vite-env.d.ts": 0,
+        "file:frontend/vite.config.ts": 1,
+        "file:frontend/src/index.css": 2
+      }
+    }
+  },
+  "nonCodeFiles": {
+    "service:backend/.dockerignore": {
+      "name": ".dockerignore",
+      "type": "service",
+      "filePath": "backend/.dockerignore",
+      "summary": "No summary available"
+    },
+    "service:backend/Dockerfile": {
+      "name": "Dockerfile",
+      "type": "service",
+      "filePath": "backend/Dockerfile",
+      "summary": "No summary available"
+    },
+    "service:backend/Dockerfile:node": {
+      "name": "node",
+      "type": "service",
+      "filePath": "backend/Dockerfile",
+      "summary": "No summary available"
+    },
+    "service:frontend/.dockerignore": {
+      "name": ".dockerignore",
+      "type": "service",
+      "filePath": "frontend/.dockerignore",
+      "summary": "No summary available"
+    },
+    "service:frontend/Dockerfile": {
+      "name": "Dockerfile",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available"
+    },
+    "service:frontend/Dockerfile:build": {
+      "name": "build",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available"
+    },
+    "service:frontend/Dockerfile:nginx": {
+      "name": "nginx",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available"
+    },
+    "pipeline:.github/workflows/ci.yml": {
+      "name": "ci.yml",
+      "type": "pipeline",
+      "filePath": ".github/workflows/ci.yml",
+      "summary": "GitHub Actions workflow configured to run backend tests (with a PostgreSQL service container) and build the frontend application upon push or pull requests to the main branch."
+    },
+    "config:.understand-anything/tmp/ua-import-map-input.json": {
+      "name": "ua-import-map-input.json",
+      "type": "config",
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json",
+      "summary": "Temporary configuration file containing the input list of workspace files for resolving import mappings."
+    },
+    "config:.understand-anything/tmp/ua-import-map-output.json": {
+      "name": "ua-import-map-output.json",
+      "type": "config",
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json",
+      "summary": "Temporary configuration file containing the resolved import maps and metrics for the workspace files."
+    },
+    "config:.understand-anything/tmp/ua-scan-files.json": {
+      "name": "ua-scan-files.json",
+      "type": "config",
+      "filePath": ".understand-anything/tmp/ua-scan-files.json",
+      "summary": "Temporary configuration file storing the complete list of files identified during workspace scanning, including their languages and categories."
+    },
+    "config:frontend/package.json": {
+      "name": "package.json",
+      "type": "config",
+      "filePath": "frontend/package.json",
+      "summary": "No summary available"
+    },
+    "config:frontend/tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "No summary available"
+    },
+    "config:frontend/vercel.json": {
+      "name": "vercel.json",
+      "type": "config",
+      "filePath": "frontend/vercel.json",
+      "summary": "No summary available"
+    },
+    "config:.understand-anything/intermediate/scan-result.json": {
+      "name": "scan-result.json",
+      "type": "config",
+      "filePath": ".understand-anything/intermediate/scan-result.json",
+      "summary": "No summary available"
+    },
+    "config:backend/package.json": {
+      "name": "package.json",
+      "type": "config",
+      "filePath": "backend/package.json",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql": {
+      "name": "migration.sql",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": {
+      "name": "Warehouse",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": {
+      "name": "Driver",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": {
+      "name": "Shipment",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": {
+      "name": "migration.sql",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": {
+      "name": "User",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": {
+      "name": "migration.sql",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "summary": "No summary available"
+    },
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": {
+      "name": "ShipmentCheckpoint",
+      "type": "table",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "summary": "No summary available"
+    },
+    "config:backend/prisma/migrations/migration_lock.toml": {
+      "name": "migration_lock.toml",
+      "type": "config",
+      "filePath": "backend/prisma/migrations/migration_lock.toml",
+      "summary": "No summary available"
+    },
+    "schema:backend/prisma/schema.prisma": {
+      "name": "schema.prisma",
+      "type": "schema",
+      "filePath": "backend/prisma/schema.prisma",
+      "summary": "No summary available"
+    },
+    "config:backend/tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "filePath": "backend/tsconfig.json",
+      "summary": "No summary available"
+    },
+    "service:docker-compose.yml": {
+      "name": "docker-compose.yml",
+      "type": "service",
+      "filePath": "docker-compose.yml",
+      "summary": "No summary available"
+    },
+    "file:frontend/nginx.conf": {
+      "name": "nginx.conf",
+      "type": "file",
+      "filePath": "frontend/nginx.conf",
+      "summary": "No summary available"
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "filePath": "README.md",
+      "summary": "No summary available"
+    }
+  },
+  "clusters": [
+    {
+      "name": "frontend/src",
+      "nodeIds": [
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/config.ts",
+        "function:frontend/src/App.tsx:App",
+        "file:frontend/src/main.tsx",
+        "file:frontend/src/index.css",
+        "file:frontend/src/vite-env.d.ts"
+      ]
+    },
+    {
+      "name": "frontend/src/components",
+      "nodeIds": [
+        "file:frontend/src/components/AnalyticsView.tsx",
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/FleetView.tsx",
+        "file:frontend/src/components/Landing.tsx",
+        "file:frontend/src/components/Login.tsx",
+        "file:frontend/src/components/MetricsGrid.tsx",
+        "file:frontend/src/components/Sidebar.tsx",
+        "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+        "function:frontend/src/components/DashboardView.tsx:DashboardView",
+        "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+        "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+        "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+        "function:frontend/src/components/FleetView.tsx:FleetView",
+        "function:frontend/src/components/Landing.tsx:Landing",
+        "function:frontend/src/components/Login.tsx:Login",
+        "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+        "function:frontend/src/components/Sidebar.tsx:Sidebar",
+        "file:frontend/src/components/CheckpointTracker.tsx",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "file:frontend/src/components/CustomSelect.tsx",
+        "file:frontend/src/components/ShipmentsList.tsx",
+        "file:frontend/src/components/TrackingView.tsx",
+        "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+        "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+        "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+        "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+        "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+        "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+        "function:frontend/src/components/TrackingView.tsx:TrackingView"
+      ]
+    },
+    {
+      "name": "frontend/src/store",
+      "nodeIds": [
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/hooks.ts",
+        "function:frontend/src/store/authSlice.ts:checkSession",
+        "function:frontend/src/store/hooks.ts:useAppDispatch",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/index.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "file:frontend/src/store/warehousesSlice.ts",
+        "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+        "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+        "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+        "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+        "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+        "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+        "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+        "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+        "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+        "function:frontend/src/store/hooks.ts:useAppSelector"
+      ]
+    },
+    {
+      "name": "backend/src",
+      "nodeIds": [
+        "file:backend/src/db.ts",
+        "function:backend/src/db.ts:getInstance",
+        "file:backend/src/server.ts",
+        "file:backend/src/simulation.ts",
+        "function:backend/src/simulation.ts:startSimulation"
+      ]
+    },
+    {
+      "name": "backend/src/middleware",
+      "nodeIds": [
+        "file:backend/src/middleware/auth.ts",
+        "function:backend/src/middleware/auth.ts:verifyToken",
+        "function:backend/src/middleware/auth.ts:requireRole"
+      ]
+    },
+    {
+      "name": "backend/src/routes",
+      "nodeIds": [
+        "file:backend/src/routes/api.ts",
+        "file:backend/src/routes/auth.ts"
+      ]
+    },
+    {
+      "name": "backend/tests",
+      "nodeIds": [
+        "file:backend/tests/api.test.ts",
+        "file:backend/tests/auth.test.ts",
+        "file:backend/tests/helpers.ts",
+        "function:backend/tests/helpers.ts:resetAndSeedDatabase"
+      ]
+    },
+    {
+      "name": "backend",
+      "nodeIds": [
+        "service:backend/.dockerignore",
+        "service:backend/Dockerfile",
+        "service:backend/Dockerfile:node",
+        "config:backend/package.json",
+        "file:backend/prisma.config.ts",
+        "config:backend/tsconfig.json",
+        "file:backend/vitest.config.ts"
+      ]
+    },
+    {
+      "name": "frontend",
+      "nodeIds": [
+        "service:frontend/.dockerignore",
+        "service:frontend/Dockerfile",
+        "service:frontend/Dockerfile:build",
+        "service:frontend/Dockerfile:nginx",
+        "file:frontend/index.html",
+        "config:frontend/package.json",
+        "config:frontend/tsconfig.json",
+        "config:frontend/vercel.json",
+        "file:frontend/nginx.conf",
+        "file:frontend/vite.config.ts"
+      ]
+    },
+    {
+      "name": ".github/workflows",
+      "nodeIds": [
+        "pipeline:.github/workflows/ci.yml"
+      ]
+    },
+    {
+      "name": ".understand-anything/tmp",
+      "nodeIds": [
+        "config:.understand-anything/tmp/ua-import-map-input.json",
+        "config:.understand-anything/tmp/ua-import-map-output.json",
+        "config:.understand-anything/tmp/ua-scan-files.json"
+      ]
+    },
+    {
+      "name": ".understand-anything",
+      "nodeIds": [
+        "file:.understand-anything/.understandignore"
+      ]
+    },
+    {
+      "name": ".understand-anything/intermediate",
+      "nodeIds": [
+        "config:.understand-anything/intermediate/scan-result.json"
+      ]
+    },
+    {
+      "name": "backend/prisma/migrations/20260528164951_init",
+      "nodeIds": [
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment"
+      ]
+    },
+    {
+      "name": "backend/prisma/migrations/20260531123740_add_users",
+      "nodeIds": [
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User"
+      ]
+    },
+    {
+      "name": "backend/prisma/migrations/20260602135055_checkpoints_tracking",
+      "nodeIds": [
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint"
+      ]
+    },
+    {
+      "name": "backend/prisma/migrations",
+      "nodeIds": [
+        "config:backend/prisma/migrations/migration_lock.toml"
+      ]
+    },
+    {
+      "name": "backend/prisma",
+      "nodeIds": [
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts",
+        "function:backend/prisma/seed.ts:main"
+      ]
+    },
+    {
+      "name": ".",
+      "nodeIds": [
+        "service:docker-compose.yml",
+        "document:README.md"
+      ]
+    },
+    {
+      "name": "frontend/scripts",
+      "nodeIds": [
+        "file:frontend/scripts/generate-vercel-config.mjs"
+      ]
+    }
+  ],
+  "layers": {
+    "layer:infrastructure": {
+      "name": "Infrastructure & CI/CD",
+      "description": "Docker files, Docker Compose, Nginx server configurations, CI/CD pipelines, and cloud platform configurations.",
+      "nodeIds": [
+        "service:backend/.dockerignore",
+        "service:backend/Dockerfile",
+        "service:backend/Dockerfile:node",
+        "service:frontend/.dockerignore",
+        "service:frontend/Dockerfile",
+        "service:frontend/Dockerfile:build",
+        "service:frontend/Dockerfile:nginx",
+        "service:docker-compose.yml",
+        "pipeline:.github/workflows/ci.yml",
+        "file:frontend/nginx.conf",
+        "config:frontend/vercel.json",
+        "file:frontend/scripts/generate-vercel-config.mjs"
+      ]
+    },
+    "layer:configuration": {
+      "name": "Configuration & Metadata",
+      "description": "Project configurations, dependencies manifests, tooling rules, build parameters, environments, and general project documentation.",
+      "nodeIds": [
+        "config:.understand-anything/tmp/ua-import-map-input.json",
+        "config:.understand-anything/tmp/ua-import-map-output.json",
+        "config:.understand-anything/tmp/ua-scan-files.json",
+        "config:.understand-anything/intermediate/scan-result.json",
+        "file:.understand-anything/.understandignore",
+        "config:frontend/package.json",
+        "config:frontend/tsconfig.json",
+        "file:frontend/vite.config.ts",
+        "file:frontend/src/vite-env.d.ts",
+        "file:frontend/src/config.ts",
+        "config:backend/package.json",
+        "config:backend/tsconfig.json",
+        "document:README.md"
+      ]
+    },
+    "layer:testing": {
+      "name": "Testing Layer",
+      "description": "Unit and integration tests, testing environment setup, test helpers, and runner configuration files.",
+      "nodeIds": [
+        "file:backend/tests/api.test.ts",
+        "file:backend/tests/auth.test.ts",
+        "file:backend/tests/helpers.ts",
+        "file:backend/vitest.config.ts"
+      ]
+    },
+    "layer:frontend-ui": {
+      "name": "Frontend UI Layer",
+      "description": "React user interface components, views, main application shell, entry point, styling files, and structural HTML templates.",
+      "nodeIds": [
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/components/AnalyticsView.tsx",
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/FleetView.tsx",
+        "file:frontend/src/components/Landing.tsx",
+        "file:frontend/src/components/Login.tsx",
+        "file:frontend/src/components/MetricsGrid.tsx",
+        "file:frontend/src/components/Sidebar.tsx",
+        "file:frontend/src/components/CheckpointTracker.tsx",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "file:frontend/src/components/CustomSelect.tsx",
+        "file:frontend/src/components/ShipmentsList.tsx",
+        "file:frontend/src/components/TrackingView.tsx",
+        "file:frontend/src/main.tsx",
+        "file:frontend/index.html",
+        "file:frontend/src/index.css"
+      ]
+    },
+    "layer:frontend-state": {
+      "name": "Frontend State & Data",
+      "description": "Redux store configuration, slices, typed state hooks, and web socket handling middleware.",
+      "nodeIds": [
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/hooks.ts",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/index.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "file:frontend/src/store/warehousesSlice.ts"
+      ]
+    },
+    "layer:backend-api": {
+      "name": "Backend API & Core Services",
+      "description": "Express HTTP entry points, router setups, controller endpoints, and real-time simulator logic.",
+      "nodeIds": [
+        "file:backend/src/routes/api.ts",
+        "file:backend/src/routes/auth.ts",
+        "file:backend/src/server.ts",
+        "file:backend/src/simulation.ts"
+      ]
+    },
+    "layer:backend-middleware": {
+      "name": "Backend Middleware",
+      "description": "Express handlers executing before route handlers, such as authorization and token verification.",
+      "nodeIds": [
+        "file:backend/src/middleware/auth.ts"
+      ]
+    },
+    "layer:data-layer": {
+      "name": "Data Layer & Migrations",
+      "description": "Database connection clients, seed scripts, Prisma schema, migration locks, and specific SQL table schema layouts.",
+      "nodeIds": [
+        "file:backend/src/db.ts",
+        "file:backend/prisma.config.ts",
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+        "config:backend/prisma/migrations/migration_lock.toml"
+      ]
+    }
+  },
+  "nodeSummaryIndex": {
+    "file:frontend/src/App.tsx": "The root application component that manages user authentication state, fetches initial logs/data for administrators, and routes users to either the admin dashboard, the driver portal, or login views.",
+    "file:frontend/src/components/AnalyticsView.tsx": "Displays visual business intelligence graphs, KPI metrics, route progress statistics, and driver utilization charts using Recharts.",
+    "file:frontend/src/components/DashboardView.tsx": "Serves as the primary operational workspace for administrators, listing overall shipment indicators, recent actions, and integrating the live ControlCenter maps.",
+    "file:frontend/src/components/DriverPortal.tsx": "Provides the dedicated interface for drivers, allowing them to view active assignments, update shipment dispatch statuses, record reached checkpoints, and sign out.",
+    "file:frontend/src/components/FleetView.tsx": "Implements the fleet administration panel, displaying driver counts, availability statuses, and active route progress cards in a clear tabular grid.",
+    "file:frontend/src/components/Landing.tsx": "The unauthenticated landing page of the application, showing product overview, features, pricing links, and quick-access login/register triggers.",
+    "file:frontend/src/components/Login.tsx": "Standard login/register form component that communicates with authentication services to request tokens and updates the global user session state.",
+    "file:frontend/src/components/MetricsGrid.tsx": "A lightweight layout component showing administrative status metrics (Total Shipments, Active Shipments, Driver Utilization, and On-Time Rate) via API integration.",
+    "file:frontend/src/components/Sidebar.tsx": "Implements the left sidebar navigation layout for the admin view, letting administrators toggle between the main operational views and log out.",
+    "file:frontend/src/config.ts": "Application configuration module that exports REST API and WebSocket endpoint URLs determined by environment variables and local dev states.",
+    "file:frontend/src/store/authSlice.ts": "Redux slice that manages the authenticated user session, loading states, error responses, and session validation thunks.",
+    "file:frontend/src/store/hooks.ts": "Provides strongly-typed React Redux hook wrappers `useAppDispatch` and `useAppSelector` for accessing the global store.",
+    "function:frontend/src/App.tsx:App": "Root application component that initializes the app by validating existing session cookies, configuring real-time web sockets for admin roles, and navigating drivers to their portal.",
+    "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView": "Aggregates driver statistics, delivery indicators, and routes progress, using Recharts components to render status breakdowns, route speeds, and fleet utilization.",
+    "function:frontend/src/components/DashboardView.tsx:DashboardView": "Renders the primary administrator cockpit, displaying real-time metrics cards, shipment lists, active shipment donut slices, and the interactive dispatch control center.",
+    "function:frontend/src/components/DriverPortal.tsx:StandbyPanel": "A sub-component rendering a clean standby status layout for drivers who currently have no active shipments assigned to them.",
+    "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel": "Displays detailed interactive information about the driver's active dispatch including tracking numbers, origin/destination, target dispatch times, and checkpoints checklist.",
+    "function:frontend/src/components/DriverPortal.tsx:DriverPortal": "Main view wrapper for drivers to load and list their assigned shipments, trigger dispatch starts, mark checkpoints reached, and monitor their performance stats.",
+    "function:frontend/src/components/FleetView.tsx:FleetView": "Renders cards summarizing fleet statistics alongside a tabular layout of all registered drivers, active jobs, and warehouse assignments.",
+    "function:frontend/src/components/Landing.tsx:Landing": "Renders a modern landing page for logitrack with styled gradient cards and links leading to login or registration pages.",
+    "function:frontend/src/components/Login.tsx:Login": "Renders a form supporting registration and login using state hooks to handle inputs, trigger post requests to api boundaries, and dispatch Redux actions.",
+    "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid": "Fills in a grid of cards using metrics endpoints, refreshing details automatically on changes to shipments and drivers state.",
+    "function:frontend/src/components/Sidebar.tsx:Sidebar": "Displays the logitrack brand logo and allows navigation across Command Center, Analytics, Tracking, and Fleet views, as well as signing out.",
+    "function:frontend/src/store/authSlice.ts:checkSession": "An async Redux thunk that queries the authentication endpoint to verify session validity and loads user details upon fulfillment.",
+    "function:frontend/src/store/hooks.ts:useAppDispatch": "A custom React Redux hook wrapper that exposes a strongly-typed dispatch function for updating the Redux state.",
+    "file:frontend/src/components/CheckpointTracker.tsx": "No summary available",
+    "file:frontend/src/components/ControlCenter.tsx": "No summary available",
+    "file:frontend/src/components/CustomSelect.tsx": "No summary available",
+    "file:frontend/src/components/ShipmentsList.tsx": "No summary available",
+    "file:frontend/src/components/TrackingView.tsx": "No summary available",
+    "file:frontend/src/main.tsx": "No summary available",
+    "file:frontend/src/store/driversSlice.ts": "No summary available",
+    "file:frontend/src/store/index.ts": "No summary available",
+    "file:frontend/src/store/shipmentsSlice.ts": "No summary available",
+    "file:frontend/src/store/socketMiddleware.ts": "No summary available",
+    "file:frontend/src/store/warehousesSlice.ts": "No summary available",
+    "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker": "No summary available",
+    "function:frontend/src/components/ControlCenter.tsx:ControlCenter": "No summary available",
+    "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment": "No summary available",
+    "function:frontend/src/components/CustomSelect.tsx:CustomSelect": "No summary available",
+    "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList": "No summary available",
+    "function:frontend/src/components/ShipmentsList.tsx:badgeClass": "No summary available",
+    "function:frontend/src/components/TrackingView.tsx:TrackingView": "No summary available",
+    "function:frontend/src/store/driversSlice.ts:fetchDrivers": "No summary available",
+    "function:frontend/src/store/driversSlice.ts:driverStatusChange": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:fetchShipments": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:checkpointReached": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:addShipment": "No summary available",
+    "function:frontend/src/store/shipmentsSlice.ts:selectShipment": "No summary available",
+    "function:frontend/src/store/socketMiddleware.ts:socketMiddleware": "No summary available",
+    "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses": "No summary available",
+    "file:backend/src/db.ts": "No summary available",
+    "function:backend/src/db.ts:getInstance": "No summary available",
+    "file:backend/src/middleware/auth.ts": "No summary available",
+    "function:backend/src/middleware/auth.ts:verifyToken": "No summary available",
+    "function:backend/src/middleware/auth.ts:requireRole": "No summary available",
+    "file:backend/src/routes/api.ts": "No summary available",
+    "file:backend/src/routes/auth.ts": "No summary available",
+    "file:backend/src/server.ts": "No summary available",
+    "file:backend/src/simulation.ts": "No summary available",
+    "function:backend/src/simulation.ts:startSimulation": "No summary available",
+    "file:backend/tests/api.test.ts": "No summary available",
+    "file:backend/tests/auth.test.ts": "No summary available",
+    "file:backend/tests/helpers.ts": "No summary available",
+    "function:backend/tests/helpers.ts:resetAndSeedDatabase": "No summary available",
+    "service:backend/.dockerignore": "No summary available",
+    "service:backend/Dockerfile": "No summary available",
+    "service:backend/Dockerfile:node": "No summary available",
+    "service:frontend/.dockerignore": "No summary available",
+    "service:frontend/Dockerfile": "No summary available",
+    "service:frontend/Dockerfile:build": "No summary available",
+    "service:frontend/Dockerfile:nginx": "No summary available",
+    "pipeline:.github/workflows/ci.yml": "GitHub Actions workflow configured to run backend tests (with a PostgreSQL service container) and build the frontend application upon push or pull requests to the main branch.",
+    "config:.understand-anything/tmp/ua-import-map-input.json": "Temporary configuration file containing the input list of workspace files for resolving import mappings.",
+    "config:.understand-anything/tmp/ua-import-map-output.json": "Temporary configuration file containing the resolved import maps and metrics for the workspace files.",
+    "config:.understand-anything/tmp/ua-scan-files.json": "Temporary configuration file storing the complete list of files identified during workspace scanning, including their languages and categories.",
+    "file:frontend/index.html": "No summary available",
+    "config:frontend/package.json": "No summary available",
+    "config:frontend/tsconfig.json": "No summary available",
+    "config:frontend/vercel.json": "No summary available",
+    "file:.understand-anything/.understandignore": "No summary available",
+    "config:.understand-anything/intermediate/scan-result.json": "No summary available",
+    "config:backend/package.json": "No summary available",
+    "file:backend/prisma.config.ts": "No summary available",
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql": "No summary available",
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": "No summary available",
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": "No summary available",
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": "No summary available",
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": "No summary available",
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": "No summary available",
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": "No summary available",
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": "No summary available",
+    "config:backend/prisma/migrations/migration_lock.toml": "No summary available",
+    "schema:backend/prisma/schema.prisma": "No summary available",
+    "file:backend/prisma/seed.ts": "No summary available",
+    "function:backend/prisma/seed.ts:main": "No summary available",
+    "config:backend/tsconfig.json": "No summary available",
+    "file:backend/vitest.config.ts": "No summary available",
+    "service:docker-compose.yml": "No summary available",
+    "file:frontend/nginx.conf": "No summary available",
+    "file:frontend/scripts/generate-vercel-config.mjs": "No summary available",
+    "file:frontend/src/index.css": "No summary available",
+    "file:frontend/src/vite-env.d.ts": "No summary available",
+    "file:frontend/vite.config.ts": "No summary available",
+    "document:README.md": "No summary available",
+    "function:frontend/src/store/hooks.ts:useAppSelector": "No summary available"
+  },
+  "totalNodes": 109,
+  "totalEdges": 228
+}

@@ -1,0 +1,129 @@
+[
+  {
+    "id": "layer:infrastructure",
+    "name": "Infrastructure & CI/CD",
+    "description": "Docker files, Docker Compose, Nginx server configurations, CI/CD pipelines, and cloud platform configurations.",
+    "nodeIds": [
+      "service:backend/.dockerignore",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "service:frontend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "service:docker-compose.yml",
+      "pipeline:.github/workflows/ci.yml",
+      "file:frontend/nginx.conf",
+      "config:frontend/vercel.json",
+      "file:frontend/scripts/generate-vercel-config.mjs"
+    ]
+  },
+  {
+    "id": "layer:configuration",
+    "name": "Configuration & Metadata",
+    "description": "Project configurations, dependencies manifests, tooling rules, build parameters, environments, and general project documentation.",
+    "nodeIds": [
+      "config:.understand-anything/tmp/ua-import-map-input.json",
+      "config:.understand-anything/tmp/ua-import-map-output.json",
+      "config:.understand-anything/tmp/ua-scan-files.json",
+      "config:.understand-anything/intermediate/scan-result.json",
+      "file:.understand-anything/.understandignore",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "file:frontend/vite.config.ts",
+      "file:frontend/src/vite-env.d.ts",
+      "file:frontend/src/config.ts",
+      "config:backend/package.json",
+      "config:backend/tsconfig.json",
+      "document:README.md"
+    ]
+  },
+  {
+    "id": "layer:testing",
+    "name": "Testing Layer",
+    "description": "Unit and integration tests, testing environment setup, test helpers, and runner configuration files.",
+    "nodeIds": [
+      "file:backend/tests/api.test.ts",
+      "file:backend/tests/auth.test.ts",
+      "file:backend/tests/helpers.ts",
+      "file:backend/vitest.config.ts"
+    ]
+  },
+  {
+    "id": "layer:frontend-ui",
+    "name": "Frontend UI Layer",
+    "description": "React user interface components, views, main application shell, entry point, styling files, and structural HTML templates.",
+    "nodeIds": [
+      "file:frontend/src/App.tsx",
+      "file:frontend/src/components/AnalyticsView.tsx",
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/FleetView.tsx",
+      "file:frontend/src/components/Landing.tsx",
+      "file:frontend/src/components/Login.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx",
+      "file:frontend/src/components/Sidebar.tsx",
+      "file:frontend/src/components/CheckpointTracker.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/CustomSelect.tsx",
+      "file:frontend/src/components/ShipmentsList.tsx",
+      "file:frontend/src/components/TrackingView.tsx",
+      "file:frontend/src/main.tsx",
+      "file:frontend/index.html",
+      "file:frontend/src/index.css"
+    ]
+  },
+  {
+    "id": "layer:frontend-state",
+    "name": "Frontend State & Data",
+    "description": "Redux store configuration, slices, typed state hooks, and web socket handling middleware.",
+    "nodeIds": [
+      "file:frontend/src/store/authSlice.ts",
+      "file:frontend/src/store/hooks.ts",
+      "file:frontend/src/store/driversSlice.ts",
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/shipmentsSlice.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/warehousesSlice.ts"
+    ]
+  },
+  {
+    "id": "layer:backend-api",
+    "name": "Backend API & Core Services",
+    "description": "Express HTTP entry points, router setups, controller endpoints, and real-time simulator logic.",
+    "nodeIds": [
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/routes/auth.ts",
+      "file:backend/src/server.ts",
+      "file:backend/src/simulation.ts"
+    ]
+  },
+  {
+    "id": "layer:backend-middleware",
+    "name": "Backend Middleware",
+    "description": "Express handlers executing before route handlers, such as authorization and token verification.",
+    "nodeIds": [
+      "file:backend/src/middleware/auth.ts"
+    ]
+  },
+  {
+    "id": "layer:data-layer",
+    "name": "Data Layer & Migrations",
+    "description": "Database connection clients, seed scripts, Prisma schema, migration locks, and specific SQL table schema layouts.",
+    "nodeIds": [
+      "file:backend/src/db.ts",
+      "file:backend/prisma.config.ts",
+      "schema:backend/prisma/schema.prisma",
+      "file:backend/prisma/seed.ts",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "config:backend/prisma/migrations/migration_lock.toml"
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "projectRoot": "c:\\Users\\Plbha\\Desktop\\logitrack",
+  "batchFiles": [
+    {"path": "frontend/.dockerignore", "language": "unknown", "sizeLines": 6, "fileCategory": "infra"},
+    {"path": "frontend/Dockerfile", "language": "dockerfile", "sizeLines": 26, "fileCategory": "infra"}
+  ],
+  "batchImportData": {}
+}

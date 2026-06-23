@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "config",
+      "properties": {
+        "path": ".understand-anything/tmp/ua-import-map-input.json",
+        "language": "json",
+        "fileCategory": "config",
+        "summary": "Temporary configuration file containing the input list of workspace files for resolving import mappings.",
+        "complexity": "simple",
+        "tags": ["config", "tooling", "import-resolution", "temporary"]
+      }
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "type": "config",
+      "properties": {
+        "path": ".understand-anything/tmp/ua-import-map-output.json",
+        "language": "json",
+        "fileCategory": "config",
+        "summary": "Temporary configuration file containing the resolved import maps and metrics for the workspace files.",
+        "complexity": "simple",
+        "tags": ["config", "tooling", "import-resolution", "temporary"]
+      }
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "config",
+      "properties": {
+        "path": ".understand-anything/tmp/ua-scan-files.json",
+        "language": "json",
+        "fileCategory": "config",
+        "summary": "Temporary configuration file storing the complete list of files identified during workspace scanning, including their languages and categories.",
+        "complexity": "simple",
+        "tags": ["config", "tooling", "file-scanner", "temporary"]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "target": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "related",
+      "weight": 0.5,
+      "properties": {
+        "description": "Resolved import map generated from the input file listing."
+      }
+    },
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "target": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "related",
+      "weight": 0.5,
+      "properties": {
+        "description": "Input mapping derived from the scanned files listing."
+      }
+    }
+  ]
+}

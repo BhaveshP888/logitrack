@@ -9,7 +9,28 @@ export default function ControlCenter() {
   const dispatch = useAppDispatch();
   const warehouses = useAppSelector((state) => state.warehouses.items);
   const drivers = useAppSelector((state) => state.drivers.items);
+  const shipments = useAppSelector((state) => state.shipments.items);
   
+  const unassignedShipments = shipments.filter(s => s.status === 'PENDING' && !s.driver);
+
+  const handleAssignDriver = async (shipmentId: string, driverId: string) => {
+    try {
+      const res = await fetch(`${API_BASE}/api/shipments/${shipmentId}/assign`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ driverId })
+      });
+      if (res.ok) {
+        setSuccessMsg('Driver assigned successfully!');
+        dispatch(addShipment(await res.json()));
+        setTimeout(() => setSuccessMsg(''), 3000);
+      }
+    } catch (err) {
+      setError('Failed to assign driver');
+    }
+  };
+
   const [originId, setOriginId] = useState('');
   const [destId, setDestId] = useState('');
   const [driverId, setDriverId] = useState('');
@@ -134,6 +155,7 @@ export default function ControlCenter() {
           />
           <input 
             type="datetime-local" 
+            aria-label="Target Dispatch Date"
             value={targetDispatchDate} 
             onChange={e => setTargetDispatchDate(e.target.value)} 
             className={inputClass}
@@ -141,27 +163,35 @@ export default function ControlCenter() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5 block">Checkpoints</label>
+        <div className="flex flex-col gap-2 mt-1">
+          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5 block">Checkpoints</span>
           <div className="flex flex-col gap-2 max-h-[100px] overflow-y-auto custom-scrollbar pr-1">
             {checkpoints.map((cp, idx) => (
               <div key={idx} className="flex items-center gap-2">
                 <input 
                   type="text" 
+                  aria-label={`Checkpoint ${idx + 1}`}
                   placeholder={`Checkpoint ${idx + 1}`} 
                   value={cp.name}
                   onChange={e => handleCheckpointChange(idx, e.target.value)}
                   className={inputClass}
                 />
                 {checkpoints.length > 1 && (
-                  <button type="button" onClick={() => handleRemoveCheckpoint(idx)} className="p-1.5 text-zinc-400 hover:text-status-danger transition">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  <button 
+                    type="button" 
+                    onClick={() => handleRemoveCheckpoint(idx)} 
+                    className="p-1.5 text-zinc-400 hover:text-status-danger transition"
+                    aria-label={`Remove checkpoint ${idx + 1}`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   </button>
                 )}
               </div>
             ))}
           </div>
-          <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-xs font-semibold self-start hover:text-brand-accent transition">+ Add Checkpoint</button>
+          <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-xs font-semibold self-start hover:text-brand-accent transition">
+            + Add Checkpoint
+          </button>
         </div>
 
         <button 
@@ -183,7 +213,40 @@ export default function ControlCenter() {
         </button>
       </form>
 
-      <hr className="border-none h-px bg-border-color my-0.5" />
+      {/* Unassigned Shipments */}
+      <div className="mt-4 flex flex-col gap-3">
+        <h4 className="font-semibold text-zinc-300 text-sm">Pending Assignment</h4>
+        {unassignedShipments.length > 0 ? (
+          unassignedShipments.map(s => (
+            <div key={s.id} className="p-3 bg-white/[0.02] border border-white/[0.05] rounded-lg flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-mono text-zinc-400">{s.trackingNumber}</span>
+                <span className="text-xs text-zinc-300">₹{s.price}</span>
+              </div>
+              <div className="text-[11px] text-zinc-500">
+                {s.originWarehouse.name} → {s.destinationWarehouse.name}
+              </div>
+              <div className="text-[11px] text-zinc-500 truncate">
+                Desc: {s.contentDescription || 'N/A'}
+              </div>
+              <div className="flex gap-2 mt-2">
+                <CustomSelect
+                  value={''}
+                  onChange={(val) => handleAssignDriver(s.id, val)}
+                  options={driverOptions}
+                  placeholder="Assign Driver..."
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="p-4 text-center border border-white/[0.05] rounded-lg bg-white/[0.01]">
+            <p className="text-[11px] text-zinc-500">All pending shipments have been assigned.</p>
+          </div>
+        )}
+      </div>
+
+      <hr className="border-none h-px bg-border-color my-0.5 mt-4" />
 
       <div className="flex gap-2">
         <button 

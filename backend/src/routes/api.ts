@@ -67,6 +67,27 @@ router.post('/shipments', verifyToken, requireRole('ADMIN'), async (req, res) =>
   res.json(shipment);
 });
 
+// Admin: Assign driver to an existing shipment
+router.post('/shipments/:id/assign', verifyToken, requireRole('ADMIN'), async (req, res) => {
+  const { id } = req.params;
+  const { driverId } = req.body;
+  
+  if (!driverId) {
+    return res.status(400).json({ error: "Missing driverId" });
+  }
+
+  try {
+    const updated = await prisma.shipment.update({
+      where: { id },
+      data: { driverId },
+      include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
+    });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to assign driver" });
+  }
+});
+
 // Driver: Dispatch shipment
 router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async (req, res) => {
   const { id } = req.params;
@@ -162,8 +183,8 @@ router.post('/reset', verifyToken, requireRole('ADMIN'), async (req, res) => {
   await prisma.driver.deleteMany();
   await prisma.warehouse.deleteMany();
 
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.ADMIN_MAIL || 'admin@email.com';
-  const adminPass = process.env.ADMIN_PASS || 'adminlogin1212';
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.ADMIN_MAIL || 'admin@logitrack.com';
+  const adminPass = process.env.ADMIN_PASS || 'Adminlogin@1212';
   const adminPasswordHash = await bcrypt.hash(adminPass, 10);
 
   const w1 = await prisma.warehouse.create({ data: { name: "Mumbai Hub (W1)" } });

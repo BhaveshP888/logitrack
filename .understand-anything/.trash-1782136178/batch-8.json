@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/index.html",
+      "type": "file",
+      "summary": "Entry point HTML page for the frontend Vite application, hosting the root container element and loading the main TypeScript React entry script.",
+      "complexity": "simple",
+      "tags": [
+        "entry-point",
+        "markup",
+        "frontend",
+        "html"
+      ]
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "summary": "Configuration file for the frontend package, defining project metadata, build scripts, development scripts, and external runtime/development dependencies.",
+      "complexity": "simple",
+      "tags": [
+        "package-config",
+        "dependencies",
+        "scripts",
+        "frontend"
+      ]
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "summary": "TypeScript compiler configuration for the frontend React application, specifying the target environment, module resolution strategy, and strict linting rules.",
+      "complexity": "simple",
+      "tags": [
+        "typescript-config",
+        "compiler-options",
+        "frontend"
+      ]
+    },
+    {
+      "id": "config:frontend/vercel.json",
+      "type": "config",
+      "summary": "Deployment configuration for Vercel, setting up rewrite rules to proxy API requests to the Render backend server and route all other paths to the index.html fallback.",
+      "complexity": "simple",
+      "tags": [
+        "deployment-config",
+        "routing",
+        "vercel",
+        "frontend"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:frontend/vercel.json",
+      "target": "file:frontend/index.html",
+      "relation": "routes",
+      "weight": 0.8
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/index.html",
+      "relation": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "file:frontend/index.html",
+      "relation": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/index.html",
+      "target": "file:frontend/src/main.tsx",
+      "relation": "related",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 2,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/.dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra",
+      "totalLines": 9,
+      "nonEmptyLines": 9,
+      "metrics": {}
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 20,
+      "nonEmptyLines": 11,
+      "services": [
+        {
+          "name": "node",
+          "image": "node:20-alpine",
+          "ports": [
+            3001
+          ],
+          "startLine": 1,
+          "endLine": 21
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM node:20-alpine",
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "COPY package*.json ./",
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "RUN npm ci",
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "COPY . .",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "RUN DATABASE_URL=\"postgresql://dummy:dummy@localhost:5432/dummy\"",
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "RUN npm run build",
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "EXPOSE 3001",
+          "startLine": 15,
+          "endLine": 15
+        },
+        {
+          "name": "ENV PORT=3001",
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "ENV NODE_ENV=production",
+          "startLine": 18,
+          "endLine": 18
+        },
+        {
+          "name": "CMD [\"sh\", \"-c\", \"npx prisma migrate deploy && npx prisma db see",
+          "startLine": 20,
+          "endLine": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 1,
+        "stepCount": 11
+      }
+    }
+  ]
+}

@@ -1,0 +1,717 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "file",
+      "name": "CheckpointTracker.tsx",
+      "filePath": "frontend/src/components/CheckpointTracker.tsx",
+      "summary": "A React component that displays a vertical progress tracker for a selected shipment, indicating completed and active checkpoints.",
+      "complexity": "moderate",
+      "tags": ["component", "ui", "tracking-telemetry", "react"]
+    },
+    {
+      "id": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "file",
+      "name": "ControlCenter.tsx",
+      "filePath": "frontend/src/components/ControlCenter.tsx",
+      "summary": "A React component acting as the dispatcher control center to create shipments with dynamic checkpoints and reset the database.",
+      "complexity": "moderate",
+      "tags": ["component", "ui", "form-handler", "dispatch-control", "react"]
+    },
+    {
+      "id": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "file",
+      "name": "CustomSelect.tsx",
+      "filePath": "frontend/src/components/CustomSelect.tsx",
+      "summary": "A reusable custom select/dropdown React component styled with Tailwind CSS and including outside-click close behavior.",
+      "complexity": "simple",
+      "tags": ["component", "ui", "dropdown", "utility", "react"]
+    },
+    {
+      "id": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "file",
+      "name": "ShipmentsList.tsx",
+      "filePath": "frontend/src/components/ShipmentsList.tsx",
+      "summary": "A React component rendering a searchable and filterable list of active shipments with progress bars and status indicators.",
+      "complexity": "moderate",
+      "tags": ["component", "ui", "list-view", "search-filter", "react"]
+    },
+    {
+      "id": "file:frontend/src/components/TrackingView.tsx",
+      "type": "file",
+      "name": "TrackingView.tsx",
+      "filePath": "frontend/src/components/TrackingView.tsx",
+      "summary": "A layout component that side-by-side integrates the shipments roster list and the live checkpoint telemetry view.",
+      "complexity": "simple",
+      "tags": ["component", "layout-view", "react"]
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "frontend/src/main.tsx",
+      "summary": "The main entry point of the React frontend application that boots the application and wraps it with Redux Provider and StrictMode.",
+      "complexity": "simple",
+      "tags": ["entry-point", "bootstrapper", "react"]
+    },
+    {
+      "id": "file:frontend/src/store/driversSlice.ts",
+      "type": "file",
+      "name": "driversSlice.ts",
+      "filePath": "frontend/src/store/driversSlice.ts",
+      "summary": "Redux slice for managing driver states, including asynchronous actions for loading drivers and mutation reducers.",
+      "complexity": "simple",
+      "tags": ["redux-slice", "state-manager", "data-fetching"]
+    },
+    {
+      "id": "file:frontend/src/store/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "frontend/src/store/index.ts",
+      "summary": "Configures and exports the global Redux store by combining reducer slices and injecting custom WebSocket middleware.",
+      "complexity": "simple",
+      "tags": ["redux-store", "state-config", "entry-point"]
+    },
+    {
+      "id": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "file",
+      "name": "shipmentsSlice.ts",
+      "filePath": "frontend/src/store/shipmentsSlice.ts",
+      "summary": "Redux slice defining shipment data interfaces and actions, including tracking updates, checkpoint progression, and delivery states.",
+      "complexity": "moderate",
+      "tags": ["redux-slice", "state-manager", "data-fetching", "data-model"]
+    },
+    {
+      "id": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "file",
+      "name": "socketMiddleware.ts",
+      "filePath": "frontend/src/store/socketMiddleware.ts",
+      "summary": "Redux middleware that manages the client-side socket.io connection and translates backend socket events into Redux actions.",
+      "complexity": "moderate",
+      "tags": ["redux-middleware", "websocket-client", "realtime-sync"]
+    },
+    {
+      "id": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "file",
+      "name": "warehousesSlice.ts",
+      "filePath": "frontend/src/store/warehousesSlice.ts",
+      "summary": "Redux slice for managing warehouse items and performing fetch calls to retrieve warehouse listings.",
+      "complexity": "simple",
+      "tags": ["redux-slice", "state-manager", "data-fetching"]
+    },
+    {
+      "id": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "function",
+      "name": "CheckpointTracker",
+      "summary": "Renders a vertical progress flow of the selected shipment's origin, checkpoints, and destination, reacting to live telemetry updates.",
+      "tags": ["react-component", "render-flow"]
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "function",
+      "name": "ControlCenter",
+      "summary": "Renders the dispatch form enabling users to input shipment data, select warehouses and drivers, and add dynamic checkpoints.",
+      "tags": ["react-component", "render-form"]
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "function",
+      "name": "handleCreateShipment",
+      "summary": "Validates user input, formats dates, makes a POST request to dispatch a shipment, and updates drivers/shipments slices in Redux.",
+      "tags": ["form-submit", "api-request", "event-handler"]
+    },
+    {
+      "id": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "function",
+      "name": "CustomSelect",
+      "summary": "Renders a styled custom dropdown with list options, active selection tracking, and outside-click listening behavior.",
+      "tags": ["react-component", "select-dropdown"]
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "function",
+      "name": "ShipmentsList",
+      "summary": "Renders a filterable list of shipments with search input, status filters, and click handlers to set the selected shipment ID.",
+      "tags": ["react-component", "render-list"]
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "function",
+      "name": "badgeClass",
+      "summary": "Generates CSS class strings for status badges dynamically based on the current shipment status.",
+      "tags": ["style-helper", "utility"]
+    },
+    {
+      "id": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "function",
+      "name": "TrackingView",
+      "summary": "Renders a split screen layout that couples the Active Roster list view with the Checkpoint Tracker telemetry component.",
+      "tags": ["react-component", "layout"]
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "function",
+      "name": "fetchDrivers",
+      "summary": "Asynchronously fetches drivers from the API server and returns them for Redux state incorporation.",
+      "tags": ["redux-thunk", "api-fetch"]
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "function",
+      "name": "driverStatusChange",
+      "summary": "Redux reducer action that mutates the status of a specific driver when updated.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "function",
+      "name": "fetchShipments",
+      "summary": "Asynchronously fetches the roster of shipments from the backend API server.",
+      "tags": ["redux-thunk", "api-fetch"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "function",
+      "name": "shipmentDelayed",
+      "summary": "Redux reducer action that updates a specific shipment's status to DELAYED.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "function",
+      "name": "shipmentDispatched",
+      "summary": "Redux reducer action that marks a shipment as EN_ROUTE and sets its actual dispatch date.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "function",
+      "name": "checkpointReached",
+      "summary": "Redux reducer action that marks a specific checkpoint as reached and logs the time of arrival.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "function",
+      "name": "shipmentDelivered",
+      "summary": "Redux reducer action that marks a shipment's status as DELIVERED.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "function",
+      "name": "addShipment",
+      "summary": "Redux reducer action that adds a newly created shipment to the items list.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "function",
+      "name": "selectShipment",
+      "summary": "Redux reducer action that changes the currently active selected shipment ID.",
+      "tags": ["redux-reducer", "state-mutation"]
+    },
+    {
+      "id": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "function",
+      "name": "socketMiddleware",
+      "summary": "Listens to WebSocket connections and dispatches appropriate state mutation actions in response to real-time events.",
+      "tags": ["redux-middleware", "socket-io"]
+    },
+    {
+      "id": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "function",
+      "name": "fetchWarehouses",
+      "summary": "Asynchronously fetches the roster of warehouses from the backend API server.",
+      "tags": ["redux-thunk", "api-fetch"]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/App.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/CustomSelect.tsx",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/CustomSelect.tsx",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "calls",
+      "weight": 0.8
+    }
+  ]
+}

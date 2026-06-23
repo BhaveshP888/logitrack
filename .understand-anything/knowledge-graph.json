@@ -1,0 +1,3264 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "logitrack",
+    "languages": [
+      "conf",
+      "css",
+      "dockerfile",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "prisma",
+      "sql",
+      "toml",
+      "typescript",
+      "yaml"
+    ],
+    "frameworks": [
+      "Docker",
+      "Docker Compose",
+      "Express",
+      "GitHub Actions",
+      "Prisma",
+      "React",
+      "Redux",
+      "Tailwind CSS",
+      "Vite",
+      "Vitest"
+    ],
+    "description": "LogiTrack is a real-time logistics command center and fleet management platform featuring real-time telemetry, role-based access control, a driver portal, and an admin command center built with React and Express.",
+    "analyzedAt": "2026-06-22T13:44:52.086556Z",
+    "gitCommitHash": "154dd0bc8f6a953c1274cd30000144e665175bbf"
+  },
+  "nodes": [
+    {
+      "id": "file:frontend/src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "summary": "The root application component that manages user authentication state, fetches initial logs/data for administrators, and routes users to either the admin dashboard, the driver portal, or login views.",
+      "tags": [
+        "entry-point",
+        "root-component",
+        "router",
+        "app-shell"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/App.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "file",
+      "name": "AnalyticsView.tsx",
+      "summary": "Displays visual business intelligence graphs, KPI metrics, route progress statistics, and driver utilization charts using Recharts.",
+      "tags": [
+        "component",
+        "analytics",
+        "charts-view",
+        "dashboard-tab"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/AnalyticsView.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/DashboardView.tsx",
+      "type": "file",
+      "name": "DashboardView.tsx",
+      "summary": "Serves as the primary operational workspace for administrators, listing overall shipment indicators, recent actions, and integrating the live ControlCenter maps.",
+      "tags": [
+        "component",
+        "admin-view",
+        "operational-hub",
+        "control-center"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/DashboardView.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "file",
+      "name": "DriverPortal.tsx",
+      "summary": "Provides the dedicated interface for drivers, allowing them to view active assignments, update shipment dispatch statuses, record reached checkpoints, and sign out.",
+      "tags": [
+        "component",
+        "driver-portal",
+        "dispatch-view",
+        "checkpoints"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/DriverPortal.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/FleetView.tsx",
+      "type": "file",
+      "name": "FleetView.tsx",
+      "summary": "Implements the fleet administration panel, displaying driver counts, availability statuses, and active route progress cards in a clear tabular grid.",
+      "tags": [
+        "component",
+        "fleet-view",
+        "driver-status",
+        "operational-tab"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/FleetView.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/Landing.tsx",
+      "type": "file",
+      "name": "Landing.tsx",
+      "summary": "The unauthenticated landing page of the application, showing product overview, features, pricing links, and quick-access login/register triggers.",
+      "tags": [
+        "component",
+        "landing-page",
+        "marketing-ui",
+        "welcome-view"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/Landing.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/Login.tsx",
+      "type": "file",
+      "name": "Login.tsx",
+      "summary": "Standard login/register form component that communicates with authentication services to request tokens and updates the global user session state.",
+      "tags": [
+        "component",
+        "login-view",
+        "auth-form",
+        "user-registration"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/Login.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/MetricsGrid.tsx",
+      "type": "file",
+      "name": "MetricsGrid.tsx",
+      "summary": "A lightweight layout component showing administrative status metrics (Total Shipments, Active Shipments, Driver Utilization, and On-Time Rate) via API integration.",
+      "tags": [
+        "component",
+        "metrics-grid",
+        "kpi-cards",
+        "dashboard-widget"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/MetricsGrid.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "type": "file",
+      "name": "Sidebar.tsx",
+      "summary": "Implements the left sidebar navigation layout for the admin view, letting administrators toggle between the main operational views and log out.",
+      "tags": [
+        "component",
+        "sidebar-navigation",
+        "app-menu",
+        "layout"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/Sidebar.tsx"
+    },
+    {
+      "id": "file:frontend/src/config.ts",
+      "type": "file",
+      "name": "config.ts",
+      "summary": "Application configuration module that exports REST API and WebSocket endpoint URLs determined by environment variables and local dev states.",
+      "tags": [
+        "config",
+        "api-endpoints",
+        "environment-vars",
+        "utility"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/config.ts"
+    },
+    {
+      "id": "file:frontend/src/store/authSlice.ts",
+      "type": "file",
+      "name": "authSlice.ts",
+      "summary": "Redux slice that manages the authenticated user session, loading states, error responses, and session validation thunks.",
+      "tags": [
+        "redux-slice",
+        "auth-state",
+        "session-management",
+        "data-store"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/store/authSlice.ts"
+    },
+    {
+      "id": "file:frontend/src/store/hooks.ts",
+      "type": "file",
+      "name": "hooks.ts",
+      "summary": "Provides strongly-typed React Redux hook wrappers `useAppDispatch` and `useAppSelector` for accessing the global store.",
+      "tags": [
+        "redux-hooks",
+        "react-redux",
+        "utility",
+        "state-helper"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/store/hooks.ts"
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "summary": "Root application component that initializes the app by validating existing session cookies, configuring real-time web sockets for admin roles, and navigating drivers to their portal.",
+      "tags": [
+        "root-component",
+        "router-handler",
+        "view-controller"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "function",
+      "name": "AnalyticsView",
+      "summary": "Aggregates driver statistics, delivery indicators, and routes progress, using Recharts components to render status breakdowns, route speeds, and fleet utilization.",
+      "tags": [
+        "data-aggregation",
+        "charts-renderer",
+        "analytics-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "function",
+      "name": "DashboardView",
+      "summary": "Renders the primary administrator cockpit, displaying real-time metrics cards, shipment lists, active shipment donut slices, and the interactive dispatch control center.",
+      "tags": [
+        "admin-dashboard",
+        "metrics-display",
+        "control-panel"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "function",
+      "name": "StandbyPanel",
+      "summary": "A sub-component rendering a clean standby status layout for drivers who currently have no active shipments assigned to them.",
+      "tags": [
+        "helper-component",
+        "ui-layout",
+        "standby-mode"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "function",
+      "name": "ActiveShipmentPanel",
+      "summary": "Displays detailed interactive information about the driver's active dispatch including tracking numbers, origin/destination, target dispatch times, and checkpoints checklist.",
+      "tags": [
+        "helper-component",
+        "interactive-ui",
+        "shipment-details"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "function",
+      "name": "DriverPortal",
+      "summary": "Main view wrapper for drivers to load and list their assigned shipments, trigger dispatch starts, mark checkpoints reached, and monitor their performance stats.",
+      "tags": [
+        "driver-ui",
+        "portal-controller",
+        "state-manager"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "function",
+      "name": "FleetView",
+      "summary": "Renders cards summarizing fleet statistics alongside a tabular layout of all registered drivers, active jobs, and warehouse assignments.",
+      "tags": [
+        "fleet-display",
+        "list-renderer",
+        "management-view"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "function",
+      "name": "Landing",
+      "summary": "Renders a modern landing page for logitrack with styled gradient cards and links leading to login or registration pages.",
+      "tags": [
+        "landing-ui",
+        "marketing-page",
+        "static-layout"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/Login.tsx:Login",
+      "type": "function",
+      "name": "Login",
+      "summary": "Renders a form supporting registration and login using state hooks to handle inputs, trigger post requests to api boundaries, and dispatch Redux actions.",
+      "tags": [
+        "auth-handler",
+        "form-component",
+        "user-session"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "function",
+      "name": "MetricsGrid",
+      "summary": "Fills in a grid of cards using metrics endpoints, refreshing details automatically on changes to shipments and drivers state.",
+      "tags": [
+        "metrics-fetcher",
+        "grid-renderer",
+        "kpi-view"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "function",
+      "name": "Sidebar",
+      "summary": "Displays the logitrack brand logo and allows navigation across Command Center, Analytics, Tracking, and Fleet views, as well as signing out.",
+      "tags": [
+        "navigation-bar",
+        "menu-controller",
+        "layout-component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "function",
+      "name": "checkSession",
+      "summary": "An async Redux thunk that queries the authentication endpoint to verify session validity and loads user details upon fulfillment.",
+      "tags": [
+        "async-thunk",
+        "session-validation",
+        "api-request"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "function",
+      "name": "useAppDispatch",
+      "summary": "A custom React Redux hook wrapper that exposes a strongly-typed dispatch function for updating the Redux state.",
+      "tags": [
+        "redux-hook",
+        "dispatch-wrapper",
+        "type-helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "file",
+      "name": "CheckpointTracker.tsx",
+      "summary": "A React component that displays a vertical progress tracker for a selected shipment, indicating completed and active checkpoints.",
+      "tags": [
+        "component",
+        "ui",
+        "tracking-telemetry",
+        "react"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/CheckpointTracker.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "file",
+      "name": "ControlCenter.tsx",
+      "summary": "A React component acting as the dispatcher control center to create shipments with dynamic checkpoints and reset the database.",
+      "tags": [
+        "component",
+        "ui",
+        "form-handler",
+        "dispatch-control",
+        "react"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/ControlCenter.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "file",
+      "name": "CustomSelect.tsx",
+      "summary": "A reusable custom select/dropdown React component styled with Tailwind CSS and including outside-click close behavior.",
+      "tags": [
+        "component",
+        "ui",
+        "dropdown",
+        "utility",
+        "react"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/components/CustomSelect.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "file",
+      "name": "ShipmentsList.tsx",
+      "summary": "A React component rendering a searchable and filterable list of active shipments with progress bars and status indicators.",
+      "tags": [
+        "component",
+        "ui",
+        "list-view",
+        "search-filter",
+        "react"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/components/ShipmentsList.tsx"
+    },
+    {
+      "id": "file:frontend/src/components/TrackingView.tsx",
+      "type": "file",
+      "name": "TrackingView.tsx",
+      "summary": "A layout component that side-by-side integrates the shipments roster list and the live checkpoint telemetry view.",
+      "tags": [
+        "component",
+        "layout-view",
+        "react"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/components/TrackingView.tsx"
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "summary": "The main entry point of the React frontend application that boots the application and wraps it with Redux Provider and StrictMode.",
+      "tags": [
+        "entry-point",
+        "bootstrapper",
+        "react"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/main.tsx"
+    },
+    {
+      "id": "file:frontend/src/store/driversSlice.ts",
+      "type": "file",
+      "name": "driversSlice.ts",
+      "summary": "Redux slice for managing driver states, including asynchronous actions for loading drivers and mutation reducers.",
+      "tags": [
+        "redux-slice",
+        "state-manager",
+        "data-fetching"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/store/driversSlice.ts"
+    },
+    {
+      "id": "file:frontend/src/store/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "summary": "Configures and exports the global Redux store by combining reducer slices and injecting custom WebSocket middleware.",
+      "tags": [
+        "redux-store",
+        "state-config",
+        "entry-point"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/store/index.ts"
+    },
+    {
+      "id": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "file",
+      "name": "shipmentsSlice.ts",
+      "summary": "Redux slice defining shipment data interfaces and actions, including tracking updates, checkpoint progression, and delivery states.",
+      "tags": [
+        "redux-slice",
+        "state-manager",
+        "data-fetching",
+        "data-model"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/store/shipmentsSlice.ts"
+    },
+    {
+      "id": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "file",
+      "name": "socketMiddleware.ts",
+      "summary": "Redux middleware that manages the client-side socket.io connection and translates backend socket events into Redux actions.",
+      "tags": [
+        "redux-middleware",
+        "websocket-client",
+        "realtime-sync"
+      ],
+      "complexity": "moderate",
+      "filePath": "frontend/src/store/socketMiddleware.ts"
+    },
+    {
+      "id": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "file",
+      "name": "warehousesSlice.ts",
+      "summary": "Redux slice for managing warehouse items and performing fetch calls to retrieve warehouse listings.",
+      "tags": [
+        "redux-slice",
+        "state-manager",
+        "data-fetching"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/store/warehousesSlice.ts"
+    },
+    {
+      "id": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "function",
+      "name": "CheckpointTracker",
+      "summary": "Renders a vertical progress flow of the selected shipment's origin, checkpoints, and destination, reacting to live telemetry updates.",
+      "tags": [
+        "react-component",
+        "render-flow"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "function",
+      "name": "ControlCenter",
+      "summary": "Renders the dispatch form enabling users to input shipment data, select warehouses and drivers, and add dynamic checkpoints.",
+      "tags": [
+        "react-component",
+        "render-form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "function",
+      "name": "handleCreateShipment",
+      "summary": "Validates user input, formats dates, makes a POST request to dispatch a shipment, and updates drivers/shipments slices in Redux.",
+      "tags": [
+        "form-submit",
+        "api-request",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "function",
+      "name": "CustomSelect",
+      "summary": "Renders a styled custom dropdown with list options, active selection tracking, and outside-click listening behavior.",
+      "tags": [
+        "react-component",
+        "select-dropdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "function",
+      "name": "ShipmentsList",
+      "summary": "Renders a filterable list of shipments with search input, status filters, and click handlers to set the selected shipment ID.",
+      "tags": [
+        "react-component",
+        "render-list"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "function",
+      "name": "badgeClass",
+      "summary": "Generates CSS class strings for status badges dynamically based on the current shipment status.",
+      "tags": [
+        "style-helper",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "function",
+      "name": "TrackingView",
+      "summary": "Renders a split screen layout that couples the Active Roster list view with the Checkpoint Tracker telemetry component.",
+      "tags": [
+        "react-component",
+        "layout"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "function",
+      "name": "fetchDrivers",
+      "summary": "Asynchronously fetches drivers from the API server and returns them for Redux state incorporation.",
+      "tags": [
+        "redux-thunk",
+        "api-fetch"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "function",
+      "name": "driverStatusChange",
+      "summary": "Redux reducer action that mutates the status of a specific driver when updated.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "function",
+      "name": "fetchShipments",
+      "summary": "Asynchronously fetches the roster of shipments from the backend API server.",
+      "tags": [
+        "redux-thunk",
+        "api-fetch"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "function",
+      "name": "shipmentDelayed",
+      "summary": "Redux reducer action that updates a specific shipment's status to DELAYED.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "function",
+      "name": "shipmentDispatched",
+      "summary": "Redux reducer action that marks a shipment as EN_ROUTE and sets its actual dispatch date.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "function",
+      "name": "checkpointReached",
+      "summary": "Redux reducer action that marks a specific checkpoint as reached and logs the time of arrival.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "function",
+      "name": "shipmentDelivered",
+      "summary": "Redux reducer action that marks a shipment's status as DELIVERED.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "function",
+      "name": "addShipment",
+      "summary": "Redux reducer action that adds a newly created shipment to the items list.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "function",
+      "name": "selectShipment",
+      "summary": "Redux reducer action that changes the currently active selected shipment ID.",
+      "tags": [
+        "redux-reducer",
+        "state-mutation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "function",
+      "name": "socketMiddleware",
+      "summary": "Listens to WebSocket connections and dispatches appropriate state mutation actions in response to real-time events.",
+      "tags": [
+        "redux-middleware",
+        "socket-io"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "function",
+      "name": "fetchWarehouses",
+      "summary": "Asynchronously fetches the roster of warehouses from the backend API server.",
+      "tags": [
+        "redux-thunk",
+        "api-fetch"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/db.ts",
+      "type": "file",
+      "name": "db.ts",
+      "summary": "Initializes and provides the Prisma Client instance to manage connection pool and database queries across the backend application.",
+      "tags": [
+        "database",
+        "prisma",
+        "connection-pool",
+        "utility"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/src/db.ts"
+    },
+    {
+      "id": "function:backend/src/db.ts:getInstance",
+      "type": "function",
+      "name": "getInstance",
+      "summary": "Retrieves the single active instance of the Prisma Client or creates it if it does not exist.",
+      "tags": [
+        "database",
+        "prisma",
+        "singleton"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/middleware/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "summary": "Implements JWT token validation and role-based access control middleware for securing API endpoints.",
+      "tags": [
+        "middleware",
+        "authentication",
+        "jwt",
+        "authorization",
+        "security"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/src/middleware/auth.ts"
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "function",
+      "name": "verifyToken",
+      "summary": "Express middleware that verifies the authorization JWT token and assigns the decoded payload to the request object.",
+      "tags": [
+        "middleware",
+        "jwt",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "function",
+      "name": "requireRole",
+      "summary": "Express middleware factory that enforces specific roles for authenticated users on routes.",
+      "tags": [
+        "middleware",
+        "authorization",
+        "rbac"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/routes/api.ts",
+      "type": "file",
+      "name": "api.ts",
+      "summary": "Defines Express router endpoints for managing warehouses, drivers, shipments, and shipment checkpoints, along with simulated updates.",
+      "tags": [
+        "api-router",
+        "express-router",
+        "endpoints",
+        "business-logic",
+        "tested"
+      ],
+      "complexity": "complex",
+      "filePath": "backend/src/routes/api.ts"
+    },
+    {
+      "id": "file:backend/src/routes/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "summary": "Defines Express authentication routes including register, login, and user profile queries.",
+      "tags": [
+        "auth-router",
+        "express-router",
+        "endpoints",
+        "jwt",
+        "registration",
+        "login",
+        "tested"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/src/routes/auth.ts"
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "summary": "Starts the HTTP and WebSocket servers, registers Express middlewares and routes, and initializes the background simulation.",
+      "tags": [
+        "entry-point",
+        "server",
+        "express",
+        "socket-io",
+        "cors"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/src/server.ts"
+    },
+    {
+      "id": "file:backend/src/simulation.ts",
+      "type": "file",
+      "name": "simulation.ts",
+      "summary": "Runs a background simulation cycle that periodically updates active shipments and emits state updates via Socket.IO.",
+      "tags": [
+        "simulation",
+        "socket-io",
+        "realtime",
+        "cron",
+        "background-worker"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/src/simulation.ts"
+    },
+    {
+      "id": "function:backend/src/simulation.ts:startSimulation",
+      "type": "function",
+      "name": "startSimulation",
+      "summary": "Starts the interval loop that fetches shipments from the database, drives their state transitions, and notifies clients via WebSocket.",
+      "tags": [
+        "simulation",
+        "websocket-broadcast",
+        "database-transaction",
+        "interval"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/tests/api.test.ts",
+      "type": "file",
+      "name": "api.test.ts",
+      "summary": "Contains integration tests verifying API handlers for warehouses, drivers, shipments, metrics, and reset flows.",
+      "tags": [
+        "test",
+        "integration-test",
+        "api-test",
+        "supertest"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/tests/api.test.ts"
+    },
+    {
+      "id": "file:backend/tests/auth.test.ts",
+      "type": "file",
+      "name": "auth.test.ts",
+      "summary": "Contains integration tests verifying authentication features like user registration, login, and access restriction.",
+      "tags": [
+        "test",
+        "integration-test",
+        "auth-test",
+        "supertest"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/tests/auth.test.ts"
+    },
+    {
+      "id": "file:backend/tests/helpers.ts",
+      "type": "file",
+      "name": "helpers.ts",
+      "summary": "Provides database reset and seed helper utilities for clean integration testing environments.",
+      "tags": [
+        "test-utility",
+        "database-seeding",
+        "test-helper"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/tests/helpers.ts"
+    },
+    {
+      "id": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "function",
+      "name": "resetAndSeedDatabase",
+      "summary": "Clears user, shipment, checkpoint, driver, and warehouse tables, hashes passwords, and creates initial seed data for testing.",
+      "tags": [
+        "test-utility",
+        "database-seeding",
+        "reset-db"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "type": "service",
+      "name": "backend/.dockerignore",
+      "summary": "Specifies files and directories (like node_modules and .env) to be excluded from the Docker build context when containerizing the backend service.",
+      "tags": [
+        "docker-ignore",
+        "build-context",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/.dockerignore"
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "backend/Dockerfile",
+      "summary": "Containerizes the backend application using Node.js 20 Alpine, builds the project, runs Prisma migrations and database seeding, and exposes port 3001.",
+      "tags": [
+        "dockerfile",
+        "containerization",
+        "deployment"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/Dockerfile"
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "summary": "Node.js backend container service running node:20-alpine and exposing port 3001.",
+      "tags": [
+        "container-service",
+        "node-runtime"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/Dockerfile"
+    },
+    {
+      "id": "service:frontend/.dockerignore",
+      "type": "service",
+      "name": "frontend/.dockerignore",
+      "summary": "Specifies files and directories to ignore when building the Docker image for the frontend.",
+      "tags": [
+        "docker",
+        "build-context",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/.dockerignore"
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "frontend/Dockerfile",
+      "summary": "Defines the multi-stage Docker build process for the frontend application, building the React app with Node.js and serving it via Nginx.",
+      "tags": [
+        "docker",
+        "multi-stage-build",
+        "deployment",
+        "nginx"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/Dockerfile"
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "summary": "Node.js build stage that installs dependencies and compiles the frontend source code using npm run build.",
+      "tags": [
+        "build-stage",
+        "node-js",
+        "dependency-installation"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/Dockerfile"
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "summary": "Production stage that serves the compiled frontend assets from the build stage using an Nginx web server.",
+      "tags": [
+        "production-stage",
+        "nginx",
+        "web-server"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/Dockerfile"
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "name": "ci.yml",
+      "summary": "GitHub Actions workflow configured to run backend tests (with a PostgreSQL service container) and build the frontend application upon push or pull requests to the main branch.",
+      "tags": [
+        "ci-cd",
+        "github-actions",
+        "testing",
+        "build",
+        "postgres"
+      ],
+      "complexity": "moderate",
+      "filePath": ".github/workflows/ci.yml"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "config",
+      "name": "ua-import-map-input.json",
+      "summary": "Temporary configuration file containing the input list of workspace files for resolving import mappings.",
+      "tags": [
+        "config",
+        "tooling",
+        "import-resolution",
+        "temporary"
+      ],
+      "complexity": "moderate",
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "type": "config",
+      "name": "ua-import-map-output.json",
+      "summary": "Temporary configuration file containing the resolved import maps and metrics for the workspace files.",
+      "tags": [
+        "config",
+        "tooling",
+        "import-resolution",
+        "temporary"
+      ],
+      "complexity": "moderate",
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json"
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "config",
+      "name": "ua-scan-files.json",
+      "summary": "Temporary configuration file storing the complete list of files identified during workspace scanning, including their languages and categories.",
+      "tags": [
+        "config",
+        "tooling",
+        "file-scanner",
+        "temporary"
+      ],
+      "complexity": "moderate",
+      "filePath": ".understand-anything/tmp/ua-scan-files.json"
+    },
+    {
+      "id": "file:frontend/index.html",
+      "type": "file",
+      "name": "index.html",
+      "summary": "Entry point HTML page for the frontend Vite application, hosting the root container element and loading the main TypeScript React entry script.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "frontend",
+        "html"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/index.html"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "summary": "Configuration file for the frontend package, defining project metadata, build scripts, development scripts, and external runtime/development dependencies.",
+      "tags": [
+        "package-config",
+        "dependencies",
+        "scripts",
+        "frontend"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/package.json"
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "summary": "TypeScript compiler configuration for the frontend React application, specifying the target environment, module resolution strategy, and strict linting rules.",
+      "tags": [
+        "typescript-config",
+        "compiler-options",
+        "frontend"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/tsconfig.json"
+    },
+    {
+      "id": "config:frontend/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "summary": "Deployment configuration for Vercel, setting up rewrite rules to proxy API requests to the Render backend server and route all other paths to the index.html fallback.",
+      "tags": [
+        "deployment-config",
+        "routing",
+        "vercel",
+        "frontend"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/vercel.json"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "summary": "Specifies ignore rules and file patterns to exclude from the understand-anything code analysis.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "ignore-rules"
+      ],
+      "complexity": "simple",
+      "filePath": ".understand-anything/.understandignore"
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "config",
+      "name": "scan-result.json",
+      "summary": "Stores intermediate analysis results containing project metrics, files, and import maps.",
+      "tags": [
+        "metadata",
+        "tooling",
+        "intermediate-data"
+      ],
+      "complexity": "moderate",
+      "filePath": ".understand-anything/intermediate/scan-result.json"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "summary": "Defines metadata, scripts, and dependencies for the backend Express application.",
+      "tags": [
+        "package-manifest",
+        "dependencies",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/package.json"
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "type": "file",
+      "name": "prisma.config.ts",
+      "summary": "Defines configuration settings for Prisma, including migration and schema paths.",
+      "tags": [
+        "database-config",
+        "prisma-config",
+        "configuration"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma.config.ts"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Initial database migration SQL script creating core tables (Warehouse, Driver, Shipment).",
+      "tags": [
+        "database-migration",
+        "sql-schema",
+        "initialization"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "table",
+      "name": "Warehouse",
+      "summary": "Database table storing warehouse locations and details.",
+      "tags": [
+        "database-table",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "table",
+      "name": "Driver",
+      "summary": "Database table tracking drivers and their current status and location.",
+      "tags": [
+        "database-table",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "table",
+      "name": "Shipment",
+      "summary": "Database table managing shipments, their progress, and origin/destination warehouses.",
+      "tags": [
+        "database-table",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Database migration SQL script that creates the User table.",
+      "tags": [
+        "database-migration",
+        "sql-schema",
+        "user-table"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "table",
+      "name": "User",
+      "summary": "Database table for user accounts, credentials, and roles.",
+      "tags": [
+        "database-table",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Database migration SQL script adding the ShipmentCheckpoint tracking table.",
+      "tags": [
+        "database-migration",
+        "sql-schema",
+        "shipment-tracking"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql"
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "table",
+      "name": "ShipmentCheckpoint",
+      "summary": "Database table representing individual checkpoints within a shipment's route.",
+      "tags": [
+        "database-table",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql"
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "summary": "Prisma migration lock file preventing concurrent schema modifications.",
+      "tags": [
+        "lockfile",
+        "prisma-migrations",
+        "tooling"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/prisma/migrations/migration_lock.toml"
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "summary": "Prisma schema specifying the Postgres database models and relationships.",
+      "tags": [
+        "prisma-schema",
+        "data-model",
+        "database-design"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/prisma/schema.prisma"
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "summary": "Database seed script populating initial warehouses, admins, and sample shipments.",
+      "tags": [
+        "database-seeding",
+        "prisma-seed",
+        "setup"
+      ],
+      "complexity": "moderate",
+      "filePath": "backend/prisma/seed.ts"
+    },
+    {
+      "id": "function:backend/prisma/seed.ts:main",
+      "type": "function",
+      "name": "main",
+      "summary": "Main seeding execution function clearing old tables and creating default dataset.",
+      "tags": [
+        "entry-point",
+        "seeding-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "summary": "TypeScript compiler configurations for the backend application.",
+      "tags": [
+        "typescript-config",
+        "backend-config",
+        "compilation"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/tsconfig.json"
+    },
+    {
+      "id": "file:backend/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "summary": "Configuration file for the backend Vitest test runner.",
+      "tags": [
+        "test-config",
+        "vitest-config",
+        "testing"
+      ],
+      "complexity": "simple",
+      "filePath": "backend/vitest.config.ts"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "summary": "Orchestrator config file defining PostgreSQL, backend, and frontend containers.",
+      "tags": [
+        "docker-compose",
+        "orchestration",
+        "local-environment"
+      ],
+      "complexity": "moderate",
+      "filePath": "docker-compose.yml"
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "summary": "Nginx config mapping static asset delivery and SPA routing support.",
+      "tags": [
+        "web-server",
+        "nginx-config",
+        "production-routing"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/nginx.conf"
+    },
+    {
+      "id": "file:frontend/scripts/generate-vercel-config.mjs",
+      "type": "file",
+      "name": "generate-vercel-config.mjs",
+      "summary": "Script writing vercel.json dynamically using environment API proxy URLs.",
+      "tags": [
+        "build-script",
+        "vercel-deploy",
+        "proxy-config"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/scripts/generate-vercel-config.mjs"
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "summary": "Main entry CSS stylesheet loaded with Tailwind configuration directives.",
+      "tags": [
+        "stylesheet",
+        "tailwind-css",
+        "global-styles"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/index.css"
+    },
+    {
+      "id": "file:frontend/src/vite-env.d.ts",
+      "type": "file",
+      "name": "vite-env.d.ts",
+      "summary": "Global TypeScript type definitions helper for Vite client variables.",
+      "tags": [
+        "typescript-declaration",
+        "vite-types"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/src/vite-env.d.ts"
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "summary": "Vite environment configuration loaded with react and tailwind plugins.",
+      "tags": [
+        "vite-config",
+        "frontend-build",
+        "tooling"
+      ],
+      "complexity": "simple",
+      "filePath": "frontend/vite.config.ts"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "summary": "Central markdown documentation guide outlining setup, stack details, and scripts.",
+      "tags": [
+        "readme",
+        "documentation",
+        "onboarding"
+      ],
+      "complexity": "moderate",
+      "filePath": "README.md"
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "function",
+      "name": "useAppSelector",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DashboardView.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/FleetView.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Landing.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Login.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/TrackingView.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Landing.tsx",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Landing.tsx",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "target": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "target": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/Login.tsx:Login",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/App.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CustomSelect.tsx",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/CustomSelect.tsx",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:addShipment",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:handleCreateShipment",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:selectShipment",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:badgeClass",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/components/CustomSelect.tsx:CustomSelect",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "target": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "target": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelayed",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDispatched",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:checkpointReached",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:shipmentDelivered",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/store/socketMiddleware.ts:socketMiddleware",
+      "target": "function:frontend/src/store/driversSlice.ts:driverStatusChange",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/api.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/auth.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/simulation.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/db.ts",
+      "target": "function:backend/src/db.ts:getInstance",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/middleware/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/tests/api.test.ts",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/tests/auth.test.ts",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "function:backend/src/simulation.ts:startSimulation",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "function:backend/tests/helpers.ts:resetAndSeedDatabase",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:verifyToken",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "function:backend/src/middleware/auth.ts:requireRole",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "service:backend/.dockerignore",
+      "target": "service:backend/Dockerfile",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "service:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "depends_on",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "target": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "related",
+      "weight": 0.5,
+      "properties": {
+        "description": "Resolved import map generated from the input file listing."
+      },
+      "direction": "forward"
+    },
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "target": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "related",
+      "weight": 0.5,
+      "properties": {
+        "description": "Input mapping derived from the scanned files listing."
+      },
+      "direction": "forward"
+    },
+    {
+      "source": "config:frontend/vercel.json",
+      "target": "file:frontend/index.html",
+      "relation": "routes",
+      "weight": 0.8,
+      "direction": "forward",
+      "type": "related"
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/index.html",
+      "relation": "configures",
+      "weight": 0.8,
+      "direction": "forward",
+      "type": "related"
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "file:frontend/index.html",
+      "relation": "configures",
+      "weight": 0.8,
+      "direction": "forward",
+      "type": "related"
+    },
+    {
+      "source": "file:frontend/index.html",
+      "target": "file:frontend/src/main.tsx",
+      "relation": "related",
+      "weight": 0.8,
+      "direction": "forward",
+      "type": "related"
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "function:backend/prisma/seed.ts:main",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "contains",
+      "weight": 1.0,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "file:backend/prisma/seed.ts",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/prisma.config.ts",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/tsconfig.json",
+      "target": "config:backend/package.json",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/vitest.config.ts",
+      "target": "config:backend/package.json",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "config:backend/package.json",
+      "type": "deploys",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "file:frontend/nginx.conf",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/scripts/generate-vercel-config.mjs",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/vite.config.ts",
+      "target": "file:frontend/src/index.css",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:backend/package.json",
+      "type": "documents",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "depends_on",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "depends_on",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/prisma/migrations/migration_lock.toml",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/vite-env.d.ts",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/CheckpointTracker.tsx:CheckpointTracker",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:frontend/src/components/ShipmentsList.tsx:ShipmentsList",
+      "target": "function:frontend/src/store/hooks.ts:useAppSelector",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "file:frontend/nginx.conf",
+      "type": "depends_on",
+      "weight": 0.8,
+      "direction": "forward"
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:infrastructure",
+      "name": "Infrastructure & CI/CD",
+      "description": "Docker files, Docker Compose, Nginx server configurations, CI/CD pipelines, and cloud platform configurations.",
+      "nodeIds": [
+        "service:backend/.dockerignore",
+        "service:backend/Dockerfile",
+        "service:backend/Dockerfile:node",
+        "service:frontend/.dockerignore",
+        "service:frontend/Dockerfile",
+        "service:frontend/Dockerfile:build",
+        "service:frontend/Dockerfile:nginx",
+        "service:docker-compose.yml",
+        "pipeline:.github/workflows/ci.yml",
+        "file:frontend/nginx.conf",
+        "config:frontend/vercel.json",
+        "file:frontend/scripts/generate-vercel-config.mjs"
+      ]
+    },
+    {
+      "id": "layer:configuration",
+      "name": "Configuration & Metadata",
+      "description": "Project configurations, dependencies manifests, tooling rules, build parameters, environments, and general project documentation.",
+      "nodeIds": [
+        "config:.understand-anything/tmp/ua-import-map-input.json",
+        "config:.understand-anything/tmp/ua-import-map-output.json",
+        "config:.understand-anything/tmp/ua-scan-files.json",
+        "config:.understand-anything/intermediate/scan-result.json",
+        "file:.understand-anything/.understandignore",
+        "config:frontend/package.json",
+        "config:frontend/tsconfig.json",
+        "file:frontend/vite.config.ts",
+        "file:frontend/src/vite-env.d.ts",
+        "file:frontend/src/config.ts",
+        "config:backend/package.json",
+        "config:backend/tsconfig.json",
+        "document:README.md"
+      ]
+    },
+    {
+      "id": "layer:testing",
+      "name": "Testing Layer",
+      "description": "Unit and integration tests, testing environment setup, test helpers, and runner configuration files.",
+      "nodeIds": [
+        "file:backend/tests/api.test.ts",
+        "file:backend/tests/auth.test.ts",
+        "file:backend/tests/helpers.ts",
+        "file:backend/vitest.config.ts"
+      ]
+    },
+    {
+      "id": "layer:frontend-ui",
+      "name": "Frontend UI Layer",
+      "description": "React user interface components, views, main application shell, entry point, styling files, and structural HTML templates.",
+      "nodeIds": [
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/components/AnalyticsView.tsx",
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/FleetView.tsx",
+        "file:frontend/src/components/Landing.tsx",
+        "file:frontend/src/components/Login.tsx",
+        "file:frontend/src/components/MetricsGrid.tsx",
+        "file:frontend/src/components/Sidebar.tsx",
+        "file:frontend/src/components/CheckpointTracker.tsx",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "file:frontend/src/components/CustomSelect.tsx",
+        "file:frontend/src/components/ShipmentsList.tsx",
+        "file:frontend/src/components/TrackingView.tsx",
+        "file:frontend/src/main.tsx",
+        "file:frontend/index.html",
+        "file:frontend/src/index.css"
+      ]
+    },
+    {
+      "id": "layer:frontend-state",
+      "name": "Frontend State & Data",
+      "description": "Redux store configuration, slices, typed state hooks, and web socket handling middleware.",
+      "nodeIds": [
+        "file:frontend/src/store/authSlice.ts",
+        "file:frontend/src/store/hooks.ts",
+        "file:frontend/src/store/driversSlice.ts",
+        "file:frontend/src/store/index.ts",
+        "file:frontend/src/store/shipmentsSlice.ts",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "file:frontend/src/store/warehousesSlice.ts"
+      ]
+    },
+    {
+      "id": "layer:backend-api",
+      "name": "Backend API & Core Services",
+      "description": "Express HTTP entry points, router setups, controller endpoints, and real-time simulator logic.",
+      "nodeIds": [
+        "file:backend/src/routes/api.ts",
+        "file:backend/src/routes/auth.ts",
+        "file:backend/src/server.ts",
+        "file:backend/src/simulation.ts"
+      ]
+    },
+    {
+      "id": "layer:backend-middleware",
+      "name": "Backend Middleware",
+      "description": "Express handlers executing before route handlers, such as authorization and token verification.",
+      "nodeIds": [
+        "file:backend/src/middleware/auth.ts"
+      ]
+    },
+    {
+      "id": "layer:data-layer",
+      "name": "Data Layer & Migrations",
+      "description": "Database connection clients, seed scripts, Prisma schema, migration locks, and specific SQL table schema layouts.",
+      "nodeIds": [
+        "file:backend/src/db.ts",
+        "file:backend/prisma.config.ts",
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+        "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+        "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+        "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+        "config:backend/prisma/migrations/migration_lock.toml"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with README.md to understand LogiTrack's mission as a real-time logistics orchestrator, command center, and global fleet management system, detailing its key features and technical stack.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Database Schema & Seeding",
+      "description": "Explore the Prisma schema defining entities like warehouses, drivers, shipments, and checkpoints. Also review the seed file that sets up initial mock data for developers.",
+      "nodeIds": [
+        "schema:backend/prisma/schema.prisma",
+        "file:backend/prisma/seed.ts"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Backend Server Configuration",
+      "description": "Learn how the backend Express server initializes, registers middlewares, starts HTTP listeners, binds Socket.io WebSockets for live communication, and starts simulated logistics tracking updates.",
+      "nodeIds": [
+        "file:backend/src/server.ts"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Security & JWT Authentication",
+      "description": "Inspect user registration and session endpoints along with validation middleware that extracts authorization tokens to enforce strict role-based access for driver or admin users.",
+      "nodeIds": [
+        "file:backend/src/routes/auth.ts",
+        "file:backend/src/middleware/auth.ts"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Shipment API & Live Simulation Flow",
+      "description": "See the operational shipment endpoints and background simulator logic that periodically increments GPS coordinates and triggers status transitions for active deliveries.",
+      "nodeIds": [
+        "file:backend/src/routes/api.ts",
+        "file:backend/src/simulation.ts"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Frontend Bootstrap & Layout Root",
+      "description": "Understand how Vite bootstraps React, sets up global CSS styles, initializes session validations upon page entry, and decides whether to direct the client to the Admin panel, Driver view, or Landing page.",
+      "nodeIds": [
+        "file:frontend/src/main.tsx",
+        "file:frontend/src/App.tsx"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Redux Store & Live WebSocket Middleware",
+      "description": "Dive into the centralized store configuration and a custom Redux middleware that listens to incoming WebSockets, updating Redux state instantly as shipment coordinates or driver metrics change.",
+      "nodeIds": [
+        "file:frontend/src/store/index.ts",
+        "file:frontend/src/store/socketMiddleware.ts",
+        "file:frontend/src/store/hooks.ts"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Admin Dashboard & Control Command Center",
+      "description": "Analyze the primary interface for administrators, highlighting the live status indicators, reactive charts, interactive control coordinates, and the layout structures.",
+      "nodeIds": [
+        "file:frontend/src/components/DashboardView.tsx",
+        "file:frontend/src/components/ControlCenter.tsx",
+        "file:frontend/src/components/MetricsGrid.tsx"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Driver Portal & Progress Checkpoints",
+      "description": "Study the interface tailored for drivers, which enables them to claim assigned shipments, track upcoming checkpoints, and dispatch real-time progress update hooks.",
+      "nodeIds": [
+        "file:frontend/src/components/DriverPortal.tsx",
+        "file:frontend/src/components/CheckpointTracker.tsx"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "CI/CD Workflows & Infrastructure Composition",
+      "description": "Complete the tour by reviewing deployment parameters, GitHub Actions testing workflows, and Docker configurations defining how frontend Nginx proxies route telemetry requests.",
+      "nodeIds": [
+        "service:docker-compose.yml",
+        "pipeline:.github/workflows/ci.yml",
+        "file:frontend/nginx.conf"
+      ]
+    }
+  ]
+}

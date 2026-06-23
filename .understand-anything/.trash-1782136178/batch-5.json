@@ -1,0 +1,89 @@
+{
+  "nodes": [
+    {
+      "id": "service:frontend/.dockerignore",
+      "name": "frontend/.dockerignore",
+      "type": "service",
+      "filePath": "frontend/.dockerignore",
+      "summary": "Specifies files and directories to ignore when building the Docker image for the frontend.",
+      "complexity": "simple",
+      "tags": [
+        "docker",
+        "build-context",
+        "configuration"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "name": "frontend/Dockerfile",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Defines the multi-stage Docker build process for the frontend application, building the React app with Node.js and serving it via Nginx.",
+      "complexity": "simple",
+      "tags": [
+        "docker",
+        "multi-stage-build",
+        "deployment",
+        "nginx"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "name": "build",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Node.js build stage that installs dependencies and compiles the frontend source code using npm run build.",
+      "complexity": "simple",
+      "tags": [
+        "build-stage",
+        "node-js",
+        "dependency-installation"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "name": "nginx",
+      "type": "service",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Production stage that serves the compiled frontend assets from the build stage using an Nginx web server.",
+      "complexity": "simple",
+      "tags": [
+        "production-stage",
+        "nginx",
+        "web-server"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "config:frontend/nginx.conf",
+      "type": "depends_on",
+      "weight": 0.8
+    }
+  ]
+}

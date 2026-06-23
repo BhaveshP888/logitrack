@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "id": "service:backend/.dockerignore",
+      "type": "service",
+      "name": "backend/.dockerignore",
+      "summary": "Specifies files and directories (like node_modules and .env) to be excluded from the Docker build context when containerizing the backend service.",
+      "complexity": "simple",
+      "tags": ["docker-ignore", "build-context", "configuration"]
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "backend/Dockerfile",
+      "summary": "Containerizes the backend application using Node.js 20 Alpine, builds the project, runs Prisma migrations and database seeding, and exposes port 3001.",
+      "complexity": "simple",
+      "tags": ["dockerfile", "containerization", "deployment"]
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "summary": "Node.js backend container service running node:20-alpine and exposing port 3001.",
+      "complexity": "simple",
+      "tags": ["container-service", "node-runtime"]
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "service:backend/.dockerignore",
+      "target": "service:backend/Dockerfile",
+      "type": "configures",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,697 @@
+{
+  "scriptCompleted": true,
+  "directoryGroups": {
+    "frontend/src": [
+      "file:frontend/src/App.tsx",
+      "file:frontend/src/config.ts",
+      "file:frontend/src/main.tsx",
+      "file:frontend/src/index.css",
+      "file:frontend/src/vite-env.d.ts"
+    ],
+    "frontend/src/components": [
+      "file:frontend/src/components/AnalyticsView.tsx",
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/FleetView.tsx",
+      "file:frontend/src/components/Landing.tsx",
+      "file:frontend/src/components/Login.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx",
+      "file:frontend/src/components/Sidebar.tsx",
+      "file:frontend/src/components/CheckpointTracker.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/CustomSelect.tsx",
+      "file:frontend/src/components/ShipmentsList.tsx",
+      "file:frontend/src/components/TrackingView.tsx"
+    ],
+    "frontend/src/store": [
+      "file:frontend/src/store/authSlice.ts",
+      "file:frontend/src/store/hooks.ts",
+      "file:frontend/src/store/driversSlice.ts",
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/shipmentsSlice.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/warehousesSlice.ts"
+    ],
+    "backend/src": [
+      "file:backend/src/db.ts",
+      "file:backend/src/server.ts",
+      "file:backend/src/simulation.ts"
+    ],
+    "backend/src/middleware": [
+      "file:backend/src/middleware/auth.ts"
+    ],
+    "backend/src/routes": [
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/routes/auth.ts"
+    ],
+    "backend/tests": [
+      "file:backend/tests/api.test.ts",
+      "file:backend/tests/auth.test.ts",
+      "file:backend/tests/helpers.ts"
+    ],
+    "backend": [
+      "service:backend/.dockerignore",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "config:backend/package.json",
+      "file:backend/prisma.config.ts",
+      "config:backend/tsconfig.json",
+      "file:backend/vitest.config.ts"
+    ],
+    "frontend": [
+      "service:frontend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "file:frontend/index.html",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "config:frontend/vercel.json",
+      "file:frontend/nginx.conf",
+      "file:frontend/vite.config.ts"
+    ],
+    ".github/workflows": [
+      "pipeline:.github/workflows/ci.yml"
+    ],
+    ".understand-anything/tmp": [
+      "config:.understand-anything/tmp/ua-import-map-input.json",
+      "config:.understand-anything/tmp/ua-import-map-output.json",
+      "config:.understand-anything/tmp/ua-scan-files.json"
+    ],
+    ".understand-anything": [
+      "file:.understand-anything/.understandignore"
+    ],
+    ".understand-anything/intermediate": [
+      "config:.understand-anything/intermediate/scan-result.json"
+    ],
+    "backend/prisma/migrations/20260528164951_init": [
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment"
+    ],
+    "backend/prisma/migrations/20260531123740_add_users": [
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User"
+    ],
+    "backend/prisma/migrations/20260602135055_checkpoints_tracking": [
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint"
+    ],
+    "backend/prisma/migrations": [
+      "config:backend/prisma/migrations/migration_lock.toml"
+    ],
+    "backend/prisma": [
+      "schema:backend/prisma/schema.prisma",
+      "file:backend/prisma/seed.ts"
+    ],
+    "": [
+      "service:docker-compose.yml",
+      "document:README.md"
+    ],
+    "frontend/scripts": [
+      "file:frontend/scripts/generate-vercel-config.mjs"
+    ]
+  },
+  "nodeTypeGroups": {
+    "file": [
+      "file:frontend/src/App.tsx",
+      "file:frontend/src/components/AnalyticsView.tsx",
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/FleetView.tsx",
+      "file:frontend/src/components/Landing.tsx",
+      "file:frontend/src/components/Login.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx",
+      "file:frontend/src/components/Sidebar.tsx",
+      "file:frontend/src/config.ts",
+      "file:frontend/src/store/authSlice.ts",
+      "file:frontend/src/store/hooks.ts",
+      "file:frontend/src/components/CheckpointTracker.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/CustomSelect.tsx",
+      "file:frontend/src/components/ShipmentsList.tsx",
+      "file:frontend/src/components/TrackingView.tsx",
+      "file:frontend/src/main.tsx",
+      "file:frontend/src/store/driversSlice.ts",
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/shipmentsSlice.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/warehousesSlice.ts",
+      "file:backend/src/db.ts",
+      "file:backend/src/middleware/auth.ts",
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/routes/auth.ts",
+      "file:backend/src/server.ts",
+      "file:backend/src/simulation.ts",
+      "file:backend/tests/api.test.ts",
+      "file:backend/tests/auth.test.ts",
+      "file:backend/tests/helpers.ts",
+      "file:frontend/index.html",
+      "file:.understand-anything/.understandignore",
+      "file:backend/prisma.config.ts",
+      "file:backend/prisma/seed.ts",
+      "file:backend/vitest.config.ts",
+      "file:frontend/nginx.conf",
+      "file:frontend/scripts/generate-vercel-config.mjs",
+      "file:frontend/src/index.css",
+      "file:frontend/src/vite-env.d.ts",
+      "file:frontend/vite.config.ts"
+    ],
+    "service": [
+      "service:backend/.dockerignore",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "service:frontend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "service:docker-compose.yml"
+    ],
+    "pipeline": [
+      "pipeline:.github/workflows/ci.yml"
+    ],
+    "config": [
+      "config:.understand-anything/tmp/ua-import-map-input.json",
+      "config:.understand-anything/tmp/ua-import-map-output.json",
+      "config:.understand-anything/tmp/ua-scan-files.json",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "config:frontend/vercel.json",
+      "config:.understand-anything/intermediate/scan-result.json",
+      "config:backend/package.json",
+      "config:backend/prisma/migrations/migration_lock.toml",
+      "config:backend/tsconfig.json"
+    ],
+    "table": [
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint"
+    ],
+    "schema": [
+      "schema:backend/prisma/schema.prisma"
+    ],
+    "document": [
+      "document:README.md"
+    ]
+  },
+  "crossCategoryEdges": [],
+  "interGroupImports": [
+    {
+      "source": "frontend/src",
+      "target": "frontend/src/components",
+      "count": 8
+    },
+    {
+      "source": "frontend/src",
+      "target": "frontend/src/store",
+      "count": 6
+    },
+    {
+      "source": "frontend/src/components",
+      "target": "frontend/src/store",
+      "count": 18
+    },
+    {
+      "source": "frontend/src/components",
+      "target": "frontend/src",
+      "count": 6
+    },
+    {
+      "source": "frontend/src/store",
+      "target": "frontend/src",
+      "count": 5
+    },
+    {
+      "source": "backend/src/routes",
+      "target": "backend/src",
+      "count": 2
+    },
+    {
+      "source": "backend/src/routes",
+      "target": "backend/src/middleware",
+      "count": 2
+    },
+    {
+      "source": "backend/src",
+      "target": "backend/src/routes",
+      "count": 2
+    },
+    {
+      "source": "backend/tests",
+      "target": "backend/src",
+      "count": 5
+    }
+  ],
+  "intraGroupDensity": {
+    "frontend/src": 0.15,
+    "frontend/src/components": 0.03205128205128205,
+    "frontend/src/store": 0.23809523809523808,
+    "backend/src": 0.3333333333333333,
+    "backend/src/middleware": 0,
+    "backend/src/routes": 0,
+    "backend/tests": 0.3333333333333333,
+    "backend": 0,
+    "frontend": 0,
+    ".github/workflows": 0,
+    ".understand-anything/tmp": 0,
+    ".understand-anything": 0,
+    ".understand-anything/intermediate": 0,
+    "backend/prisma/migrations/20260528164951_init": 0,
+    "backend/prisma/migrations/20260531123740_add_users": 0,
+    "backend/prisma/migrations/20260602135055_checkpoints_tracking": 0,
+    "backend/prisma/migrations": 0,
+    "backend/prisma": 0,
+    "": 0,
+    "frontend/scripts": 0
+  },
+  "patternMatches": {
+    "api": [
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/routes/auth.ts"
+    ],
+    "service": [],
+    "data": [
+      "file:backend/src/db.ts",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "config:backend/prisma/migrations/migration_lock.toml",
+      "schema:backend/prisma/schema.prisma",
+      "file:backend/prisma/seed.ts"
+    ],
+    "ui": [
+      "file:frontend/src/App.tsx",
+      "file:frontend/src/components/AnalyticsView.tsx",
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/FleetView.tsx",
+      "file:frontend/src/components/Landing.tsx",
+      "file:frontend/src/components/Login.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx",
+      "file:frontend/src/components/Sidebar.tsx",
+      "file:frontend/src/components/CheckpointTracker.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/CustomSelect.tsx",
+      "file:frontend/src/components/ShipmentsList.tsx",
+      "file:frontend/src/components/TrackingView.tsx",
+      "file:frontend/src/main.tsx",
+      "file:frontend/index.html",
+      "file:frontend/src/index.css"
+    ],
+    "middleware": [
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:backend/src/middleware/auth.ts"
+    ],
+    "utility": [
+      "file:backend/tests/helpers.ts"
+    ],
+    "config": [
+      "file:frontend/src/config.ts",
+      "config:.understand-anything/tmp/ua-import-map-input.json",
+      "config:.understand-anything/tmp/ua-import-map-output.json",
+      "config:.understand-anything/tmp/ua-scan-files.json",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "config:frontend/vercel.json",
+      "config:.understand-anything/intermediate/scan-result.json",
+      "config:backend/package.json",
+      "file:backend/prisma.config.ts",
+      "config:backend/tsconfig.json",
+      "file:backend/vitest.config.ts",
+      "file:frontend/scripts/generate-vercel-config.mjs",
+      "file:frontend/vite.config.ts"
+    ],
+    "test": [
+      "file:backend/tests/api.test.ts",
+      "file:backend/tests/auth.test.ts",
+      "file:backend/tests/helpers.ts",
+      "file:backend/vitest.config.ts"
+    ],
+    "types": [
+      "file:frontend/src/vite-env.d.ts"
+    ],
+    "hooks": [
+      "file:frontend/src/store/hooks.ts",
+      "file:frontend/src/store/warehousesSlice.ts",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User"
+    ],
+    "state": [
+      "file:frontend/src/store/authSlice.ts",
+      "file:frontend/src/store/hooks.ts",
+      "file:frontend/src/store/driversSlice.ts",
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/shipmentsSlice.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/warehousesSlice.ts"
+    ]
+  },
+  "deploymentTopology": {
+    "docker": [
+      "service:backend/.dockerignore",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "service:frontend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "service:docker-compose.yml"
+    ],
+    "vercel": [
+      "config:frontend/vercel.json",
+      "file:frontend/scripts/generate-vercel-config.mjs"
+    ],
+    "nginx": [
+      "file:frontend/nginx.conf"
+    ],
+    "ci_cd": [
+      "pipeline:.github/workflows/ci.yml"
+    ]
+  },
+  "dataPipeline": {
+    "schemas": [
+      "schema:backend/prisma/schema.prisma"
+    ],
+    "migrations": [
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "config:backend/prisma/migrations/migration_lock.toml"
+    ],
+    "seeds": [
+      "file:backend/prisma/seed.ts"
+    ],
+    "pipelines": [
+      "pipeline:.github/workflows/ci.yml"
+    ]
+  },
+  "docCoverage": {
+    "documented": [
+      "file:frontend/src/App.tsx",
+      "file:frontend/src/components/AnalyticsView.tsx",
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/FleetView.tsx",
+      "file:frontend/src/components/Landing.tsx",
+      "file:frontend/src/components/Login.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx",
+      "file:frontend/src/components/Sidebar.tsx",
+      "file:frontend/src/config.ts",
+      "file:frontend/src/store/authSlice.ts",
+      "file:frontend/src/store/hooks.ts",
+      "pipeline:.github/workflows/ci.yml",
+      "config:.understand-anything/tmp/ua-import-map-input.json",
+      "config:.understand-anything/tmp/ua-import-map-output.json",
+      "config:.understand-anything/tmp/ua-scan-files.json"
+    ],
+    "undocumented": [
+      "file:frontend/src/components/CheckpointTracker.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/CustomSelect.tsx",
+      "file:frontend/src/components/ShipmentsList.tsx",
+      "file:frontend/src/components/TrackingView.tsx",
+      "file:frontend/src/main.tsx",
+      "file:frontend/src/store/driversSlice.ts",
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/shipmentsSlice.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/warehousesSlice.ts",
+      "file:backend/src/db.ts",
+      "file:backend/src/middleware/auth.ts",
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/routes/auth.ts",
+      "file:backend/src/server.ts",
+      "file:backend/src/simulation.ts",
+      "file:backend/tests/api.test.ts",
+      "file:backend/tests/auth.test.ts",
+      "file:backend/tests/helpers.ts",
+      "service:backend/.dockerignore",
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "service:frontend/.dockerignore",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "file:frontend/index.html",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "config:frontend/vercel.json",
+      "file:.understand-anything/.understandignore",
+      "config:.understand-anything/intermediate/scan-result.json",
+      "config:backend/package.json",
+      "file:backend/prisma.config.ts",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "config:backend/prisma/migrations/migration_lock.toml",
+      "schema:backend/prisma/schema.prisma",
+      "file:backend/prisma/seed.ts",
+      "config:backend/tsconfig.json",
+      "file:backend/vitest.config.ts",
+      "service:docker-compose.yml",
+      "file:frontend/nginx.conf",
+      "file:frontend/scripts/generate-vercel-config.mjs",
+      "file:frontend/src/index.css",
+      "file:frontend/src/vite-env.d.ts",
+      "file:frontend/vite.config.ts",
+      "document:README.md"
+    ]
+  },
+  "dependencyDirection": [
+    {
+      "from": "frontend/src",
+      "to": "frontend/src/components",
+      "count": 8,
+      "hasCycle": true
+    },
+    {
+      "from": "frontend/src",
+      "to": "frontend/src/store",
+      "count": 6,
+      "hasCycle": true
+    },
+    {
+      "from": "frontend/src/components",
+      "to": "frontend/src/store",
+      "count": 18,
+      "hasCycle": false
+    },
+    {
+      "from": "frontend/src/components",
+      "to": "frontend/src",
+      "count": 6,
+      "hasCycle": true
+    },
+    {
+      "from": "frontend/src/store",
+      "to": "frontend/src",
+      "count": 5,
+      "hasCycle": true
+    },
+    {
+      "from": "backend/src/routes",
+      "to": "backend/src",
+      "count": 2,
+      "hasCycle": true
+    },
+    {
+      "from": "backend/src/routes",
+      "to": "backend/src/middleware",
+      "count": 2,
+      "hasCycle": false
+    },
+    {
+      "from": "backend/src",
+      "to": "backend/src/routes",
+      "count": 2,
+      "hasCycle": true
+    },
+    {
+      "from": "backend/tests",
+      "to": "backend/src",
+      "count": 5,
+      "hasCycle": false
+    }
+  ],
+  "fileStats": {
+    "totalFiles": 71,
+    "totalImports": 76,
+    "totalDirectories": 20,
+    "nodeTypeCounts": {
+      "file": 42,
+      "service": 8,
+      "pipeline": 1,
+      "config": 10,
+      "table": 8,
+      "schema": 1,
+      "document": 1
+    }
+  },
+  "fileFanIn": {
+    "file:frontend/src/App.tsx": 1,
+    "file:frontend/src/components/AnalyticsView.tsx": 1,
+    "file:frontend/src/components/DashboardView.tsx": 1,
+    "file:frontend/src/components/DriverPortal.tsx": 1,
+    "file:frontend/src/components/FleetView.tsx": 1,
+    "file:frontend/src/components/Landing.tsx": 1,
+    "file:frontend/src/components/Login.tsx": 1,
+    "file:frontend/src/components/MetricsGrid.tsx": 0,
+    "file:frontend/src/components/Sidebar.tsx": 1,
+    "file:frontend/src/config.ts": 12,
+    "file:frontend/src/store/authSlice.ts": 5,
+    "file:frontend/src/store/hooks.ts": 11,
+    "file:frontend/src/components/CheckpointTracker.tsx": 1,
+    "file:frontend/src/components/ControlCenter.tsx": 1,
+    "file:frontend/src/components/CustomSelect.tsx": 2,
+    "file:frontend/src/components/ShipmentsList.tsx": 1,
+    "file:frontend/src/components/TrackingView.tsx": 1,
+    "file:frontend/src/main.tsx": 0,
+    "file:frontend/src/store/driversSlice.ts": 4,
+    "file:frontend/src/store/index.ts": 2,
+    "file:frontend/src/store/shipmentsSlice.ts": 9,
+    "file:frontend/src/store/socketMiddleware.ts": 1,
+    "file:frontend/src/store/warehousesSlice.ts": 2,
+    "file:backend/src/db.ts": 6,
+    "file:backend/src/middleware/auth.ts": 2,
+    "file:backend/src/routes/api.ts": 1,
+    "file:backend/src/routes/auth.ts": 1,
+    "file:backend/src/server.ts": 2,
+    "file:backend/src/simulation.ts": 1,
+    "file:backend/tests/api.test.ts": 0,
+    "file:backend/tests/auth.test.ts": 0,
+    "file:backend/tests/helpers.ts": 2,
+    "service:backend/.dockerignore": 0,
+    "service:backend/Dockerfile": 0,
+    "service:backend/Dockerfile:node": 0,
+    "service:frontend/.dockerignore": 0,
+    "service:frontend/Dockerfile": 0,
+    "service:frontend/Dockerfile:build": 0,
+    "service:frontend/Dockerfile:nginx": 0,
+    "pipeline:.github/workflows/ci.yml": 0,
+    "config:.understand-anything/tmp/ua-import-map-input.json": 0,
+    "config:.understand-anything/tmp/ua-import-map-output.json": 0,
+    "config:.understand-anything/tmp/ua-scan-files.json": 0,
+    "file:frontend/index.html": 0,
+    "config:frontend/package.json": 0,
+    "config:frontend/tsconfig.json": 0,
+    "config:frontend/vercel.json": 0,
+    "file:.understand-anything/.understandignore": 0,
+    "config:.understand-anything/intermediate/scan-result.json": 0,
+    "config:backend/package.json": 0,
+    "file:backend/prisma.config.ts": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": 0,
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": 0,
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": 0,
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": 0,
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": 0,
+    "config:backend/prisma/migrations/migration_lock.toml": 0,
+    "schema:backend/prisma/schema.prisma": 0,
+    "file:backend/prisma/seed.ts": 0,
+    "config:backend/tsconfig.json": 0,
+    "file:backend/vitest.config.ts": 0,
+    "service:docker-compose.yml": 0,
+    "file:frontend/nginx.conf": 0,
+    "file:frontend/scripts/generate-vercel-config.mjs": 0,
+    "file:frontend/src/index.css": 1,
+    "file:frontend/src/vite-env.d.ts": 0,
+    "file:frontend/vite.config.ts": 0,
+    "document:README.md": 0
+  },
+  "fileFanOut": {
+    "file:frontend/src/App.tsx": 14,
+    "file:frontend/src/components/AnalyticsView.tsx": 1,
+    "file:frontend/src/components/DashboardView.tsx": 3,
+    "file:frontend/src/components/DriverPortal.tsx": 4,
+    "file:frontend/src/components/FleetView.tsx": 1,
+    "file:frontend/src/components/Landing.tsx": 0,
+    "file:frontend/src/components/Login.tsx": 3,
+    "file:frontend/src/components/MetricsGrid.tsx": 2,
+    "file:frontend/src/components/Sidebar.tsx": 3,
+    "file:frontend/src/config.ts": 0,
+    "file:frontend/src/store/authSlice.ts": 1,
+    "file:frontend/src/store/hooks.ts": 1,
+    "file:frontend/src/components/CheckpointTracker.tsx": 2,
+    "file:frontend/src/components/ControlCenter.tsx": 5,
+    "file:frontend/src/components/CustomSelect.tsx": 0,
+    "file:frontend/src/components/ShipmentsList.tsx": 3,
+    "file:frontend/src/components/TrackingView.tsx": 2,
+    "file:frontend/src/main.tsx": 3,
+    "file:frontend/src/store/driversSlice.ts": 2,
+    "file:frontend/src/store/index.ts": 5,
+    "file:frontend/src/store/shipmentsSlice.ts": 1,
+    "file:frontend/src/store/socketMiddleware.ts": 3,
+    "file:frontend/src/store/warehousesSlice.ts": 2,
+    "file:backend/src/db.ts": 0,
+    "file:backend/src/middleware/auth.ts": 0,
+    "file:backend/src/routes/api.ts": 2,
+    "file:backend/src/routes/auth.ts": 2,
+    "file:backend/src/server.ts": 3,
+    "file:backend/src/simulation.ts": 1,
+    "file:backend/tests/api.test.ts": 3,
+    "file:backend/tests/auth.test.ts": 3,
+    "file:backend/tests/helpers.ts": 1,
+    "service:backend/.dockerignore": 0,
+    "service:backend/Dockerfile": 0,
+    "service:backend/Dockerfile:node": 0,
+    "service:frontend/.dockerignore": 0,
+    "service:frontend/Dockerfile": 0,
+    "service:frontend/Dockerfile:build": 0,
+    "service:frontend/Dockerfile:nginx": 0,
+    "pipeline:.github/workflows/ci.yml": 0,
+    "config:.understand-anything/tmp/ua-import-map-input.json": 0,
+    "config:.understand-anything/tmp/ua-import-map-output.json": 0,
+    "config:.understand-anything/tmp/ua-scan-files.json": 0,
+    "file:frontend/index.html": 0,
+    "config:frontend/package.json": 0,
+    "config:frontend/tsconfig.json": 0,
+    "config:frontend/vercel.json": 0,
+    "file:.understand-anything/.understandignore": 0,
+    "config:.understand-anything/intermediate/scan-result.json": 0,
+    "config:backend/package.json": 0,
+    "file:backend/prisma.config.ts": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver": 0,
+    "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment": 0,
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql": 0,
+    "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User": 0,
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": 0,
+    "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint": 0,
+    "config:backend/prisma/migrations/migration_lock.toml": 0,
+    "schema:backend/prisma/schema.prisma": 0,
+    "file:backend/prisma/seed.ts": 0,
+    "config:backend/tsconfig.json": 0,
+    "file:backend/vitest.config.ts": 0,
+    "service:docker-compose.yml": 0,
+    "file:frontend/nginx.conf": 0,
+    "file:frontend/scripts/generate-vercel-config.mjs": 0,
+    "file:frontend/src/index.css": 0,
+    "file:frontend/src/vite-env.d.ts": 0,
+    "file:frontend/vite.config.ts": 0,
+    "document:README.md": 0
+  }
+}

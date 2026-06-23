@@ -3,9 +3,11 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import dotenv from 'dotenv';
 import apiRouter from './routes/api.js';
 import { authRouter } from './routes/auth.js';
+import { customerRouter } from './routes/customer.js';
 import { startSimulation } from './simulation.js';
 
 dotenv.config();
@@ -35,6 +37,7 @@ export const io = new Server(server, {
   }
 });
 
+app.use(helmet());
 app.use(cors({ origin: checkOrigin, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
@@ -42,6 +45,7 @@ app.use(express.json());
 app.set('io', io);
 
 app.use('/api/auth', authRouter);
+app.use('/api/customer', customerRouter);
 app.use('/api', apiRouter);
 
 // Healthcheck

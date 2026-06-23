@@ -1,0 +1,362 @@
+{
+  "nodes": [
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "summary": "Specifies ignore rules and file patterns to exclude from the understand-anything code analysis.",
+      "complexity": "simple",
+      "tags": ["configuration", "tooling", "ignore-rules"]
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "config",
+      "name": "scan-result.json",
+      "summary": "Stores intermediate analysis results containing project metrics, files, and import maps.",
+      "complexity": "moderate",
+      "tags": ["metadata", "tooling", "intermediate-data"]
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "summary": "Defines metadata, scripts, and dependencies for the backend Express application.",
+      "complexity": "simple",
+      "tags": ["package-manifest", "dependencies", "configuration"]
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "type": "file",
+      "name": "prisma.config.ts",
+      "summary": "Defines configuration settings for Prisma, including migration and schema paths.",
+      "complexity": "simple",
+      "tags": ["database-config", "prisma-config", "configuration"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Initial database migration SQL script creating core tables (Warehouse, Driver, Shipment).",
+      "complexity": "simple",
+      "tags": ["database-migration", "sql-schema", "initialization"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "table",
+      "name": "Warehouse",
+      "summary": "Database table storing warehouse locations and details.",
+      "complexity": "simple",
+      "tags": ["database-table", "data-model"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "table",
+      "name": "Driver",
+      "summary": "Database table tracking drivers and their current status and location.",
+      "complexity": "simple",
+      "tags": ["database-table", "data-model"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "table",
+      "name": "Shipment",
+      "summary": "Database table managing shipments, their progress, and origin/destination warehouses.",
+      "complexity": "simple",
+      "tags": ["database-table", "data-model"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Database migration SQL script that creates the User table.",
+      "complexity": "simple",
+      "tags": ["database-migration", "sql-schema", "user-table"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "table",
+      "name": "User",
+      "summary": "Database table for user accounts, credentials, and roles.",
+      "complexity": "simple",
+      "tags": ["database-table", "data-model"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "summary": "Database migration SQL script adding the ShipmentCheckpoint tracking table.",
+      "complexity": "simple",
+      "tags": ["database-migration", "sql-schema", "shipment-tracking"]
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "table",
+      "name": "ShipmentCheckpoint",
+      "summary": "Database table representing individual checkpoints within a shipment's route.",
+      "complexity": "simple",
+      "tags": ["database-table", "data-model"]
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "summary": "Prisma migration lock file preventing concurrent schema modifications.",
+      "complexity": "simple",
+      "tags": ["lockfile", "prisma-migrations", "tooling"]
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "summary": "Prisma schema specifying the Postgres database models and relationships.",
+      "complexity": "moderate",
+      "tags": ["prisma-schema", "data-model", "database-design"]
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "summary": "Database seed script populating initial warehouses, admins, and sample shipments.",
+      "complexity": "moderate",
+      "tags": ["database-seeding", "prisma-seed", "setup"]
+    },
+    {
+      "id": "function:backend/prisma/seed.ts:main",
+      "type": "function",
+      "name": "main",
+      "summary": "Main seeding execution function clearing old tables and creating default dataset.",
+      "complexity": "moderate",
+      "tags": ["entry-point", "seeding-logic"]
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "summary": "TypeScript compiler configurations for the backend application.",
+      "complexity": "simple",
+      "tags": ["typescript-config", "backend-config", "compilation"]
+    },
+    {
+      "id": "file:backend/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "summary": "Configuration file for the backend Vitest test runner.",
+      "complexity": "simple",
+      "tags": ["test-config", "vitest-config", "testing"]
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "summary": "Orchestrator config file defining PostgreSQL, backend, and frontend containers.",
+      "complexity": "moderate",
+      "tags": ["docker-compose", "orchestration", "local-environment"]
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "summary": "Nginx config mapping static asset delivery and SPA routing support.",
+      "complexity": "simple",
+      "tags": ["web-server", "nginx-config", "production-routing"]
+    },
+    {
+      "id": "file:frontend/scripts/generate-vercel-config.mjs",
+      "type": "file",
+      "name": "generate-vercel-config.mjs",
+      "summary": "Script writing vercel.json dynamically using environment API proxy URLs.",
+      "complexity": "simple",
+      "tags": ["build-script", "vercel-deploy", "proxy-config"]
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "summary": "Main entry CSS stylesheet loaded with Tailwind configuration directives.",
+      "complexity": "simple",
+      "tags": ["stylesheet", "tailwind-css", "global-styles"]
+    },
+    {
+      "id": "file:frontend/src/vite-env.d.ts",
+      "type": "file",
+      "name": "vite-env.d.ts",
+      "summary": "Global TypeScript type definitions helper for Vite client variables.",
+      "complexity": "simple",
+      "tags": ["typescript-declaration", "vite-types"]
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "summary": "Vite environment configuration loaded with react and tailwind plugins.",
+      "complexity": "simple",
+      "tags": ["vite-config", "frontend-build", "tooling"]
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "summary": "Central markdown documentation guide outlining setup, stack details, and scripts.",
+      "complexity": "moderate",
+      "tags": ["readme", "documentation", "onboarding"]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "function:backend/prisma/seed.ts:main",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "file:backend/prisma/seed.ts",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/prisma.config.ts",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/tsconfig.json",
+      "target": "config:backend/package.json",
+      "type": "related",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/vitest.config.ts",
+      "target": "config:backend/package.json",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "config:backend/package.json",
+      "type": "deploys",
+      "weight": 0.8
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "file:frontend/nginx.conf",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/scripts/generate-vercel-config.mjs",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/vite.config.ts",
+      "target": "file:frontend/src/index.css",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "document:README.md",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "weight": 0.8
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:backend/package.json",
+      "type": "documents",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "defines_schema",
+      "weight": 0.8
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "related",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/prisma/migrations/migration_lock.toml",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/vite-env.d.ts",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "weight": 0.5
+    }
+  ]
+}

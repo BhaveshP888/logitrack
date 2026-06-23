@@ -1,0 +1,176 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 63,
+    "filesWithImports": 27,
+    "totalEdges": 76
+  },
+  "importMap": {
+    ".github/workflows/ci.yml": [],
+    ".understand-anything/.understandignore": [],
+    ".understand-anything/intermediate/scan-result.json": [],
+    ".understand-anything/tmp/ua-import-map-input.json": [],
+    ".understand-anything/tmp/ua-import-map-output.json": [],
+    ".understand-anything/tmp/ua-scan-files.json": [],
+    "backend/.dockerignore": [],
+    "backend/Dockerfile": [],
+    "backend/package.json": [],
+    "backend/prisma.config.ts": [],
+    "backend/prisma/migrations/20260528164951_init/migration.sql": [],
+    "backend/prisma/migrations/20260531123740_add_users/migration.sql": [],
+    "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": [],
+    "backend/prisma/migrations/migration_lock.toml": [],
+    "backend/prisma/schema.prisma": [],
+    "backend/prisma/seed.ts": [],
+    "backend/src/db.ts": [],
+    "backend/src/middleware/auth.ts": [],
+    "backend/src/routes/api.ts": [
+      "backend/src/db.ts",
+      "backend/src/middleware/auth.ts"
+    ],
+    "backend/src/routes/auth.ts": [
+      "backend/src/db.ts",
+      "backend/src/middleware/auth.ts"
+    ],
+    "backend/src/server.ts": [
+      "backend/src/routes/api.ts",
+      "backend/src/routes/auth.ts",
+      "backend/src/simulation.ts"
+    ],
+    "backend/src/simulation.ts": [
+      "backend/src/db.ts"
+    ],
+    "backend/tests/api.test.ts": [
+      "backend/src/db.ts",
+      "backend/src/server.ts",
+      "backend/tests/helpers.ts"
+    ],
+    "backend/tests/auth.test.ts": [
+      "backend/src/db.ts",
+      "backend/src/server.ts",
+      "backend/tests/helpers.ts"
+    ],
+    "backend/tests/helpers.ts": [
+      "backend/src/db.ts"
+    ],
+    "backend/tsconfig.json": [],
+    "backend/vitest.config.ts": [],
+    "docker-compose.yml": [],
+    "frontend/.dockerignore": [],
+    "frontend/Dockerfile": [],
+    "frontend/index.html": [],
+    "frontend/nginx.conf": [],
+    "frontend/package.json": [],
+    "frontend/scripts/generate-vercel-config.mjs": [],
+    "frontend/src/App.tsx": [
+      "frontend/src/components/AnalyticsView.tsx",
+      "frontend/src/components/DashboardView.tsx",
+      "frontend/src/components/DriverPortal.tsx",
+      "frontend/src/components/FleetView.tsx",
+      "frontend/src/components/Landing.tsx",
+      "frontend/src/components/Login.tsx",
+      "frontend/src/components/Sidebar.tsx",
+      "frontend/src/components/TrackingView.tsx",
+      "frontend/src/config.ts",
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts",
+      "frontend/src/store/warehousesSlice.ts"
+    ],
+    "frontend/src/components/AnalyticsView.tsx": [
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/CheckpointTracker.tsx": [
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/ControlCenter.tsx": [
+      "frontend/src/components/CustomSelect.tsx",
+      "frontend/src/config.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/CustomSelect.tsx": [],
+    "frontend/src/components/DashboardView.tsx": [
+      "frontend/src/components/ControlCenter.tsx",
+      "frontend/src/config.ts",
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/DriverPortal.tsx": [
+      "frontend/src/config.ts",
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/FleetView.tsx": [
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/Landing.tsx": [],
+    "frontend/src/components/Login.tsx": [
+      "frontend/src/config.ts",
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/MetricsGrid.tsx": [
+      "frontend/src/config.ts",
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/ShipmentsList.tsx": [
+      "frontend/src/components/CustomSelect.tsx",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/Sidebar.tsx": [
+      "frontend/src/config.ts",
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/hooks.ts"
+    ],
+    "frontend/src/components/TrackingView.tsx": [
+      "frontend/src/components/CheckpointTracker.tsx",
+      "frontend/src/components/ShipmentsList.tsx"
+    ],
+    "frontend/src/config.ts": [],
+    "frontend/src/index.css": [],
+    "frontend/src/main.tsx": [
+      "frontend/src/App.tsx",
+      "frontend/src/index.css",
+      "frontend/src/store/index.ts"
+    ],
+    "frontend/src/store/authSlice.ts": [
+      "frontend/src/config.ts"
+    ],
+    "frontend/src/store/driversSlice.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/store/hooks.ts": [
+      "frontend/src/store/index.ts"
+    ],
+    "frontend/src/store/index.ts": [
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/shipmentsSlice.ts",
+      "frontend/src/store/socketMiddleware.ts",
+      "frontend/src/store/warehousesSlice.ts"
+    ],
+    "frontend/src/store/shipmentsSlice.ts": [
+      "frontend/src/config.ts"
+    ],
+    "frontend/src/store/socketMiddleware.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/store/warehousesSlice.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/vite-env.d.ts": [],
+    "frontend/tsconfig.json": [],
+    "frontend/vercel.json": [],
+    "frontend/vite.config.ts": [],
+    "README.md": []
+  }
+}

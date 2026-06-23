@@ -23,6 +23,8 @@ function getInstance(): PrismaClient {
 
 export const prisma: PrismaClient = new Proxy({} as PrismaClient, {
   get(_target, prop) {
-    return (getInstance() as any)[prop];
+    const instance = getInstance() as any;
+    const value = instance[prop];
+    return typeof value === 'function' ? value.bind(instance) : value;
   }
 });

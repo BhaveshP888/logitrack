@@ -14,6 +14,7 @@ import TrackingView from './components/TrackingView.js';
 import Login from './components/Login.js';
 import Landing from './components/Landing.js';
 import DriverPortal from './components/DriverPortal.js';
+import CustomerDashboard from './components/CustomerDashboard.js';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export default function App() {
   const handleLogout = async () => {
     try {
       await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
-    } catch (_) {}
+    } catch (err) {}
     dispatch(logoutUser());
   };
 
@@ -61,6 +62,10 @@ export default function App() {
 
   if (user.role === 'DRIVER') {
     return <DriverPortal />;
+  }
+
+  if (user.role === 'CUSTOMER') {
+    return <CustomerDashboard onLogout={handleLogout} />;
   }
 
   return (

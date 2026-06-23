@@ -1,0 +1,89 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "Start with README.md to understand LogiTrack's mission as a real-time logistics orchestrator, command center, and global fleet management system, detailing its key features and technical stack.",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "Database Schema & Seeding",
+    "description": "Explore the Prisma schema defining entities like warehouses, drivers, shipments, and checkpoints. Also review the seed file that sets up initial mock data for developers.",
+    "nodeIds": [
+      "schema:backend/prisma/schema.prisma",
+      "file:backend/prisma/seed.ts"
+    ]
+  },
+  {
+    "order": 3,
+    "title": "Backend Server Configuration",
+    "description": "Learn how the backend Express server initializes, registers middlewares, starts HTTP listeners, binds Socket.io WebSockets for live communication, and starts simulated logistics tracking updates.",
+    "nodeIds": ["file:backend/src/server.ts"]
+  },
+  {
+    "order": 4,
+    "title": "Security & JWT Authentication",
+    "description": "Inspect user registration and session endpoints along with validation middleware that extracts authorization tokens to enforce strict role-based access for driver or admin users.",
+    "nodeIds": [
+      "file:backend/src/routes/auth.ts",
+      "file:backend/src/middleware/auth.ts"
+    ]
+  },
+  {
+    "order": 5,
+    "title": "Shipment API & Live Simulation Flow",
+    "description": "See the operational shipment endpoints and background simulator logic that periodically increments GPS coordinates and triggers status transitions for active deliveries.",
+    "nodeIds": [
+      "file:backend/src/routes/api.ts",
+      "file:backend/src/simulation.ts"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Frontend Bootstrap & Layout Root",
+    "description": "Understand how Vite bootstraps React, sets up global CSS styles, initializes session validations upon page entry, and decides whether to direct the client to the Admin panel, Driver view, or Landing page.",
+    "nodeIds": [
+      "file:frontend/src/main.tsx",
+      "file:frontend/src/App.tsx"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "Redux Store & Live WebSocket Middleware",
+    "description": "Dive into the centralized store configuration and a custom Redux middleware that listens to incoming WebSockets, updating Redux state instantly as shipment coordinates or driver metrics change.",
+    "nodeIds": [
+      "file:frontend/src/store/index.ts",
+      "file:frontend/src/store/socketMiddleware.ts",
+      "file:frontend/src/store/hooks.ts"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "Admin Dashboard & Control Command Center",
+    "description": "Analyze the primary interface for administrators, highlighting the live status indicators, reactive charts, interactive control coordinates, and the layout structures.",
+    "nodeIds": [
+      "file:frontend/src/components/DashboardView.tsx",
+      "file:frontend/src/components/ControlCenter.tsx",
+      "file:frontend/src/components/MetricsGrid.tsx"
+    ]
+  },
+  {
+    "order": 9,
+    "title": "Driver Portal & Progress Checkpoints",
+    "description": "Study the interface tailored for drivers, which enables them to claim assigned shipments, track upcoming checkpoints, and dispatch real-time progress update hooks.",
+    "nodeIds": [
+      "file:frontend/src/components/DriverPortal.tsx",
+      "file:frontend/src/components/CheckpointTracker.tsx"
+    ]
+  },
+  {
+    "order": 10,
+    "title": "CI/CD Workflows & Infrastructure Composition",
+    "description": "Complete the tour by reviewing deployment parameters, GitHub Actions testing workflows, and Docker configurations defining how frontend Nginx proxies route telemetry requests.",
+    "nodeIds": [
+      "service:docker-compose.yml",
+      "pipeline:.github/workflows/ci.yml",
+      "file:frontend/nginx.conf"
+    ]
+  }
+]

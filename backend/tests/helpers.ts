@@ -10,8 +10,8 @@ export async function resetAndSeedDatabase() {
   await prisma.warehouse.deleteMany({});
 
   // Hash passwords
-  const adminPasswordHash = await bcrypt.hash('admin123', 10);
-  const driverPasswordHash = await bcrypt.hash('driver123', 10);
+  const adminPasswordHash = await bcrypt.hash('Adminlogin@1212', 10);
+  const driverPasswordHash = await bcrypt.hash('Driver@123', 10);
 
   // Create warehouses
   const w1 = await prisma.warehouse.create({ data: { name: 'Mumbai Hub' } });

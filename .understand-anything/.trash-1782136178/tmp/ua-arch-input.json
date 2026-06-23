@@ -1,0 +1,2001 @@
+{
+  "fileNodes": [
+    {
+      "id": "file:frontend/src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "frontend/src/App.tsx",
+      "summary": "The root application component that manages user authentication state, fetches initial logs/data for administrators, and routes users to either the admin dashboard, the driver portal, or login views.",
+      "tags": [
+        "entry-point",
+        "root-component",
+        "router",
+        "app-shell"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "file",
+      "name": "AnalyticsView.tsx",
+      "filePath": "frontend/src/components/AnalyticsView.tsx",
+      "summary": "Displays visual business intelligence graphs, KPI metrics, route progress statistics, and driver utilization charts using Recharts.",
+      "tags": [
+        "component",
+        "analytics",
+        "charts-view",
+        "dashboard-tab"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/DashboardView.tsx",
+      "type": "file",
+      "name": "DashboardView.tsx",
+      "filePath": "frontend/src/components/DashboardView.tsx",
+      "summary": "Serves as the primary operational workspace for administrators, listing overall shipment indicators, recent actions, and integrating the live ControlCenter maps.",
+      "tags": [
+        "component",
+        "admin-view",
+        "operational-hub",
+        "control-center"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "file",
+      "name": "DriverPortal.tsx",
+      "filePath": "frontend/src/components/DriverPortal.tsx",
+      "summary": "Provides the dedicated interface for drivers, allowing them to view active assignments, update shipment dispatch statuses, record reached checkpoints, and sign out.",
+      "tags": [
+        "component",
+        "driver-portal",
+        "dispatch-view",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FleetView.tsx",
+      "type": "file",
+      "name": "FleetView.tsx",
+      "filePath": "frontend/src/components/FleetView.tsx",
+      "summary": "Implements the fleet administration panel, displaying driver counts, availability statuses, and active route progress cards in a clear tabular grid.",
+      "tags": [
+        "component",
+        "fleet-view",
+        "driver-status",
+        "operational-tab"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/Landing.tsx",
+      "type": "file",
+      "name": "Landing.tsx",
+      "filePath": "frontend/src/components/Landing.tsx",
+      "summary": "The unauthenticated landing page of the application, showing product overview, features, pricing links, and quick-access login/register triggers.",
+      "tags": [
+        "component",
+        "landing-page",
+        "marketing-ui",
+        "welcome-view"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/Login.tsx",
+      "type": "file",
+      "name": "Login.tsx",
+      "filePath": "frontend/src/components/Login.tsx",
+      "summary": "Standard login/register form component that communicates with authentication services to request tokens and updates the global user session state.",
+      "tags": [
+        "component",
+        "login-view",
+        "auth-form",
+        "user-registration"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/MetricsGrid.tsx",
+      "type": "file",
+      "name": "MetricsGrid.tsx",
+      "filePath": "frontend/src/components/MetricsGrid.tsx",
+      "summary": "A lightweight layout component showing administrative status metrics (Total Shipments, Active Shipments, Driver Utilization, and On-Time Rate) via API integration.",
+      "tags": [
+        "component",
+        "metrics-grid",
+        "kpi-cards",
+        "dashboard-widget"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "type": "file",
+      "name": "Sidebar.tsx",
+      "filePath": "frontend/src/components/Sidebar.tsx",
+      "summary": "Implements the left sidebar navigation layout for the admin view, letting administrators toggle between the main operational views and log out.",
+      "tags": [
+        "component",
+        "sidebar-navigation",
+        "app-menu",
+        "layout"
+      ]
+    },
+    {
+      "id": "file:frontend/src/config.ts",
+      "type": "file",
+      "name": "config.ts",
+      "filePath": "frontend/src/config.ts",
+      "summary": "Application configuration module that exports REST API and WebSocket endpoint URLs determined by environment variables and local dev states.",
+      "tags": [
+        "config",
+        "api-endpoints",
+        "environment-vars",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:frontend/src/store/authSlice.ts",
+      "type": "file",
+      "name": "authSlice.ts",
+      "filePath": "frontend/src/store/authSlice.ts",
+      "summary": "Redux slice that manages the authenticated user session, loading states, error responses, and session validation thunks.",
+      "tags": [
+        "redux-slice",
+        "auth-state",
+        "session-management",
+        "data-store"
+      ]
+    },
+    {
+      "id": "file:frontend/src/store/hooks.ts",
+      "type": "file",
+      "name": "hooks.ts",
+      "filePath": "frontend/src/store/hooks.ts",
+      "summary": "Provides strongly-typed React Redux hook wrappers `useAppDispatch` and `useAppSelector` for accessing the global store.",
+      "tags": [
+        "redux-hooks",
+        "react-redux",
+        "utility",
+        "state-helper"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "file",
+      "name": "CheckpointTracker.tsx",
+      "filePath": "frontend/src/components/CheckpointTracker.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "file",
+      "name": "ControlCenter.tsx",
+      "filePath": "frontend/src/components/ControlCenter.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "file",
+      "name": "CustomSelect.tsx",
+      "filePath": "frontend/src/components/CustomSelect.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "file",
+      "name": "ShipmentsList.tsx",
+      "filePath": "frontend/src/components/ShipmentsList.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/components/TrackingView.tsx",
+      "type": "file",
+      "name": "TrackingView.tsx",
+      "filePath": "frontend/src/components/TrackingView.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "frontend/src/main.tsx",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/store/driversSlice.ts",
+      "type": "file",
+      "name": "driversSlice.ts",
+      "filePath": "frontend/src/store/driversSlice.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/store/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "frontend/src/store/index.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "file",
+      "name": "shipmentsSlice.ts",
+      "filePath": "frontend/src/store/shipmentsSlice.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "file",
+      "name": "socketMiddleware.ts",
+      "filePath": "frontend/src/store/socketMiddleware.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "file",
+      "name": "warehousesSlice.ts",
+      "filePath": "frontend/src/store/warehousesSlice.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/db.ts",
+      "type": "file",
+      "name": "db.ts",
+      "filePath": "backend/src/db.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/middleware/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "backend/src/middleware/auth.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/routes/api.ts",
+      "type": "file",
+      "name": "api.ts",
+      "filePath": "backend/src/routes/api.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/routes/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "backend/src/routes/auth.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "backend/src/server.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/src/simulation.ts",
+      "type": "file",
+      "name": "simulation.ts",
+      "filePath": "backend/src/simulation.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/tests/api.test.ts",
+      "type": "file",
+      "name": "api.test.ts",
+      "filePath": "backend/tests/api.test.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/tests/auth.test.ts",
+      "type": "file",
+      "name": "auth.test.ts",
+      "filePath": "backend/tests/auth.test.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/tests/helpers.ts",
+      "type": "file",
+      "name": "helpers.ts",
+      "filePath": "backend/tests/helpers.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:backend/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "backend/.dockerignore",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "backend/Dockerfile",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:frontend/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "frontend/.dockerignore",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "filePath": "frontend/Dockerfile",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "name": "ci.yml",
+      "filePath": ".github/workflows/ci.yml",
+      "summary": "GitHub Actions workflow configured to run backend tests (with a PostgreSQL service container) and build the frontend application upon push or pull requests to the main branch.",
+      "tags": [
+        "ci-cd",
+        "github-actions",
+        "testing",
+        "build",
+        "postgres"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "config",
+      "name": "ua-import-map-input.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json",
+      "summary": "Temporary configuration file containing the input list of workspace files for resolving import mappings.",
+      "tags": [
+        "config",
+        "tooling",
+        "import-resolution",
+        "temporary"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "type": "config",
+      "name": "ua-import-map-output.json",
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json",
+      "summary": "Temporary configuration file containing the resolved import maps and metrics for the workspace files.",
+      "tags": [
+        "config",
+        "tooling",
+        "import-resolution",
+        "temporary"
+      ]
+    },
+    {
+      "id": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "config",
+      "name": "ua-scan-files.json",
+      "filePath": ".understand-anything/tmp/ua-scan-files.json",
+      "summary": "Temporary configuration file storing the complete list of files identified during workspace scanning, including their languages and categories.",
+      "tags": [
+        "config",
+        "tooling",
+        "file-scanner",
+        "temporary"
+      ]
+    },
+    {
+      "id": "file:frontend/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "frontend/index.html",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:frontend/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "frontend/vercel.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:.understand-anything/intermediate/scan-result.json",
+      "type": "config",
+      "name": "scan-result.json",
+      "filePath": ".understand-anything/intermediate/scan-result.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/prisma.config.ts",
+      "type": "file",
+      "name": "prisma.config.ts",
+      "filePath": "backend/prisma.config.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "table",
+      "name": "Warehouse",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "table",
+      "name": "Driver",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "table",
+      "name": "Shipment",
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "table",
+      "name": "User",
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "table",
+      "name": "ShipmentCheckpoint",
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:backend/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "filePath": "backend/prisma/migrations/migration_lock.toml",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "schema:backend/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "filePath": "backend/prisma/schema.prisma",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/prisma/seed.ts",
+      "type": "file",
+      "name": "seed.ts",
+      "filePath": "backend/prisma/seed.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "backend/tsconfig.json",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:backend/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "backend/vitest.config.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "filePath": "frontend/nginx.conf",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/scripts/generate-vercel-config.mjs",
+      "type": "file",
+      "name": "generate-vercel-config.mjs",
+      "filePath": "frontend/scripts/generate-vercel-config.mjs",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "frontend/src/index.css",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/src/vite-env.d.ts",
+      "type": "file",
+      "name": "vite-env.d.ts",
+      "filePath": "frontend/src/vite-env.d.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "frontend/vite.config.ts",
+      "summary": "No summary available",
+      "tags": []
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "No summary available",
+      "tags": []
+    }
+  ],
+  "importEdges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DashboardView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/FleetView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Landing.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Login.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/TrackingView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/simulation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "allEdges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DashboardView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/FleetView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Landing.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Login.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/TrackingView.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CheckpointTracker.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ControlCenter.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/components/CustomSelect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ShipmentsList.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/CheckpointTracker.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/TrackingView.tsx",
+      "target": "file:frontend/src/components/ShipmentsList.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/driversSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/socketMiddleware.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/index.ts",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/shipmentsSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/socketMiddleware.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/warehousesSlice.ts",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/src/middleware/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/routes/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/simulation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/simulation.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/api.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/src/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/auth.test.ts",
+      "target": "file:backend/tests/helpers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/tests/helpers.ts",
+      "target": "file:backend/src/db.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/routes/api.ts",
+      "target": "file:backend/tests/api.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/routes/auth.ts",
+      "target": "file:backend/tests/auth.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:backend/Dockerfile",
+      "target": "service:backend/Dockerfile:node",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:backend/.dockerignore",
+      "target": "service:backend/Dockerfile",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/.dockerignore",
+      "target": "service:frontend/Dockerfile",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-output.json",
+      "target": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:.understand-anything/tmp/ua-import-map-input.json",
+      "target": "config:.understand-anything/tmp/ua-scan-files.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/vercel.json",
+      "target": "file:frontend/index.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/index.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "file:frontend/index.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/index.html",
+      "target": "file:frontend/src/main.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Warehouse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Driver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql:Shipment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql:User",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql:ShipmentCheckpoint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/prisma.config.ts",
+      "target": "file:backend/prisma/seed.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/prisma.config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/tsconfig.json",
+      "target": "config:backend/package.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/vitest.config.ts",
+      "target": "config:backend/package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "config:backend/package.json",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "file:frontend/nginx.conf",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/nginx.conf",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/scripts/generate-vercel-config.mjs",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/vite.config.ts",
+      "target": "file:frontend/src/index.css",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:README.md",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:backend/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "schema:backend/prisma/schema.prisma",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260528164951_init/migration.sql",
+      "target": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "table:backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "target": "table:backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/prisma/seed.ts",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/prisma/migrations/migration_lock.toml",
+      "target": "schema:backend/prisma/schema.prisma",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/vite-env.d.ts",
+      "target": "file:frontend/vite.config.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "file:frontend/nginx.conf",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

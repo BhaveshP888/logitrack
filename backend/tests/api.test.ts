@@ -12,9 +12,13 @@ beforeAll(async () => {
 
   const loginRes = await request(app)
     .post('/api/auth/login')
-    .send({ email: 'admin@logitrack.com', password: 'admin123' });
+    .send({ email: 'admin@logitrack.com', password: 'Adminlogin@1212' });
   const cookies = loginRes.headers['set-cookie'];
-  adminCookie = Array.isArray(cookies) ? cookies[0] : cookies || '';
+  if (Array.isArray(cookies)) {
+    adminCookie = cookies.map(c => c.split(';')[0]).join('; ');
+  } else {
+    adminCookie = cookies || '';
+  }
 });
 
 afterAll(async () => {

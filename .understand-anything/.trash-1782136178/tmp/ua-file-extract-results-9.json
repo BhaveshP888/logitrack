@@ -1,0 +1,645 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "metrics": {}
+    },
+    {
+      "path": ".understand-anything/intermediate/scan-result.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 581,
+      "nonEmptyLines": 581,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "languages",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "frameworks",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 30
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 410
+        },
+        {
+          "heading": "filteredByIgnore",
+          "level": 1,
+          "line": 411
+        },
+        {
+          "heading": "estimatedComplexity",
+          "level": 1,
+          "line": 412
+        },
+        {
+          "heading": "importMap",
+          "level": 1,
+          "line": 413
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 43,
+      "nonEmptyLines": 43,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "prisma",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "backend/prisma.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 66,
+      "nonEmptyLines": 53,
+      "definitions": [
+        {
+          "name": "Warehouse",
+          "kind": "table",
+          "fields": [
+            "id",
+            "name",
+            "latitude",
+            "longitude",
+            "createdAt",
+            "updatedAt"
+          ],
+          "startLine": 2,
+          "endLine": 11
+        },
+        {
+          "name": "Driver",
+          "kind": "table",
+          "fields": [
+            "id",
+            "name",
+            "status",
+            "latitude",
+            "longitude",
+            "warehouseId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "startLine": 14,
+          "endLine": 25
+        },
+        {
+          "name": "Shipment",
+          "kind": "table",
+          "fields": [
+            "id",
+            "trackingNumber",
+            "status",
+            "originWarehouseId",
+            "destinationWarehouseId",
+            "driverId",
+            "currentLatitude",
+            "currentLongitude",
+            "progress",
+            "createdAt",
+            "updatedAt"
+          ],
+          "startLine": 28,
+          "endLine": 42
+        },
+        {
+          "name": "Driver_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 45,
+          "endLine": 45
+        },
+        {
+          "name": "Shipment_trackingNumber_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 48,
+          "endLine": 48
+        },
+        {
+          "name": "Shipment_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 51,
+          "endLine": 51
+        },
+        {
+          "name": "Shipment_trackingNumber_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 54,
+          "endLine": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 7
+      }
+    },
+    {
+      "path": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 18,
+      "definitions": [
+        {
+          "name": "User",
+          "kind": "table",
+          "fields": [
+            "id",
+            "email",
+            "passwordHash",
+            "role",
+            "driverId",
+            "createdAt"
+          ],
+          "startLine": 5,
+          "endLine": 14
+        },
+        {
+          "name": "User_email_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "User_driverId_key",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 45,
+      "nonEmptyLines": 37,
+      "definitions": [
+        {
+          "name": "ShipmentCheckpoint",
+          "kind": "table",
+          "fields": [
+            "id",
+            "shipmentId",
+            "name",
+            "orderIndex",
+            "reached",
+            "reachedAt"
+          ],
+          "startLine": 30,
+          "endLine": 39
+        },
+        {
+          "name": "ShipmentCheckpoint_shipmentId_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 42,
+          "endLine": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "backend/prisma/migrations/migration_lock.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "backend/prisma/schema.prisma",
+      "language": "prisma",
+      "fileCategory": "data",
+      "totalLines": 79,
+      "nonEmptyLines": 68,
+      "metrics": {}
+    },
+    {
+      "path": "backend/prisma/seed.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 16,
+          "endLine": 69,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "prisma.user.count",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.user.deleteMany",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.shipmentCheckpoint.deleteMany",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.shipment.deleteMany",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.driver.deleteMany",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.deleteMany",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "bcrypt.hash",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.warehouse.create",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.user.create",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "now.getTime",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "prisma.shipment.create",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "backend/vitest.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 54,
+      "nonEmptyLines": 50,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "language": "conf",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "metrics": {}
+    },
+    {
+      "path": "frontend/scripts/generate-vercel-config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 170,
+      "nonEmptyLines": 148,
+      "metrics": {}
+    },
+    {
+      "path": "frontend/src/vite-env.d.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 149,
+      "nonEmptyLines": 113,
+      "sections": [
+        {
+          "heading": "📋 Overview",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "✨ Features",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "🛠️ Tech Stack",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Frontend (Client)",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "Backend (Server)",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "🚀 Getting Started",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "1. Clone the repository",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "2. Backend Setup",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "3. Frontend Setup",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "🌩️ Cloud Deployment",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "🧪 Testing",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "📄 License",
+          "level": 2,
+          "line": 147
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    }
+  ]
+}

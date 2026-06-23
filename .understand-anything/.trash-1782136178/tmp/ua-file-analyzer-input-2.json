@@ -1,0 +1,67 @@
+{
+  "projectRoot": "c:\\Users\\Plbha\\Desktop\\logitrack",
+  "batchFiles": [
+    {"path": "frontend/src/components/CheckpointTracker.tsx", "language": "typescript", "sizeLines": 128, "fileCategory": "code"},
+    {"path": "frontend/src/components/ControlCenter.tsx", "language": "typescript", "sizeLines": 204, "fileCategory": "code"},
+    {"path": "frontend/src/components/CustomSelect.tsx", "language": "typescript", "sizeLines": 74, "fileCategory": "code"},
+    {"path": "frontend/src/components/ShipmentsList.tsx", "language": "typescript", "sizeLines": 102, "fileCategory": "code"},
+    {"path": "frontend/src/components/TrackingView.tsx", "language": "typescript", "sizeLines": 21, "fileCategory": "code"},
+    {"path": "frontend/src/main.tsx", "language": "typescript", "sizeLines": 14, "fileCategory": "code"},
+    {"path": "frontend/src/store/driversSlice.ts", "language": "typescript", "sizeLines": 49, "fileCategory": "code"},
+    {"path": "frontend/src/store/index.ts", "language": "typescript", "sizeLines": 20, "fileCategory": "code"},
+    {"path": "frontend/src/store/shipmentsSlice.ts", "language": "typescript", "sizeLines": 118, "fileCategory": "code"},
+    {"path": "frontend/src/store/socketMiddleware.ts", "language": "typescript", "sizeLines": 46, "fileCategory": "code"},
+    {"path": "frontend/src/store/warehousesSlice.ts", "language": "typescript", "sizeLines": 41, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "frontend/src/components/CheckpointTracker.tsx": [
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/ControlCenter.tsx": [
+      "frontend/src/components/CustomSelect.tsx",
+      "frontend/src/config.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/CustomSelect.tsx": [],
+    "frontend/src/components/ShipmentsList.tsx": [
+      "frontend/src/components/CustomSelect.tsx",
+      "frontend/src/store/hooks.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/components/TrackingView.tsx": [
+      "frontend/src/components/CheckpointTracker.tsx",
+      "frontend/src/components/ShipmentsList.tsx"
+    ],
+    "frontend/src/main.tsx": [
+      "frontend/src/App.tsx",
+      "frontend/src/index.css",
+      "frontend/src/store/index.ts"
+    ],
+    "frontend/src/store/driversSlice.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/store/index.ts": [
+      "frontend/src/store/authSlice.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/shipmentsSlice.ts",
+      "frontend/src/store/socketMiddleware.ts",
+      "frontend/src/store/warehousesSlice.ts"
+    ],
+    "frontend/src/store/shipmentsSlice.ts": [
+      "frontend/src/config.ts"
+    ],
+    "frontend/src/store/socketMiddleware.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/driversSlice.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ],
+    "frontend/src/store/warehousesSlice.ts": [
+      "frontend/src/config.ts",
+      "frontend/src/store/shipmentsSlice.ts"
+    ]
+  }
+}

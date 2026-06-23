@@ -1,0 +1,668 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/App.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "The root application component that manages user authentication state, fetches initial logs/data for administrators, and routes users to either the admin dashboard, the driver portal, or login views.",
+        "complexity": "moderate",
+        "tags": ["entry-point", "root-component", "router", "app-shell"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Displays visual business intelligence graphs, KPI metrics, route progress statistics, and driver utilization charts using Recharts.",
+        "complexity": "moderate",
+        "tags": ["component", "analytics", "charts-view", "dashboard-tab"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/DashboardView.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Serves as the primary operational workspace for administrators, listing overall shipment indicators, recent actions, and integrating the live ControlCenter maps.",
+        "complexity": "moderate",
+        "tags": ["component", "admin-view", "operational-hub", "control-center"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Provides the dedicated interface for drivers, allowing them to view active assignments, update shipment dispatch statuses, record reached checkpoints, and sign out.",
+        "complexity": "complex",
+        "tags": ["component", "driver-portal", "dispatch-view", "checkpoints"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/FleetView.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Implements the fleet administration panel, displaying driver counts, availability statuses, and active route progress cards in a clear tabular grid.",
+        "complexity": "simple",
+        "tags": ["component", "fleet-view", "driver-status", "operational-tab"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/Landing.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "The unauthenticated landing page of the application, showing product overview, features, pricing links, and quick-access login/register triggers.",
+        "complexity": "simple",
+        "tags": ["component", "landing-page", "marketing-ui", "welcome-view"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/Login.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Standard login/register form component that communicates with authentication services to request tokens and updates the global user session state.",
+        "complexity": "simple",
+        "tags": ["component", "login-view", "auth-form", "user-registration"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/MetricsGrid.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "A lightweight layout component showing administrative status metrics (Total Shipments, Active Shipments, Driver Utilization, and On-Time Rate) via API integration.",
+        "complexity": "simple",
+        "tags": ["component", "metrics-grid", "kpi-cards", "dashboard-widget"]
+      }
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "type": "file",
+      "properties": {
+        "summary": "Implements the left sidebar navigation layout for the admin view, letting administrators toggle between the main operational views and log out.",
+        "complexity": "simple",
+        "tags": ["component", "sidebar-navigation", "app-menu", "layout"]
+      }
+    },
+    {
+      "id": "file:frontend/src/config.ts",
+      "type": "file",
+      "properties": {
+        "summary": "Application configuration module that exports REST API and WebSocket endpoint URLs determined by environment variables and local dev states.",
+        "complexity": "simple",
+        "tags": ["config", "api-endpoints", "environment-vars", "utility"]
+      }
+    },
+    {
+      "id": "file:frontend/src/store/authSlice.ts",
+      "type": "file",
+      "properties": {
+        "summary": "Redux slice that manages the authenticated user session, loading states, error responses, and session validation thunks.",
+        "complexity": "simple",
+        "tags": ["redux-slice", "auth-state", "session-management", "data-store"]
+      }
+    },
+    {
+      "id": "file:frontend/src/store/hooks.ts",
+      "type": "file",
+      "properties": {
+        "summary": "Provides strongly-typed React Redux hook wrappers `useAppDispatch` and `useAppSelector` for accessing the global store.",
+        "complexity": "simple",
+        "tags": ["redux-hooks", "react-redux", "utility", "state-helper"]
+      }
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "type": "function",
+      "properties": {
+        "summary": "Root application component that initializes the app by validating existing session cookies, configuring real-time web sockets for admin roles, and navigating drivers to their portal.",
+        "tags": ["root-component", "router-handler", "view-controller"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "function",
+      "properties": {
+        "summary": "Aggregates driver statistics, delivery indicators, and routes progress, using Recharts components to render status breakdowns, route speeds, and fleet utilization.",
+        "tags": ["data-aggregation", "charts-renderer", "analytics-component"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "function",
+      "properties": {
+        "summary": "Renders the primary administrator cockpit, displaying real-time metrics cards, shipment lists, active shipment donut slices, and the interactive dispatch control center.",
+        "tags": ["admin-dashboard", "metrics-display", "control-panel"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "function",
+      "properties": {
+        "summary": "A sub-component rendering a clean standby status layout for drivers who currently have no active shipments assigned to them.",
+        "tags": ["helper-component", "ui-layout", "standby-mode"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "function",
+      "properties": {
+        "summary": "Displays detailed interactive information about the driver's active dispatch including tracking numbers, origin/destination, target dispatch times, and checkpoints checklist.",
+        "tags": ["helper-component", "interactive-ui", "shipment-details"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "function",
+      "properties": {
+        "summary": "Main view wrapper for drivers to load and list their assigned shipments, trigger dispatch starts, mark checkpoints reached, and monitor their performance stats.",
+        "tags": ["driver-ui", "portal-controller", "state-manager"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "function",
+      "properties": {
+        "summary": "Renders cards summarizing fleet statistics alongside a tabular layout of all registered drivers, active jobs, and warehouse assignments.",
+        "tags": ["fleet-display", "list-renderer", "management-view"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "function",
+      "properties": {
+        "summary": "Renders a modern landing page for logitrack with styled gradient cards and links leading to login or registration pages.",
+        "tags": ["landing-ui", "marketing-page", "static-layout"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/Login.tsx:Login",
+      "type": "function",
+      "properties": {
+        "summary": "Renders a form supporting registration and login using state hooks to handle inputs, trigger post requests to api boundaries, and dispatch Redux actions.",
+        "tags": ["auth-handler", "form-component", "user-session"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "function",
+      "properties": {
+        "summary": "Fills in a grid of cards using metrics endpoints, refreshing details automatically on changes to shipments and drivers state.",
+        "tags": ["metrics-fetcher", "grid-renderer", "kpi-view"]
+      }
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "function",
+      "properties": {
+        "summary": "Displays the logitrack brand logo and allows navigation across Command Center, Analytics, Tracking, and Fleet views, as well as signing out.",
+        "tags": ["navigation-bar", "menu-controller", "layout-component"]
+      }
+    },
+    {
+      "id": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "function",
+      "properties": {
+        "summary": "An async Redux thunk that queries the authentication endpoint to verify session validity and loads user details upon fulfillment.",
+        "tags": ["async-thunk", "session-validation", "api-request"]
+      }
+    },
+    {
+      "id": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "function",
+      "properties": {
+        "summary": "A custom React Redux hook wrapper that exposes a strongly-typed dispatch function for updating the Redux state.",
+        "tags": ["redux-hook", "dispatch-wrapper", "type-helper"]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/AnalyticsView.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DashboardView.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/DriverPortal.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/FleetView.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Landing.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Login.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/TrackingView.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/driversSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/store/warehousesSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/components/ControlCenter.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "file:frontend/src/store/shipmentsSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/authSlice.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/store/hooks.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "file:frontend/src/store/index.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Landing.tsx",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/AnalyticsView.tsx",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/DashboardView.tsx",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/DriverPortal.tsx",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/FleetView.tsx",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Landing.tsx",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Login.tsx",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/MetricsGrid.tsx",
+      "target": "function:frontend/src/components/MetricsGrid.tsx:MetricsGrid",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/authSlice.ts",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/store/hooks.ts",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "exports",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/authSlice.ts:checkSession",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/shipmentsSlice.ts:fetchShipments",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/driversSlice.ts:fetchDrivers",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/store/warehousesSlice.ts:fetchWarehouses",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Landing.tsx:Landing",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Login.tsx:Login",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/AnalyticsView.tsx:AnalyticsView",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/FleetView.tsx:FleetView",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/TrackingView.tsx:TrackingView",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/DashboardView.tsx:DashboardView",
+      "target": "function:frontend/src/components/ControlCenter.tsx:ControlCenter",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "target": "function:frontend/src/components/DriverPortal.tsx:ActiveShipmentPanel",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/DriverPortal.tsx:DriverPortal",
+      "target": "function:frontend/src/components/DriverPortal.tsx:StandbyPanel",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Login.tsx:Login",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "target": "function:frontend/src/store/hooks.ts:useAppDispatch",
+      "type": "calls",
+      "weight": 0.8
+    }
+  ]
+}

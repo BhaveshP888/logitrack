@@ -1,0 +1,1377 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/src/App.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "App",
+          "startLine": 18,
+          "endLine": 89,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "App",
+          "line": 18,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "App",
+          "callee": "useAppDispatch",
+          "lineNumber": 19
+        },
+        {
+          "caller": "App",
+          "callee": "useAppSelector",
+          "lineNumber": 20
+        },
+        {
+          "caller": "App",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "App",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "fetch",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "dispatch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "logoutUser",
+          "lineNumber": 28
+        },
+        {
+          "caller": "App",
+          "callee": "useEffect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "App",
+          "callee": "dispatch",
+          "lineNumber": 32
+        },
+        {
+          "caller": "App",
+          "callee": "checkSession",
+          "lineNumber": 32
+        },
+        {
+          "caller": "App",
+          "callee": "useEffect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "App",
+          "callee": "dispatch",
+          "lineNumber": 38
+        },
+        {
+          "caller": "App",
+          "callee": "dispatch",
+          "lineNumber": 41
+        },
+        {
+          "caller": "App",
+          "callee": "fetchShipments",
+          "lineNumber": 41
+        },
+        {
+          "caller": "App",
+          "callee": "dispatch",
+          "lineNumber": 42
+        },
+        {
+          "caller": "App",
+          "callee": "fetchDrivers",
+          "lineNumber": 42
+        },
+        {
+          "caller": "App",
+          "callee": "dispatch",
+          "lineNumber": 43
+        },
+        {
+          "caller": "App",
+          "callee": "fetchWarehouses",
+          "lineNumber": 43
+        },
+        {
+          "caller": "App",
+          "callee": "setAuthView",
+          "lineNumber": 57
+        },
+        {
+          "caller": "App",
+          "callee": "setAuthView",
+          "lineNumber": 57
+        },
+        {
+          "caller": "App",
+          "callee": "setAuthView",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 14,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/AnalyticsView.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 155,
+      "functions": [
+        {
+          "name": "AnalyticsView",
+          "startLine": 7,
+          "endLine": 172,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AnalyticsView",
+          "line": 7,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AnalyticsView",
+          "callee": "useAppSelector",
+          "lineNumber": 8
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "useAppSelector",
+          "lineNumber": 9
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "shipments.filter",
+          "lineNumber": 13
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "shipments.filter",
+          "lineNumber": 14
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "shipments.filter",
+          "lineNumber": 15
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "shipments.filter",
+          "lineNumber": 16
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "Math.round",
+          "lineNumber": 18
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "[\n    { name: 'Delivered', value: delivered, color: '#10b981' },\n    { name: 'Delayed', value: delayed, color: '#ef4444' },\n    { name: 'En Route', value: enRoute, color: '#3b82f6' },\n    { name: 'Pending', value: pending, color: '#f59e0b' }\n  ].filter",
+          "lineNumber": 20
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "drivers.filter",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "Math.round",
+          "lineNumber": 31
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "shipments.forEach",
+          "lineNumber": 36
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "s.originWarehouse.name.split",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "s.destinationWarehouse.name.split",
+          "lineNumber": 38
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "s.checkpoints.filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "Math.round",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "Object.values",
+          "lineNumber": 50
+        },
+        {
+          "caller": "AnalyticsView",
+          "callee": "statusData.map",
+          "lineNumber": 143
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/DashboardView.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 291,
+      "nonEmptyLines": 271,
+      "functions": [
+        {
+          "name": "DashboardView",
+          "startLine": 6,
+          "endLine": 291,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardView",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DashboardView",
+          "callee": "useAppSelector",
+          "lineNumber": 7
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "useAppSelector",
+          "lineNumber": 8
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "useEffect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then(res => res.json())\n      .then(data => {\n        if (data && !data.error) {\n          setMetrics(data);\n        }\n      })\n      .catch",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then(res => res.json())\n      .then",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "fetch",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "res.json",
+          "lineNumber": 20
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "setMetrics",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "console.error",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "shipments.filter",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "shipments.filter",
+          "lineNumber": 30
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "shipments.filter",
+          "lineNumber": 31
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "shipments.filter",
+          "lineNumber": 32
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "drivers.filter",
+          "lineNumber": 33
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "drivers.filter",
+          "lineNumber": 34
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "[...shipments]\n    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())\n    .slice",
+          "lineNumber": 37
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "[...shipments]\n    .sort",
+          "lineNumber": 37
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "new Date(b.updatedAt).getTime",
+          "lineNumber": 38
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "new Date(a.updatedAt).getTime",
+          "lineNumber": 38
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Date.now",
+          "lineNumber": 60
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "new Date(dateStr).getTime",
+          "lineNumber": 60
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 61
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 64
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 66
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "[\n    { count: delivered.length, color: '#10b981', label: 'Delivered' },\n    { count: enRoute.length, color: '#0ea5e9', label: 'En Route' },\n    { count: delayed.length, color: '#f43f5e', label: 'Delayed' },\n    { count: pending.length, color: '#f59e0b', label: 'Pending' },\n  ].filter",
+          "lineNumber": 71
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "segments.map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "metrics.utilizationRate.toFixed",
+          "lineNumber": 153
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "metrics.onTimeRate.toFixed",
+          "lineNumber": 171
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "donutSegments.map",
+          "lineNumber": 194
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "segments.map",
+          "lineNumber": 216
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "recentShipments.map",
+          "lineNumber": 266
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "statusDot",
+          "lineNumber": 268
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "s.originWarehouse.name.split",
+          "lineNumber": 274
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "s.destinationWarehouse.name.split",
+          "lineNumber": 274
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "statusColor",
+          "lineNumber": 278
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "s.status.replace",
+          "lineNumber": 278
+        },
+        {
+          "caller": "DashboardView",
+          "callee": "timeAgo",
+          "lineNumber": 279
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/DriverPortal.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 352,
+      "nonEmptyLines": 320,
+      "functions": [
+        {
+          "name": "StandbyPanel",
+          "startLine": 9,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "ActiveShipmentPanel",
+          "startLine": 35,
+          "endLine": 128,
+          "params": [
+            "{ shipment, onDispatch, onReachCheckpoint }"
+          ]
+        },
+        {
+          "name": "DriverPortal",
+          "startLine": 134,
+          "endLine": 352,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DriverPortal",
+          "line": 134,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ActiveShipmentPanel",
+          "callee": "shipment.status.replace",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ActiveShipmentPanel",
+          "callee": "new Date(shipment.targetDispatchDate).toLocaleString",
+          "lineNumber": 72
+        },
+        {
+          "caller": "ActiveShipmentPanel",
+          "callee": "shipment.checkpoints.map",
+          "lineNumber": 89
+        },
+        {
+          "caller": "ActiveShipmentPanel",
+          "callee": "new Date(cp.reachedAt).toLocaleTimeString",
+          "lineNumber": 110
+        },
+        {
+          "caller": "ActiveShipmentPanel",
+          "callee": "onReachCheckpoint",
+          "lineNumber": 115
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useAppDispatch",
+          "lineNumber": 135
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useAppSelector",
+          "lineNumber": 136
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useState",
+          "lineNumber": 138
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useState",
+          "lineNumber": 139
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useState",
+          "lineNumber": 140
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useCallback",
+          "lineNumber": 142
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "fetch(`${API_BASE}/shipments`, { credentials: 'include' })\n      .then(res => {\n        if (!res.ok) throw new Error('Failed to fetch shipments');\n        return res.json();\n      })\n      .then((data: Shipment[]) => {\n        if (!user?.driverId) {\n          setAllShipments([]);\n          setLoading(false);\n          return;\n        }\n        const mine = data.filter(s => s.driverId === user.driverId);\n        setAllShipments(mine);\n        setLoading(false);\n        setError(null);\n      })\n      .catch",
+          "lineNumber": 143
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "fetch(`${API_BASE}/shipments`, { credentials: 'include' })\n      .then(res => {\n        if (!res.ok) throw new Error('Failed to fetch shipments');\n        return res.json();\n      })\n      .then",
+          "lineNumber": 143
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "fetch(`${API_BASE}/shipments`, { credentials: 'include' })\n      .then",
+          "lineNumber": 143
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "fetch",
+          "lineNumber": 143
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "res.json",
+          "lineNumber": 146
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setAllShipments",
+          "lineNumber": 150
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setLoading",
+          "lineNumber": 151
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "data.filter",
+          "lineNumber": 154
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setAllShipments",
+          "lineNumber": 155
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setLoading",
+          "lineNumber": 156
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setError",
+          "lineNumber": 157
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "console.error",
+          "lineNumber": 160
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setLoading",
+          "lineNumber": 161
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setError",
+          "lineNumber": 162
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "useEffect",
+          "lineNumber": 166
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "loadShipments",
+          "lineNumber": 167
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "setInterval",
+          "lineNumber": 168
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "clearInterval",
+          "lineNumber": 169
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "allShipments\n    .filter(s => s.status !== 'DELIVERED')\n    .sort",
+          "lineNumber": 173
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "allShipments\n    .filter",
+          "lineNumber": 173
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "new Date(a.targetDispatchDate).getTime",
+          "lineNumber": 175
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "new Date(b.targetDispatchDate).getTime",
+          "lineNumber": 175
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "allShipments\n    .filter(s => s.status === 'DELIVERED')\n    .sort",
+          "lineNumber": 177
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "allShipments\n    .filter",
+          "lineNumber": 177
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "new Date(b.targetDispatchDate).getTime",
+          "lineNumber": 179
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "new Date(a.targetDispatchDate).getTime",
+          "lineNumber": 179
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "Date.now",
+          "lineNumber": 183
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "completedShipments.filter",
+          "lineNumber": 184
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "Math.round",
+          "lineNumber": 189
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "fetch",
+          "lineNumber": 195
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "dispatch",
+          "lineNumber": 196
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "logoutUser",
+          "lineNumber": 196
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "console.error",
+          "lineNumber": 197
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "fetch",
+          "lineNumber": 203
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "res.json().catch",
+          "lineNumber": 205
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "res.json",
+          "lineNumber": 205
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "loadShipments",
+          "lineNumber": 208
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "console.error",
+          "lineNumber": 210
+        },
+        {
+          "caller": "handleDispatch",
+          "callee": "setError",
+          "lineNumber": 211
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "fetch",
+          "lineNumber": 218
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "res.json().catch",
+          "lineNumber": 220
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "res.json",
+          "lineNumber": 220
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "loadShipments",
+          "lineNumber": 223
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "console.error",
+          "lineNumber": 225
+        },
+        {
+          "caller": "handleReachCheckpoint",
+          "callee": "setError",
+          "lineNumber": 226
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "(user?.email ?? 'D').split('@')[0].slice(0, 2).toUpperCase",
+          "lineNumber": 231
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "(user?.email ?? 'D').split('@')[0].slice",
+          "lineNumber": 231
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "(user?.email ?? 'D').split",
+          "lineNumber": 231
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "(user?.email ?? '').split",
+          "lineNumber": 285
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "([\n              { label: 'Total Deliveries', value: totalDeliveries },\n              { label: 'This Week', value: thisWeekDeliveries },\n              { label: 'Completion Rate', value: `${completionRate}%` },\n              { label: 'Total Assigned', value: totalAssigned },\n            ] as { label: string; value: string | number }[]).map",
+          "lineNumber": 296
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "completedShipments.map",
+          "lineNumber": 316
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "s.originWarehouse.name.split",
+          "lineNumber": 321
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "s.destinationWarehouse.name.split",
+          "lineNumber": 321
+        },
+        {
+          "caller": "DriverPortal",
+          "callee": "new Date(s.targetDispatchDate).toLocaleDateString",
+          "lineNumber": 324
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/FleetView.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 102,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "FleetView",
+          "startLine": 3,
+          "endLine": 102,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FleetView",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FleetView",
+          "callee": "useAppSelector",
+          "lineNumber": 4
+        },
+        {
+          "caller": "FleetView",
+          "callee": "useAppSelector",
+          "lineNumber": 5
+        },
+        {
+          "caller": "FleetView",
+          "callee": "useAppSelector",
+          "lineNumber": 6
+        },
+        {
+          "caller": "FleetView",
+          "callee": "drivers.filter",
+          "lineNumber": 9
+        },
+        {
+          "caller": "FleetView",
+          "callee": "drivers.filter",
+          "lineNumber": 10
+        },
+        {
+          "caller": "getWarehouseName",
+          "callee": "warehouses.find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "getActiveShipment",
+          "callee": "shipments.find",
+          "lineNumber": 18
+        },
+        {
+          "caller": "FleetView",
+          "callee": "drivers.map",
+          "lineNumber": 85
+        },
+        {
+          "caller": "FleetView",
+          "callee": "badgeClass",
+          "lineNumber": 89
+        },
+        {
+          "caller": "FleetView",
+          "callee": "driver.status.replace",
+          "lineNumber": 89
+        },
+        {
+          "caller": "FleetView",
+          "callee": "getWarehouseName",
+          "lineNumber": 91
+        },
+        {
+          "caller": "FleetView",
+          "callee": "getActiveShipment",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/Landing.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 136,
+      "nonEmptyLines": 120,
+      "functions": [
+        {
+          "name": "Landing",
+          "startLine": 6,
+          "endLine": 136,
+          "params": [
+            "{ onLogin, onRegister }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Landing",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Landing",
+          "callee": "new Date().getFullYear",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/Login.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "Login",
+          "startLine": 11,
+          "endLine": 126,
+          "params": [
+            "{ initialIsRegister = false, onBack }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Login",
+          "line": 11,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Login",
+          "callee": "useAppDispatch",
+          "lineNumber": 12
+        },
+        {
+          "caller": "Login",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "Login",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "Login",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "Login",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "Login",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "fetch",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "JSON.stringify",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "res.json",
+          "lineNumber": 32
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 34
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "dispatch",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setUser",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setEmail",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setPassword",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 41
+        },
+        {
+          "caller": "Login",
+          "callee": "setName",
+          "lineNumber": 75
+        },
+        {
+          "caller": "Login",
+          "callee": "setEmail",
+          "lineNumber": 87
+        },
+        {
+          "caller": "Login",
+          "callee": "setPassword",
+          "lineNumber": 98
+        },
+        {
+          "caller": "Login",
+          "callee": "setIsRegister",
+          "lineNumber": 114
+        },
+        {
+          "caller": "Login",
+          "callee": "setError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "Login",
+          "callee": "setIsRegister",
+          "lineNumber": 119
+        },
+        {
+          "caller": "Login",
+          "callee": "setError",
+          "lineNumber": 119
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/MetricsGrid.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "MetricsGrid",
+          "startLine": 5,
+          "endLine": 54,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MetricsGrid",
+          "line": 5,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MetricsGrid",
+          "callee": "useAppSelector",
+          "lineNumber": 6
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "useAppSelector",
+          "lineNumber": 7
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "useEffect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then(res => res.json())\n      .then(data => {\n        if (data && !data.error) {\n          setMetrics(data);\n        }\n      })\n      .catch",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then(res => res.json())\n      .then",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "fetch(`${API_BASE}/api/metrics`, { credentials: 'include' })\n      .then",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "fetch",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "res.json",
+          "lineNumber": 18
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "setMetrics",
+          "lineNumber": 21
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "console.error",
+          "lineNumber": 24
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "metrics.utilizationRate.toFixed",
+          "lineNumber": 44
+        },
+        {
+          "caller": "MetricsGrid",
+          "callee": "metrics.onTimeRate.toFixed",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/Sidebar.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "Sidebar",
+          "startLine": 13,
+          "endLine": 95,
+          "params": [
+            "{ activeView, onNavigate }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Sidebar",
+          "line": 13,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Sidebar",
+          "callee": "useAppDispatch",
+          "lineNumber": 14
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "fetch",
+          "lineNumber": 18
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "dispatch",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "logoutUser",
+          "lineNumber": 20
+        },
+        {
+          "caller": "Sidebar",
+          "callee": "navItems.map",
+          "lineNumber": 58
+        },
+        {
+          "caller": "Sidebar",
+          "callee": "onNavigate",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "exports": [
+        {
+          "name": "API_BASE",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "WS_URL",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/authSlice.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 51,
+      "exports": [
+        {
+          "name": "checkSession",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "{ setUser, logoutUser }",
+          "line": 56,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/store/hooks.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "useAppDispatch",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useAppDispatch",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "useAppSelector",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "useAppDispatch",
+          "callee": "useDispatch",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

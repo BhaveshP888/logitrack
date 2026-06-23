@@ -1,0 +1,7 @@
+{
+  "projectRoot": "c:\\Users\\Plbha\\Desktop\\logitrack",
+  "batchFiles": [
+    {"path": ".github/workflows/ci.yml", "language": "yaml", "sizeLines": 83, "fileCategory": "infra"}
+  ],
+  "batchImportData": {}
+}

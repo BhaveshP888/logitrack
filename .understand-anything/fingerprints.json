@@ -1,0 +1,1774 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "154dd0bc8f6a953c1274cd30000144e665175bbf",
+  "generatedAt": "2026-06-22T13:47:17.333Z",
+  "files": {
+    ".github/workflows/ci.yml": {
+      "filePath": ".github/workflows/ci.yml",
+      "contentHash": "c0988c1d9b933b51ec36d82e42fbd47b9e85d4b4000822661bdb2be3e244ec2d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "11266036f60289bd7c264d0ed1245c1a8d55e9d1dd41e8182f6609557afce370",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": false
+    },
+    ".understand-anything/intermediate/scan-result.json": {
+      "filePath": ".understand-anything/intermediate/scan-result.json",
+      "contentHash": "4db8ceb6374edf432de471e0140bcafde9e00c34025d3d1b9689bb89b94eada3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 582,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/tmp/ua-import-map-input.json": {
+      "filePath": ".understand-anything/tmp/ua-import-map-input.json",
+      "contentHash": "333fd71d3bcc7d93b262cf5f4c9301497a5522038e128100ad352926c038fbb1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 384,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/tmp/ua-import-map-output.json": {
+      "filePath": ".understand-anything/tmp/ua-import-map-output.json",
+      "contentHash": "5f99423fe3ff7e3d554400f103628f2d818b0e47239f4bf6ec3195d34224943c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 176,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/tmp/ua-scan-files.json": {
+      "filePath": ".understand-anything/tmp/ua-scan-files.json",
+      "contentHash": "22b78378d9624830c6f89699707cfa1a28b50dd50d330408a8820ce631642501",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 412,
+      "hasStructuralAnalysis": true
+    },
+    "backend/.dockerignore": {
+      "filePath": "backend/.dockerignore",
+      "contentHash": "9e4412c3f2b3ab134cebc15cd2dcfbf225141f875d4937f572e032f38227ff39",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    "backend/Dockerfile": {
+      "filePath": "backend/Dockerfile",
+      "contentHash": "582c9f07a5e11b767e7ae355adc9ef61e303a5acaa67c8f3658ad4eab186356d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "backend/package.json": {
+      "filePath": "backend/package.json",
+      "contentHash": "bd4e8499d59ecda4295e1585861ff50b4dfcfa02856e3b6341d8a9b08742becc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma.config.ts": {
+      "filePath": "backend/prisma.config.ts",
+      "contentHash": "40e14111fac5ef1a9f73daac5b927d989299654802459be79ebb283764dad888",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "dotenv/config",
+          "specifiers": []
+        },
+        {
+          "source": "prisma/config",
+          "specifiers": [
+            "defineConfig",
+            "env"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma/migrations/20260528164951_init/migration.sql": {
+      "filePath": "backend/prisma/migrations/20260528164951_init/migration.sql",
+      "contentHash": "c1325a83cca9c85e9cbdf8df4f8d9e765f2bc11312934572ed835c3574bffff3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma/migrations/20260531123740_add_users/migration.sql": {
+      "filePath": "backend/prisma/migrations/20260531123740_add_users/migration.sql",
+      "contentHash": "6129d1aaba1f8e180ecdbf69299c324ac8cb93ad10e4adbdfd02a16301596e26",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql": {
+      "filePath": "backend/prisma/migrations/20260602135055_checkpoints_tracking/migration.sql",
+      "contentHash": "764944fc4137494849aa65dd599cedb2cdb1cf8b169b550bd54ca978961da7c1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma/migrations/migration_lock.toml": {
+      "filePath": "backend/prisma/migrations/migration_lock.toml",
+      "contentHash": "693566b52c49db47a2b0901d12400aa3d710d13a49f4a2a154b80c0505ed737c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "backend/prisma/schema.prisma": {
+      "filePath": "backend/prisma/schema.prisma",
+      "contentHash": "9ec1e5ef6f1d9335e45ae443a05814f8becd4c636c105338161b12c41cb81285",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 80,
+      "hasStructuralAnalysis": false
+    },
+    "backend/prisma/seed.ts": {
+      "filePath": "backend/prisma/seed.ts",
+      "contentHash": "eb989606a24d0db9ef04710a757d6591f5abc522f1c590cf611bfc3b2b2029fa",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 54
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@prisma/client",
+          "specifiers": [
+            "PrismaClient"
+          ]
+        },
+        {
+          "source": "@prisma/adapter-pg",
+          "specifiers": [
+            "PrismaPg"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "dotenv"
+          ]
+        },
+        {
+          "source": "bcryptjs",
+          "specifiers": [
+            "bcrypt"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/db.ts": {
+      "filePath": "backend/src/db.ts",
+      "contentHash": "b05699b8386df9d05f835e2a19c548f94d450926ce5c8e82947319fcfc30487c",
+      "functions": [
+        {
+          "name": "getInstance",
+          "params": [],
+          "returnType": "PrismaClient",
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@prisma/client",
+          "specifiers": [
+            "PrismaClient"
+          ]
+        },
+        {
+          "source": "@prisma/adapter-pg",
+          "specifiers": [
+            "PrismaPg"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "dotenv"
+          ]
+        }
+      ],
+      "exports": [
+        "prisma"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/middleware/auth.ts": {
+      "filePath": "backend/src/middleware/auth.ts",
+      "contentHash": "a8084577c41a36e51c446c25c4af6271d451ad4f4438ac7f6b48149e07d734ca",
+      "functions": [
+        {
+          "name": "verifyToken",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "requireRole",
+          "params": [
+            "role"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "Request",
+            "Response",
+            "NextFunction"
+          ]
+        },
+        {
+          "source": "jsonwebtoken",
+          "specifiers": [
+            "jwt"
+          ]
+        }
+      ],
+      "exports": [
+        "JWT_SECRET",
+        "verifyToken",
+        "requireRole"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/api.ts": {
+      "filePath": "backend/src/routes/api.ts",
+      "contentHash": "2019605c603d4fd5524d376ecde5d37bc1fa827e7a447cea123cbc9bf1ab58d7",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "Router"
+          ]
+        },
+        {
+          "source": "bcryptjs",
+          "specifiers": [
+            "bcrypt"
+          ]
+        },
+        {
+          "source": "../middleware/auth.js",
+          "specifiers": [
+            "verifyToken",
+            "requireRole"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 204,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/routes/auth.ts": {
+      "filePath": "backend/src/routes/auth.ts",
+      "contentHash": "8becb7d7f1c42d9dbb4ac042a491ef198f19a440b8c662a6dfc2af5ee847a478",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "Router",
+            "Response"
+          ]
+        },
+        {
+          "source": "bcryptjs",
+          "specifiers": [
+            "bcrypt"
+          ]
+        },
+        {
+          "source": "jsonwebtoken",
+          "specifiers": [
+            "jwt"
+          ]
+        },
+        {
+          "source": "../middleware/auth.js",
+          "specifiers": [
+            "verifyToken",
+            "AuthRequest",
+            "JWT_SECRET"
+          ]
+        },
+        {
+          "source": "../db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        }
+      ],
+      "exports": [
+        "authRouter"
+      ],
+      "totalLines": 114,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/server.ts": {
+      "filePath": "backend/src/server.ts",
+      "contentHash": "75ebacd6c35c21e5e17bc654b7da208e772866e4c1e24ead4fa65dde409080d7",
+      "functions": [
+        {
+          "name": "checkOrigin",
+          "params": [
+            "origin",
+            "callback"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "express",
+          "specifiers": [
+            "express"
+          ]
+        },
+        {
+          "source": "http",
+          "specifiers": [
+            "http"
+          ]
+        },
+        {
+          "source": "socket.io",
+          "specifiers": [
+            "Server"
+          ]
+        },
+        {
+          "source": "cors",
+          "specifiers": [
+            "cors"
+          ]
+        },
+        {
+          "source": "cookie-parser",
+          "specifiers": [
+            "cookieParser"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "dotenv"
+          ]
+        },
+        {
+          "source": "./routes/api.js",
+          "specifiers": [
+            "apiRouter"
+          ]
+        },
+        {
+          "source": "./routes/auth.js",
+          "specifiers": [
+            "authRouter"
+          ]
+        },
+        {
+          "source": "./simulation.js",
+          "specifiers": [
+            "startSimulation"
+          ]
+        }
+      ],
+      "exports": [
+        "io",
+        "app",
+        "server"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "backend/src/simulation.ts": {
+      "filePath": "backend/src/simulation.ts",
+      "contentHash": "4d78a9c60d7fa095596e8f734fcc9d795097e279e5cc0bc241623448ffface39",
+      "functions": [
+        {
+          "name": "startSimulation",
+          "params": [
+            "io"
+          ],
+          "exported": true,
+          "lineCount": 84
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "socket.io",
+          "specifiers": [
+            "Server"
+          ]
+        },
+        {
+          "source": "./db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        }
+      ],
+      "exports": [
+        "startSimulation"
+      ],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/api.test.ts": {
+      "filePath": "backend/tests/api.test.ts",
+      "contentHash": "238dfe775e4c8a6c3808d88acaf3ed32aba74286fee319962cf3cf9a52447935",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "beforeAll",
+            "afterAll"
+          ]
+        },
+        {
+          "source": "supertest",
+          "specifiers": [
+            "request"
+          ]
+        },
+        {
+          "source": "../src/server.js",
+          "specifiers": [
+            "app",
+            "server"
+          ]
+        },
+        {
+          "source": "../src/db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        },
+        {
+          "source": "./helpers.js",
+          "specifiers": [
+            "resetAndSeedDatabase"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/auth.test.ts": {
+      "filePath": "backend/tests/auth.test.ts",
+      "contentHash": "9e60dd836140ced423f1dd61e9ff7c8d32b580b2d620fcf4ea3f3e3a311a5236",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "beforeAll",
+            "afterAll"
+          ]
+        },
+        {
+          "source": "supertest",
+          "specifiers": [
+            "request"
+          ]
+        },
+        {
+          "source": "../src/server.js",
+          "specifiers": [
+            "app"
+          ]
+        },
+        {
+          "source": "../src/db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        },
+        {
+          "source": "./helpers.js",
+          "specifiers": [
+            "resetAndSeedDatabase"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/helpers.ts": {
+      "filePath": "backend/tests/helpers.ts",
+      "contentHash": "9020da2aa08bcf18a0456f8c21f72926ae77358b90b1c38a5cbe9e99a3335b16",
+      "functions": [
+        {
+          "name": "resetAndSeedDatabase",
+          "params": [],
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../src/db.js",
+          "specifiers": [
+            "prisma"
+          ]
+        },
+        {
+          "source": "bcryptjs",
+          "specifiers": [
+            "bcrypt"
+          ]
+        }
+      ],
+      "exports": [
+        "resetAndSeedDatabase"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tsconfig.json": {
+      "filePath": "backend/tsconfig.json",
+      "contentHash": "177d0676ac3a0eea3e03bd45c7eb975a6c98a99628a8c272f9c566d7a439e77c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "backend/vitest.config.ts": {
+      "filePath": "backend/vitest.config.ts",
+      "contentHash": "f51d2c13f99ffe53aa87bfc995efa3f91d36fd353a6a166bb9af45cb7556580e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "docker-compose.yml": {
+      "filePath": "docker-compose.yml",
+      "contentHash": "e41fe596321e8a1c2197fd7d7a1d20132b3d5a059eb1ee1d312beb420a3057ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/.dockerignore": {
+      "filePath": "frontend/.dockerignore",
+      "contentHash": "f01415fd54840a1edeff2f2421edada66ef8e601c4762058a972178216cd6c3c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/Dockerfile": {
+      "filePath": "frontend/Dockerfile",
+      "contentHash": "6d110272a3aa303ee3aa5faafd000d893008a3d9ca93cec83643f3a64c30fad0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/index.html": {
+      "filePath": "frontend/index.html",
+      "contentHash": "145080dd4589e14c0fe96f505c0fec2adb5553b2a3f0799bf347300e747a2079",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/nginx.conf": {
+      "filePath": "frontend/nginx.conf",
+      "contentHash": "e9ed1539e4fa3a596dc46322e00ff9161d1d0cc565a1f16b08cedb31d28adc75",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "9d21e1af68f96fb1cb4c528a52d18144525f488c42a37e248c1e4528220d0aa4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/scripts/generate-vercel-config.mjs": {
+      "filePath": "frontend/scripts/generate-vercel-config.mjs",
+      "contentHash": "8be50f9f64fc423e22ea823fddc7ee142b7f90cf17a0a74732d1fc44c346548e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fs",
+          "specifiers": [
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "path",
+          "specifiers": [
+            "dirname",
+            "join"
+          ]
+        },
+        {
+          "source": "url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/App.tsx": {
+      "filePath": "frontend/src/App.tsx",
+      "contentHash": "87db9c8d614a9e29a09ecb06c3a490497d7305c22331ec6627cb6f1e1e2efb5e",
+      "functions": [
+        {
+          "name": "App",
+          "params": [],
+          "exported": true,
+          "lineCount": 72
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "./store/hooks.js",
+          "specifiers": [
+            "useAppDispatch",
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "./store/shipmentsSlice.js",
+          "specifiers": [
+            "fetchShipments"
+          ]
+        },
+        {
+          "source": "./store/driversSlice.js",
+          "specifiers": [
+            "fetchDrivers"
+          ]
+        },
+        {
+          "source": "./store/warehousesSlice.js",
+          "specifiers": [
+            "fetchWarehouses"
+          ]
+        },
+        {
+          "source": "./store/authSlice.js",
+          "specifiers": [
+            "checkSession",
+            "logoutUser"
+          ]
+        },
+        {
+          "source": "./config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        },
+        {
+          "source": "./components/Sidebar.js",
+          "specifiers": [
+            "Sidebar",
+            "ViewMode"
+          ]
+        },
+        {
+          "source": "./components/DashboardView.js",
+          "specifiers": [
+            "DashboardView"
+          ]
+        },
+        {
+          "source": "./components/AnalyticsView.js",
+          "specifiers": [
+            "AnalyticsView"
+          ]
+        },
+        {
+          "source": "./components/FleetView.js",
+          "specifiers": [
+            "FleetView"
+          ]
+        },
+        {
+          "source": "./components/TrackingView.js",
+          "specifiers": [
+            "TrackingView"
+          ]
+        },
+        {
+          "source": "./components/Login.js",
+          "specifiers": [
+            "Login"
+          ]
+        },
+        {
+          "source": "./components/Landing.js",
+          "specifiers": [
+            "Landing"
+          ]
+        },
+        {
+          "source": "./components/DriverPortal.js",
+          "specifiers": [
+            "DriverPortal"
+          ]
+        }
+      ],
+      "exports": [
+        "App"
+      ],
+      "totalLines": 91,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AnalyticsView.tsx": {
+      "filePath": "frontend/src/components/AnalyticsView.tsx",
+      "contentHash": "7cafe9be970b2f349d4c38123dcd829ce0f7b993b6c9c0e2671ee3581e24da71",
+      "functions": [
+        {
+          "name": "AnalyticsView",
+          "params": [],
+          "exported": true,
+          "lineCount": 166
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "recharts",
+          "specifiers": [
+            "BarChart",
+            "Bar",
+            "XAxis",
+            "YAxis",
+            "CartesianGrid",
+            "RechartsTooltip",
+            "Legend",
+            "ResponsiveContainer",
+            "PieChart",
+            "Pie",
+            "Cell"
+          ]
+        }
+      ],
+      "exports": [
+        "AnalyticsView"
+      ],
+      "totalLines": 174,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/CheckpointTracker.tsx": {
+      "filePath": "frontend/src/components/CheckpointTracker.tsx",
+      "contentHash": "f36d01f59b8f8bb558a8f528169f58fb4e4bb72310631c5a18b43ac7e0bc2818",
+      "functions": [
+        {
+          "name": "CheckpointTracker",
+          "params": [],
+          "exported": true,
+          "lineCount": 125
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "../store/shipmentsSlice.js",
+          "specifiers": [
+            "Shipment"
+          ]
+        }
+      ],
+      "exports": [
+        "CheckpointTracker"
+      ],
+      "totalLines": 129,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/ControlCenter.tsx": {
+      "filePath": "frontend/src/components/ControlCenter.tsx",
+      "contentHash": "6a3d666a20859bb65f867da86603dd01a348364fd726105fad667e0f1b7628ca",
+      "functions": [
+        {
+          "name": "ControlCenter",
+          "params": [],
+          "exported": true,
+          "lineCount": 197
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "FormEvent"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppDispatch",
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "../store/shipmentsSlice.js",
+          "specifiers": [
+            "addShipment"
+          ]
+        },
+        {
+          "source": "../store/driversSlice.js",
+          "specifiers": [
+            "fetchDrivers"
+          ]
+        },
+        {
+          "source": "./CustomSelect.js",
+          "specifiers": [
+            "CustomSelect"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "ControlCenter"
+      ],
+      "totalLines": 205,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/CustomSelect.tsx": {
+      "filePath": "frontend/src/components/CustomSelect.tsx",
+      "contentHash": "ee4f91a1e85dd1627009ef36a27300bdb3206e1fc0f27eb36d2c2e6e106abeb4",
+      "functions": [
+        {
+          "name": "CustomSelect",
+          "params": [
+            "{ value, onChange, options, placeholder = 'Select...', className = '' }"
+          ],
+          "exported": true,
+          "lineCount": 59
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useRef",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "CustomSelect"
+      ],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/DashboardView.tsx": {
+      "filePath": "frontend/src/components/DashboardView.tsx",
+      "contentHash": "f5083592c2a3f8a2db48d4bfeb76a32b8070a721866b94708e598acf9f6f61e7",
+      "functions": [
+        {
+          "name": "DashboardView",
+          "params": [],
+          "exported": true,
+          "lineCount": 286
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "./ControlCenter.js",
+          "specifiers": [
+            "ControlCenter"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "DashboardView"
+      ],
+      "totalLines": 292,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/DriverPortal.tsx": {
+      "filePath": "frontend/src/components/DriverPortal.tsx",
+      "contentHash": "c6ed3407fa7d02073739111f28a0156f2c27fd8ba10baa99b1f39a02fb06f57e",
+      "functions": [
+        {
+          "name": "StandbyPanel",
+          "params": [],
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "ActiveShipmentPanel",
+          "params": [
+            "{ shipment, onDispatch, onReachCheckpoint }"
+          ],
+          "exported": false,
+          "lineCount": 94
+        },
+        {
+          "name": "DriverPortal",
+          "params": [],
+          "exported": true,
+          "lineCount": 219
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppDispatch",
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "../store/authSlice.js",
+          "specifiers": [
+            "logoutUser"
+          ]
+        },
+        {
+          "source": "../store/shipmentsSlice.js",
+          "specifiers": [
+            "Shipment"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "GLOBAL_API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "DriverPortal"
+      ],
+      "totalLines": 353,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/FleetView.tsx": {
+      "filePath": "frontend/src/components/FleetView.tsx",
+      "contentHash": "02d3ac7108d122126277e2bacc606e49da50dc33b0b29262881896924fabfb9f",
+      "functions": [
+        {
+          "name": "FleetView",
+          "params": [],
+          "exported": true,
+          "lineCount": 100
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppSelector"
+          ]
+        }
+      ],
+      "exports": [
+        "FleetView"
+      ],
+      "totalLines": 103,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/Landing.tsx": {
+      "filePath": "frontend/src/components/Landing.tsx",
+      "contentHash": "2bfe83909700e123325ef2a652b842a5bf106608980129816d0ca76a18c01e15",
+      "functions": [
+        {
+          "name": "Landing",
+          "params": [
+            "{ onLogin, onRegister }"
+          ],
+          "exported": true,
+          "lineCount": 131
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "Landing"
+      ],
+      "totalLines": 137,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/Login.tsx": {
+      "filePath": "frontend/src/components/Login.tsx",
+      "contentHash": "5841749a9ce57881826d2cb77ed7adb7a70a80c395049cd439828eff01ac0ea4",
+      "functions": [
+        {
+          "name": "Login",
+          "params": [
+            "{ initialIsRegister = false, onBack }"
+          ],
+          "exported": true,
+          "lineCount": 116
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppDispatch"
+          ]
+        },
+        {
+          "source": "../store/authSlice.js",
+          "specifiers": [
+            "setUser"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "Login"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/MetricsGrid.tsx": {
+      "filePath": "frontend/src/components/MetricsGrid.tsx",
+      "contentHash": "24c1df5eba5956a852dca229e3d2e76a1668ae1092f7205ccc93e6df364e0d2f",
+      "functions": [
+        {
+          "name": "MetricsGrid",
+          "params": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "MetricsGrid"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/ShipmentsList.tsx": {
+      "filePath": "frontend/src/components/ShipmentsList.tsx",
+      "contentHash": "67818c5cf3e0dd09b483078bb1203d4e91d1d5f48e1b80004b09d9f9fe2dc89f",
+      "functions": [
+        {
+          "name": "ShipmentsList",
+          "params": [],
+          "exported": true,
+          "lineCount": 97
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppDispatch",
+            "useAppSelector"
+          ]
+        },
+        {
+          "source": "../store/shipmentsSlice.js",
+          "specifiers": [
+            "selectShipment"
+          ]
+        },
+        {
+          "source": "./CustomSelect.js",
+          "specifiers": [
+            "CustomSelect"
+          ]
+        }
+      ],
+      "exports": [
+        "ShipmentsList"
+      ],
+      "totalLines": 103,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/Sidebar.tsx": {
+      "filePath": "frontend/src/components/Sidebar.tsx",
+      "contentHash": "0f5e2ece00ac2e6a8524547cbbd09fea492b931f4b0cdcff831a9650ebc59312",
+      "functions": [
+        {
+          "name": "Sidebar",
+          "params": [
+            "{ activeView, onNavigate }"
+          ],
+          "exported": true,
+          "lineCount": 83
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "../store/hooks.js",
+          "specifiers": [
+            "useAppDispatch"
+          ]
+        },
+        {
+          "source": "../store/authSlice.js",
+          "specifiers": [
+            "logoutUser"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "Sidebar"
+      ],
+      "totalLines": 96,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/TrackingView.tsx": {
+      "filePath": "frontend/src/components/TrackingView.tsx",
+      "contentHash": "6db228654d304beddcf79009da50bd748103980663e35b5b5e7cd8d8d8aded49",
+      "functions": [
+        {
+          "name": "TrackingView",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./CheckpointTracker.js",
+          "specifiers": [
+            "CheckpointTracker"
+          ]
+        },
+        {
+          "source": "./ShipmentsList.js",
+          "specifiers": [
+            "ShipmentsList"
+          ]
+        }
+      ],
+      "exports": [
+        "TrackingView"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/config.ts": {
+      "filePath": "frontend/src/config.ts",
+      "contentHash": "987190a2d5a9e2219d3a1ad772b8771fd2a532af09eb36edc5225020aaeca114",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "API_BASE",
+        "WS_URL"
+      ],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/index.css": {
+      "filePath": "frontend/src/index.css",
+      "contentHash": "4f9f28c8774bc6f3dfd62e5c14121cc8b3af6fdee9dfa6f66dd3e07988dad3ed",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 171,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/main.tsx": {
+      "filePath": "frontend/src/main.tsx",
+      "contentHash": "26f99a837ee3659781cabc7a00fa852bda4b364690ba1f01e3d2c313ecf1974a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "StrictMode"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "createRoot"
+          ]
+        },
+        {
+          "source": "react-redux",
+          "specifiers": [
+            "Provider"
+          ]
+        },
+        {
+          "source": "./store",
+          "specifiers": [
+            "store"
+          ]
+        },
+        {
+          "source": "./index.css",
+          "specifiers": []
+        },
+        {
+          "source": "./App.tsx",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/authSlice.ts": {
+      "filePath": "frontend/src/store/authSlice.ts",
+      "contentHash": "90c018d73b87d316ae28e59872f68ebb5c89359ddede350d1489cda418921a50",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "createSlice",
+            "createAsyncThunk"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "checkSession",
+        "{ setUser, logoutUser }"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/driversSlice.ts": {
+      "filePath": "frontend/src/store/driversSlice.ts",
+      "contentHash": "28911ba5cdc3a6a9ae5bbc882553c0b54d1ec515f2f8d3618198db2f44911e76",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "createSlice",
+            "createAsyncThunk",
+            "PayloadAction"
+          ]
+        },
+        {
+          "source": "./shipmentsSlice.js",
+          "specifiers": [
+            "Driver"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchDrivers",
+        "{ driverStatusChange }"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/hooks.ts": {
+      "filePath": "frontend/src/store/hooks.ts",
+      "contentHash": "5c992c180ca0e2fd4ab21e50f5a6e9df38cfeb43a033248a5033815753dea2dd",
+      "functions": [
+        {
+          "name": "useAppDispatch",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react-redux",
+          "specifiers": [
+            "TypedUseSelectorHook",
+            "useDispatch",
+            "useSelector"
+          ]
+        },
+        {
+          "source": "./index",
+          "specifiers": [
+            "RootState",
+            "AppDispatch"
+          ]
+        }
+      ],
+      "exports": [
+        "useAppDispatch",
+        "useAppSelector"
+      ],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/index.ts": {
+      "filePath": "frontend/src/store/index.ts",
+      "contentHash": "809c4dc9bff6b842dd51a250ea42ef8aa646f2c34293c514eb81babd50159c83",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "configureStore"
+          ]
+        },
+        {
+          "source": "./shipmentsSlice.js",
+          "specifiers": [
+            "shipmentsReducer"
+          ]
+        },
+        {
+          "source": "./driversSlice.js",
+          "specifiers": [
+            "driversReducer"
+          ]
+        },
+        {
+          "source": "./warehousesSlice.js",
+          "specifiers": [
+            "warehousesReducer"
+          ]
+        },
+        {
+          "source": "./authSlice.js",
+          "specifiers": [
+            "authReducer"
+          ]
+        },
+        {
+          "source": "./socketMiddleware.js",
+          "specifiers": [
+            "socketMiddleware"
+          ]
+        }
+      ],
+      "exports": [
+        "store"
+      ],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/shipmentsSlice.ts": {
+      "filePath": "frontend/src/store/shipmentsSlice.ts",
+      "contentHash": "ef2933ff477683020952759b86ade0ad19379b7b511c4eb0b752e8b1cff9beb5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "createSlice",
+            "createAsyncThunk",
+            "PayloadAction"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchShipments",
+        "{ shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment }"
+      ],
+      "totalLines": 119,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/socketMiddleware.ts": {
+      "filePath": "frontend/src/store/socketMiddleware.ts",
+      "contentHash": "1f0a8209c70e4dd95d1d8a88d37ca0615b5b32b60531e02ac7fb7f16241c5457",
+      "functions": [
+        {
+          "name": "socketMiddleware",
+          "params": [],
+          "exported": true,
+          "lineCount": 38
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "Middleware"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io",
+            "Socket"
+          ]
+        },
+        {
+          "source": "./shipmentsSlice.js",
+          "specifiers": [
+            "shipmentDelivered",
+            "shipmentDelayed",
+            "shipmentDispatched",
+            "checkpointReached"
+          ]
+        },
+        {
+          "source": "./driversSlice.js",
+          "specifiers": [
+            "driverStatusChange"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "WS_URL"
+          ]
+        }
+      ],
+      "exports": [
+        "socketMiddleware"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/store/warehousesSlice.ts": {
+      "filePath": "frontend/src/store/warehousesSlice.ts",
+      "contentHash": "b927555471c531000ed101a729361202c740647c396f341dda1ab9ab2656590b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@reduxjs/toolkit",
+          "specifiers": [
+            "createSlice",
+            "createAsyncThunk"
+          ]
+        },
+        {
+          "source": "./shipmentsSlice.js",
+          "specifiers": [
+            "Warehouse"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "API_BASE"
+          ]
+        }
+      ],
+      "exports": [
+        "fetchWarehouses"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/vite-env.d.ts": {
+      "filePath": "frontend/src/vite-env.d.ts",
+      "contentHash": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/tsconfig.json": {
+      "filePath": "frontend/tsconfig.json",
+      "contentHash": "a9b76315685a92c4299495dce44442c2e3df8849fa68064778703be563c2d73e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/vercel.json": {
+      "filePath": "frontend/vercel.json",
+      "contentHash": "2928d896e116247b97fae3475ebca415e4b53476cd636fe87c9e3c46d2c3cc77",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/vite.config.ts": {
+      "filePath": "frontend/vite.config.ts",
+      "contentHash": "33e4ba69e51878f4019da92d52d231a5382976ca228de93b4aba65355cc792d7",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": [
+            "tailwindcss"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "2e3c03be66250b0efe8faa81bd8b9866a53d66fe887a4a1692353c7caf4b6252",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 150,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

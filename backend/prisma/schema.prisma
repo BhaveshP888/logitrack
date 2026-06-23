@@ -34,6 +34,7 @@ model Driver {
 enum Role {
   ADMIN
   DRIVER
+  CUSTOMER
 }
 
 model User {
@@ -43,7 +44,20 @@ model User {
   role         Role
   driverId     String?  @unique
   driver       Driver?  @relation(fields: [driverId], references: [id])
+  refreshTokens RefreshToken[]
+  shipments    Shipment[]
   createdAt    DateTime @default(now())
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Shipment {
@@ -56,6 +70,10 @@ model Shipment {
   destinationWarehouse   Warehouse @relation("DestinationWarehouse", fields: [destinationWarehouseId], references: [id])
   driverId               String?
   driver                 Driver?   @relation(fields: [driverId], references: [id])
+  customerId             String?
+  customer               User?     @relation(fields: [customerId], references: [id])
+  price                  Float?
+  contentDescription     String?
   targetDispatchDate     DateTime
   actualDispatchDate     DateTime?
   checkpoints            ShipmentCheckpoint[]
@@ -64,6 +82,7 @@ model Shipment {
 
   @@index([status])
   @@index([trackingNumber])
+  @@index([customerId])
 }
 
 model ShipmentCheckpoint {

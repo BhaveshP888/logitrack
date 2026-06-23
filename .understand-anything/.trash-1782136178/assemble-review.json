@@ -1,0 +1,15 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 1,
+  "edgesRestored": 4,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section normalization counts are reasonable and consistent with automated merge expectations.",
+    "Recovered the missing node 'function:frontend/src/store/hooks.ts:useAppSelector' which was omitted during batch analysis due to its declaration as a const variable rather than a standard function.",
+    "Restored three calls edges pointing from CheckpointTracker, ControlCenter, and ShipmentsList to the recovered useAppSelector node.",
+    "Restored one depends_on edge from service:frontend/Dockerfile:nginx by correcting the target from config:frontend/nginx.conf to the actual node ID file:frontend/nginx.conf.",
+    "Verified all import map relationships; all 63 entries mapped perfectly to existing imports edges in the graph, requiring no cross-batch edge additions."
+  ]
+}
