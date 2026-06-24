@@ -12,7 +12,7 @@ export interface AuthRequest extends Request {
   user?: {
     id: string;
     email: string;
-    role: 'ADMIN' | 'DRIVER';
+    role: 'ADMIN' | 'DRIVER' | 'CUSTOMER';
     driverId: string | null;
   };
 }
@@ -78,7 +78,7 @@ export async function verifyToken(req: AuthRequest, res: Response, next: NextFun
   }
 }
 
-export function requireRole(role: 'ADMIN' | 'DRIVER') {
+export function requireRole(role: 'ADMIN' | 'DRIVER' | 'CUSTOMER') {
   return (req: AuthRequest, res: Response, next: NextFunction): void => {
     if (!req.user || req.user.role !== role) {
       res.status(403).json({ error: `Forbidden. Requires ${role} role. (You have: ${req.user?.role})` });

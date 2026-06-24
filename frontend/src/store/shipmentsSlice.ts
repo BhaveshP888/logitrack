@@ -33,6 +33,8 @@ export interface Shipment {
   destinationWarehouse: Warehouse;
   driver: Driver | null;
   driverId?: string | null;
+  price?: number;
+  contentDescription?: string;
   targetDispatchDate: string;
   actualDispatchDate: string | null;
   checkpoints: ShipmentCheckpoint[];

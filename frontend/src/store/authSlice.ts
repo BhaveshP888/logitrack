@@ -4,7 +4,7 @@ import { API_BASE } from '../config.js';
 export interface User {
   id: string;
   email: string;
-  role: 'ADMIN' | 'DRIVER';
+  role: 'ADMIN' | 'DRIVER' | 'CUSTOMER';
   driverId: string | null;
 }
 
