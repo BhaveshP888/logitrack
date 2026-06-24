@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { API_BASE } from '../config.js';
+import CustomSelect from './CustomSelect.js';
 
 interface Warehouse {
   id: string;
@@ -107,28 +108,20 @@ export default function BookShipmentModal({ onClose, onSuccess, warehouses }: Bo
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="origin" className="text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Origin</label>
-            <select 
-              id="origin" 
+            <CustomSelect 
               value={originId} 
-              onChange={e => setOriginId(e.target.value)} 
-              className="glass-input p-3 w-full cursor-pointer" 
-              required
-            >
-              {warehouses.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
-            </select>
+              onChange={setOriginId} 
+              options={warehouses.map(w => ({ value: w.id, label: w.name }))}
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="destination" className="text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Destination</label>
-            <select 
-              id="destination" 
+            <CustomSelect 
               value={destId} 
-              onChange={e => setDestId(e.target.value)} 
-              className="glass-input p-3 w-full cursor-pointer" 
-              required
-            >
-              {warehouses.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
-            </select>
+              onChange={setDestId} 
+              options={warehouses.map(w => ({ value: w.id, label: w.name }))}
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">

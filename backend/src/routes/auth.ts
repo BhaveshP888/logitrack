@@ -48,8 +48,10 @@ authRouter.post('/login', authLimiter, async (req, res) => {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
+  const normalizedEmail = email.trim().toLowerCase();
+
   try {
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ where: { email: normalizedEmail } });
     if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
