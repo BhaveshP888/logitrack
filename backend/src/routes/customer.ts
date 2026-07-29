@@ -136,10 +136,10 @@ customerRouter.post('/book', async (req: AuthRequest, res: Response) => {
         targetDispatchDate: new Date(targetDispatchDate),
         checkpoints: {
           create: [
-            { name: 'Dispatched from Origin', orderIndex: 1 },
-            { name: 'In Transit', orderIndex: 2 },
-            { name: 'Arrived at Destination Hub', orderIndex: 3 },
-            { name: 'Out for Delivery', orderIndex: 4 }
+            { name: 'Regional Sorting Center', orderIndex: 1 },
+            { name: 'Transit Hub A', orderIndex: 2 },
+            { name: 'Transit Hub B', orderIndex: 3 },
+            { name: 'Local Distribution Center', orderIndex: 4 }
           ]
         }
       }

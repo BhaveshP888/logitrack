@@ -8,9 +8,11 @@ export type ViewMode = 'dashboard' | 'analytics' | 'fleet' | 'tracking';
 interface SidebarProps {
   activeView: ViewMode;
   onNavigate: (view: ViewMode) => void;
+  isCollapsed: boolean;
+  onToggle: () => void;
 }
 
-export default function Sidebar({ activeView, onNavigate }: SidebarProps) {
+export default function Sidebar({ activeView, onNavigate, isCollapsed, onToggle }: SidebarProps) {
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
@@ -44,14 +46,40 @@ export default function Sidebar({ activeView, onNavigate }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-[240px] bg-bg-sidebar backdrop-blur-2xl border-r border-white/[0.04] flex flex-col py-8 px-5 z-20 gap-8">
-      {/* Logo */}
-      <div className="font-display text-lg font-bold text-zinc-100 flex items-center gap-2.5 px-2">
-        <div className="w-7 h-7 bg-brand-primary rounded-lg flex items-center justify-center">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111113" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+    <aside
+      className={`bg-bg-sidebar backdrop-blur-2xl border-r border-white/[0.04] flex flex-col py-6 z-20 gap-6 transition-all duration-200 ease-in-out shrink-0 ${
+        isCollapsed ? 'w-[60px] px-2' : 'w-[200px] px-4'
+      }`}
+    >
+      {/* Logo + Toggle */}
+      <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-1`}>
+        <div className={`font-display font-bold text-zinc-100 flex items-center gap-2.5 ${isCollapsed ? '' : ''}`}>
+          <div className="w-7 h-7 bg-brand-primary rounded-lg flex items-center justify-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111113" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          </div>
+          {!isCollapsed && <span className="text-lg">LogiTrack</span>}
         </div>
-        LogiTrack
+        {!isCollapsed && (
+          <button
+            onClick={onToggle}
+            className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] transition-colors cursor-pointer"
+            aria-label="Collapse sidebar"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>
+          </button>
+        )}
       </div>
+
+      {/* Expand button when collapsed */}
+      {isCollapsed && (
+        <button
+          onClick={onToggle}
+          className="mx-auto p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] transition-colors cursor-pointer"
+          aria-label="Expand sidebar"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>
+        </button>
+      )}
       
       {/* Navigation */}
       <nav className="flex flex-col gap-1">
@@ -61,34 +89,30 @@ export default function Sidebar({ activeView, onNavigate }: SidebarProps) {
             <button 
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-150 cursor-pointer ${
+              title={isCollapsed ? item.label : undefined}
+              className={`flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 ${isCollapsed ? 'px-0 py-2.5' : 'px-3 py-2.5'} rounded-xl text-[13px] font-medium transition-all duration-150 cursor-pointer ${
                 isActive 
                   ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/20' 
                   : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] border border-transparent'
               }`}
             >
-              <span className={isActive ? 'text-brand-primary' : 'text-zinc-600'}>{item.icon}</span>
-              {item.label}
+              <span className={`shrink-0 ${isActive ? 'text-brand-primary' : 'text-zinc-600'}`}>{item.icon}</span>
+              {!isCollapsed && item.label}
             </button>
           );
         })}
       </nav>
 
-      {/* Bottom: Logout + status */}
-      <div className="mt-auto flex flex-col gap-3">
+      {/* Bottom: Logout */}
+      <div className="mt-auto">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium text-zinc-500 hover:text-status-danger hover:bg-status-danger/5 border border-transparent hover:border-status-danger/10 transition-all duration-150 cursor-pointer"
+          title={isCollapsed ? 'Sign Out' : undefined}
+          className={`flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 ${isCollapsed ? 'px-0 py-2.5' : 'px-3 py-2.5'} rounded-xl text-[13px] font-medium text-zinc-500 hover:text-status-danger hover:bg-status-danger/5 border border-transparent hover:border-status-danger/10 transition-all duration-150 cursor-pointer`}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Sign Out
+          {!isCollapsed && 'Sign Out'}
         </button>
-        <div className="px-3 py-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></span>
-            <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">System Online</span>
-          </div>
-        </div>
       </div>
     </aside>
   );

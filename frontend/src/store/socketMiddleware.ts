@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
-import { shipmentDelivered, shipmentDelayed, shipmentDispatched, checkpointReached } from './shipmentsSlice.js';
+import { shipmentDelivered, shipmentDelayed, shipmentDispatched, checkpointReached, checkpointAbsent } from './shipmentsSlice.js';
 import { driverStatusChange } from './driversSlice.js';
 import { WS_URL } from '../config.js';
 
@@ -27,6 +27,10 @@ export const socketMiddleware: Middleware = store => next => action => {
 
       socket.on('CHECKPOINT_REACHED', (data: { shipmentId: string; checkpointId: string; reachedAt: string }) => {
         store.dispatch(checkpointReached(data));
+      });
+
+      socket.on('CHECKPOINT_ABSENT', (data: { shipmentId: string; checkpointId: string }) => {
+        store.dispatch(checkpointAbsent(data));
       });
 
       socket.on('SHIPMENT_DELIVERED', (data: { shipmentId: string; driverId: string | null }) => {

@@ -13,7 +13,7 @@ import FleetView from './components/FleetView.js';
 import TrackingView from './components/TrackingView.js';
 import Login from './components/Login.js';
 import Landing from './components/Landing.js';
-import DriverPortal from './components/DriverPortal.js';
+import DriverPortal from './components/DriverPortal/index.js';
 import CustomerDashboard from './components/CustomerDashboard.js';
 
 export default function App() {
@@ -21,6 +21,7 @@ export default function App() {
   const { user, loading } = useAppSelector(state => state.auth);
   const [authView, setAuthView] = useState<'landing' | 'login' | 'register'>('landing');
   const [activeView, setActiveView] = useState<ViewMode>('dashboard');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -70,19 +71,9 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen bg-transparent relative z-0">
-      <Sidebar activeView={activeView} onNavigate={setActiveView} />
+      <Sidebar activeView={activeView} onNavigate={setActiveView} isCollapsed={isSidebarCollapsed} onToggle={() => setIsSidebarCollapsed(prev => !prev)} />
       <div className="flex-1 flex flex-col h-full min-w-0">
-        {/* Top bar */}
-        <div className="flex items-center justify-end px-8 pt-6 pb-0 shrink-0">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] font-medium text-zinc-500 hover:text-status-danger hover:bg-status-danger/8 border border-transparent hover:border-status-danger/15 transition-all duration-150 cursor-pointer"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Sign Out
-          </button>
-        </div>
-        <main className="flex-1 flex flex-col px-8 lg:px-10 pt-6 pb-8 gap-8 overflow-y-auto custom-scrollbar min-w-0">
+        <main className="flex-1 flex flex-col px-6 lg:px-8 pt-6 pb-6 gap-6 overflow-y-auto custom-scrollbar min-w-0">
           {activeView === 'dashboard' && <DashboardView />}
           {activeView === 'analytics' && <AnalyticsView />}
           {activeView === 'fleet' && <FleetView />}

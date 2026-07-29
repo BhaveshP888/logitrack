@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface LandingProps {
   onLogin: () => void;
@@ -6,191 +6,334 @@ interface LandingProps {
 }
 
 export default function Landing({ onLogin, onRegister }: LandingProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const transitionConfig = "transition-all duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)]";
-  const entryAnimation = mounted ? "translate-y-0 opacity-100 blur-0" : "translate-y-16 opacity-0 blur-md";
+  const [activeTab, setActiveTab] = useState<'admin' | 'driver' | 'customer'>('admin');
 
   return (
-    <div className="relative flex flex-col h-[100dvh] w-screen bg-[#050505] overflow-y-auto overflow-x-hidden font-body text-zinc-100 selection:bg-brand-primary/30">
+    <div className="relative flex flex-col h-screen overflow-y-auto overflow-x-hidden w-full bg-[#0a0a0c] font-body text-zinc-100 selection:bg-brand-primary/30">
       
-      {/* Vibe Texture: Ethereal Mesh Gradients */}
-      <div className="fixed top-[-20%] left-[-10%] w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[180px] pointer-events-none"></div>
-      <div className="fixed bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-brand-accent/10 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-[0.03] pointer-events-none z-50"></div>
-
-      {/* The "Fluid Island" Nav */}
-      <header className={`relative z-50 mt-4 md:mt-6 mx-auto w-[calc(100%-1.5rem)] md:w-[calc(100%-2rem)] max-w-5xl rounded-full border border-white/10 bg-white/5 backdrop-blur-2xl px-3 py-3 md:px-6 md:py-4 flex items-center justify-between ${transitionConfig} ${mounted ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"}`}>
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Structural Header */}
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.05] bg-[#0a0a0c]/90 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-7 h-7 rounded bg-brand-primary flex items-center justify-center shrink-0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
               <polyline points="2 17 12 22 22 17" />
               <polyline points="2 12 12 17 22 12" />
             </svg>
           </div>
-          <span className="font-display font-semibold text-base md:text-lg tracking-tight text-zinc-100">LogiTrack</span>
+          <span className="font-display font-bold text-base tracking-tight text-zinc-100">LogiTrack</span>
         </div>
         
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-300">Platform</a>
-          <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-300">Solutions</a>
-          <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-300">Pricing</a>
+          <a href="#dashboard-preview" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200">System Overview</a>
+          <a href="#capabilities" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200">Capabilities</a>
+          <a href="#workflows" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200">Workflows</a>
+          <a href="#api" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200">API Reference</a>
         </nav>
         
-        <div className="flex items-center gap-3 shrink-0">
+        <div>
           <button 
             onClick={onLogin}
-            className="hidden md:flex px-4 py-2 rounded-full text-sm font-semibold text-zinc-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-300"
+            className="bg-brand-primary hover:bg-brand-accent text-zinc-950 text-xs md:text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer shadow-[0_2px_8px_rgba(45,212,191,0.15)]"
           >
-            Sign In
-          </button>
-          <button 
-            onClick={onRegister}
-            className="group py-1 pl-3 pr-1 md:pl-4 rounded-full bg-brand-primary text-zinc-950 text-sm font-semibold hover:bg-brand-accent active:scale-[0.98] transition-all duration-300 flex items-center gap-1.5 md:gap-2 shadow-[0_0_20px_rgba(45,212,191,0.2)]"
-          >
-            <span>Register</span>
-            <div className="w-7 h-7 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-[0.5px] group-hover:scale-105 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] shrink-0">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </div>
+            Sign In / Register
           </button>
         </div>
       </header>
 
-      <main className="relative z-10 flex flex-col items-center flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40">
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col w-full max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-24 gap-20">
         
-        {/* Hero Section */}
-        <div className="flex flex-col items-center text-center max-w-5xl">
-          {/* Eyebrow Tag */}
-          <div className={`mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-primary text-[10px] uppercase tracking-[0.2em] font-medium backdrop-blur-md shadow-[0_0_15px_rgba(45,212,191,0.15)] delay-100 ${transitionConfig} ${entryAnimation}`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></span>
-            Global Infrastructure Ready
-          </div>
-
-          <h1 className={`font-display text-5xl md:text-7xl lg:text-[7rem] font-bold tracking-tighter leading-[0.95] mb-8 delay-200 ${transitionConfig} ${entryAnimation}`}>
-            Next-Gen<br/>
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-primary via-white to-brand-accent pr-2 pb-2">
-              Logistics Platform
-            </span>
+        {/* Hero Section - Left Aligned, Professional & Meticulously Minimal */}
+        <section className="flex flex-col gap-6 items-start border-b border-white/[0.05] pb-16 max-w-4xl">
+          <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05] max-w-3xl">
+            Logistics infrastructure for modern supply chains.
           </h1>
-
-          <p className={`text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed mb-12 font-light delay-300 ${transitionConfig} ${entryAnimation}`}>
-            Book shipments instantly, track your cargo in real-time, and let our intelligent command center orchestrate the perfect route across your global fleet.
+          <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-2xl font-light">
+            Coordinate vehicle routing, dispatch flows, and checkpoint milestones through a structured database. Connect telemetry feeds over secure WebSockets.
           </p>
+          <div className="flex flex-wrap gap-4 mt-2">
+            <button 
+              onClick={onRegister}
+              className="bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200 cursor-pointer"
+            >
+              Initialize Terminal
+            </button>
+            <a 
+              href="#dashboard-preview"
+              className="border border-white/10 hover:border-white/20 text-zinc-300 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200 text-center"
+            >
+              View System Preview
+            </a>
+          </div>
+        </section>
 
-          {/* Nested CTA "Button-in-Button" */}
-          <button 
-            onClick={onRegister}
-            className={`group flex items-center gap-4 bg-zinc-100 text-[#050505] pl-8 pr-2 py-2 rounded-full text-lg font-bold active:scale-[0.98] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white shadow-[0_0_30px_rgba(255,255,255,0.1)] delay-400 ${transitionConfig} ${entryAnimation}`}
-          >
-            Start Shipping
-            <div className="w-12 h-12 rounded-full bg-[#050505]/10 flex items-center justify-center group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
+        {/* Section: System Preview Dashboard Mockup */}
+        <section id="dashboard-preview" className="flex flex-col gap-6">
+          <div>
+            <h2 className="font-display text-2xl font-bold text-white mb-2">Operational Interface</h2>
+            <p className="text-zinc-400 text-sm max-w-xl">
+              An overview of active dispatch streams, routing checkpoints, and event logs inside the LogiTrack console.
+            </p>
+          </div>
+
+          <div className="border border-white/[0.06] bg-[#0c0c0f] rounded-2xl p-6 flex flex-col gap-6 shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/[0.05] pb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-primary"></span>
+                <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest">Active Dispatch Streams</span>
+              </div>
+              <span className="text-[10px] font-mono text-zinc-500">System Status: Nominal</span>
             </div>
-          </button>
-        </div>
 
-        {/* The Asymmetrical Bento Grid */}
-        <div className={`w-full mt-32 md:mt-48 grid grid-cols-1 md:grid-cols-12 gap-6 delay-500 ${transitionConfig} ${entryAnimation}`}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Left Column: Shipment Queue */}
+              <div className="lg:col-span-6 flex flex-col gap-3">
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Pending & Active manifests</span>
+                
+                <div className="flex flex-col gap-2">
+                  <div className="border border-white/[0.04] bg-white/[0.01] p-3.5 rounded-xl flex items-center justify-between text-xs">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-semibold text-zinc-200">TRK-SEED-001</span>
+                      <span className="text-zinc-500 text-[10px]">Mumbai Hub → Nagpur Hub</span>
+                    </div>
+                    <span className="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 font-semibold text-[10px] uppercase">Pending Dispatch</span>
+                  </div>
+
+                  <div className="border border-white/[0.04] bg-white/[0.01] p-3.5 rounded-xl flex items-center justify-between text-xs">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-semibold text-zinc-200">TRK-PAST-001</span>
+                      <span className="text-zinc-500 text-[10px]">Mumbai Hub → Pune Hub</span>
+                    </div>
+                    <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 font-semibold text-[10px] uppercase">Delivered</span>
+                  </div>
+
+                  <div className="border border-white/[0.04] bg-white/[0.01] p-3.5 rounded-xl flex items-center justify-between text-xs">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-semibold text-zinc-200">TRK-ACTIVE-89</span>
+                      <span className="text-zinc-500 text-[10px]">Pune Depot → Nashik Hub</span>
+                    </div>
+                    <span className="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 font-semibold text-[10px] uppercase">En Route</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Live Event Stream */}
+              <div className="lg:col-span-6 flex flex-col gap-3">
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Live System Logs</span>
+                
+                <div className="bg-[#08080a] border border-white/[0.04] rounded-xl p-4 h-[170px] overflow-y-auto flex flex-col gap-2.5 font-mono text-[10px] text-zinc-400">
+                  <div className="flex items-center gap-3">
+                    <span className="text-brand-primary font-semibold">14:02:41</span>
+                    <span className="text-zinc-300">Shipment seed initialization requested</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-brand-primary font-semibold">14:02:43</span>
+                    <span className="text-zinc-300">Driver Rajesh Kumar assigned to TRK-SEED-001</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-brand-primary font-semibold">14:03:01</span>
+                    <span className="text-zinc-500">Prisma database transaction completed</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-brand-primary font-semibold">14:04:12</span>
+                    <span className="text-zinc-500">Telemetry listener connected to port 3001</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Capabilities */}
+        <section id="capabilities" className="flex flex-col gap-8">
+          <div>
+            <span className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] block mb-2">Capabilities</span>
+            <h2 className="font-display text-2xl font-bold text-white mb-2">Designed for operational precision</h2>
+            <p className="text-zinc-400 text-sm max-w-xl">
+              A highly functional logistics module built with a flat, clean interface for administrators, drivers, and clients.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="border border-white/[0.05] bg-white/[0.01] p-6 rounded-xl flex flex-col gap-3">
+              <span className="font-display font-semibold text-zinc-100 text-sm">Dynamic Dispatch Routing</span>
+              <p className="text-zinc-400 text-xs leading-relaxed">
+                Assign drivers to shipments, create scheduled departure matrices, and define regional checkpoint lists.
+              </p>
+            </div>
+            
+            <div className="border border-white/[0.05] bg-white/[0.01] p-6 rounded-xl flex flex-col gap-3">
+              <span className="font-display font-semibold text-zinc-100 text-sm">Live Telemetry Sync</span>
+              <p className="text-zinc-400 text-xs leading-relaxed">
+                Stream GPS coordinates and update manifest milestones dynamically using raw WebSocket connections.
+              </p>
+            </div>
+
+            <div className="border border-white/[0.05] bg-white/[0.01] p-6 rounded-xl flex flex-col gap-3">
+              <span className="font-display font-semibold text-zinc-100 text-sm">Role-Based Workflows</span>
+              <p className="text-zinc-400 text-xs leading-relaxed">
+                Enforced workflows partitioning tools between control center administrators, dispatch drivers, and clients.
+              </p>
+            </div>
+
+            <div className="border border-white/[0.05] bg-white/[0.01] p-6 rounded-xl flex flex-col gap-3">
+              <span className="font-display font-semibold text-zinc-100 text-sm">Restructured History Logs</span>
+              <p className="text-zinc-400 text-xs leading-relaxed">
+                Chronological ledger logs showing arrival dates, transit delays, and completed cargo checkpoints.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Workflows Tour */}
+        <section id="workflows" className="flex flex-col gap-8">
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
+            <div>
+              <span className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] block mb-2">Workflows</span>
+              <h2 className="font-display text-2xl font-bold text-white">Three workspaces, synchronized state</h2>
+            </div>
+
+            {/* Flat switcher tab */}
+            <div className="flex border border-white/[0.06] bg-white/[0.02] rounded-lg p-1 self-start">
+              <button 
+                onClick={() => setActiveTab('admin')}
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'admin' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
+              >
+                Administrator
+              </button>
+              <button 
+                onClick={() => setActiveTab('driver')}
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'driver' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
+              >
+                Driver
+              </button>
+              <button 
+                onClick={() => setActiveTab('customer')}
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'customer' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
+              >
+                Customer
+              </button>
+            </div>
+          </div>
+
+          <div className="border border-white/[0.05] bg-[#0c0c0f] rounded-2xl p-8 min-h-[220px] flex flex-col md:flex-row gap-8 justify-between items-start md:items-center">
+            <div className="flex flex-col gap-3 max-w-xl">
+              <span className="text-[10px] font-mono text-brand-primary uppercase tracking-widest font-bold">
+                {activeTab === 'admin' ? 'Control center console' : activeTab === 'driver' ? 'Driver terminal portal' : 'Timeline search interface'}
+              </span>
+              
+              {activeTab === 'admin' && (
+                <>
+                  <h3 className="font-display text-xl font-bold text-white">Assign routes, monitor telemetry</h3>
+                  <p className="text-zinc-400 text-xs leading-relaxed">
+                    Administrators allocate drivers to active containers, schedule dispatch target dates, mark checkpoints reached, and track active statuses from the dashboard.
+                  </p>
+                </>
+              )}
+
+              {activeTab === 'driver' && (
+                <>
+                  <h3 className="font-display text-xl font-bold text-white">Live coordinate tracking manifest</h3>
+                  <p className="text-zinc-400 text-xs leading-relaxed">
+                    Drivers login to view assigned manifests. Toggling the live tracker updates coordinates, marks milestones reached/absent, and processes delivery.
+                  </p>
+                </>
+              )}
+
+              {activeTab === 'customer' && (
+                <>
+                  <h3 className="font-display text-xl font-bold text-white">Check progress milestones</h3>
+                  <p className="text-zinc-400 text-xs leading-relaxed">
+                    Customers search active tracking codes to see milestone timelines, check regional depot locations, and book new freight shipments directly.
+                  </p>
+                </>
+              )}
+            </div>
+
+            <div className="w-full md:w-auto shrink-0 bg-[#08080a] border border-white/[0.04] p-5 rounded-xl flex flex-col gap-2 min-w-[260px] font-mono text-xs text-zinc-400">
+              <span className="text-[10px] text-zinc-500 uppercase">Context Info</span>
+              {activeTab === 'admin' && (
+                <>
+                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">ADMIN</span></div>
+                  <div className="flex justify-between"><span>Allowed Actions</span><span className="text-zinc-200">All Operations</span></div>
+                  <div className="flex justify-between"><span>Dashboard Mode</span><span className="text-zinc-200">Management</span></div>
+                </>
+              )}
+              {activeTab === 'driver' && (
+                <>
+                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">DRIVER</span></div>
+                  <div className="flex justify-between"><span>Assigned Container</span><span className="text-zinc-200">TRK-SEED-001</span></div>
+                  <div className="flex justify-between"><span>Tracker Status</span><span className="text-emerald-400 font-medium">Ready</span></div>
+                </>
+              )}
+              {activeTab === 'customer' && (
+                <>
+                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">CUSTOMER</span></div>
+                  <div className="flex justify-between"><span>Booking Action</span><span className="text-zinc-200">Allowed</span></div>
+                  <div className="flex justify-between"><span>Search Index</span><span className="text-zinc-200">Active manifests</span></div>
+                </>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Developer Integration API */}
+        <section id="api" className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-white/[0.05] pt-16">
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <span className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] block">Developer Integration</span>
+            <h2 className="font-display text-2xl font-bold text-white">Full API capabilities</h2>
+            <p className="text-zinc-400 text-xs leading-relaxed">
+              Integrate LogiTrack directly with other ERP networks. Fetch metrics, post shipments, update dispatch logs, and retrieve timeline checkpoints programmatically.
+            </p>
+          </div>
           
-          {/* Card 1: Large Feature (Double-Bezel) */}
-          <div className="md:col-span-8 group p-2 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01]">
-            <div className="rounded-[calc(2rem-0.5rem)] bg-[#0A0A0B] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] h-[400px] w-full p-8 md:p-12 relative overflow-hidden flex flex-col justify-end">
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-primary/10 blur-[120px] pointer-events-none group-hover:opacity-100 opacity-40 transition-opacity duration-700"></div>
-              
-              {/* Complex Radar Graphic */}
-              <div className="absolute top-[-10%] right-[-5%] w-[350px] h-[350px] pointer-events-none flex items-center justify-center opacity-80 group-hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                <div className="absolute inset-0 border border-brand-primary/10 rounded-full"></div>
-                <div className="absolute inset-8 border border-brand-primary/20 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
-                  <div className="w-full h-full border-t-2 border-brand-primary/50 rounded-full"></div>
-                </div>
-                <div className="absolute inset-16 border border-brand-accent/20 rounded-full flex items-center justify-center animate-[spin_12s_linear_infinite_reverse]">
-                  <div className="w-full h-full border-b-2 border-brand-accent/40 rounded-full"></div>
-                </div>
-                <div className="absolute inset-24 border border-brand-primary/10 rounded-full"></div>
-                {/* Center Node */}
-                <div className="relative">
-                  <div className="w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_rgba(45,212,191,1)] z-10 relative"></div>
-                  <div className="absolute inset-0 bg-brand-primary rounded-full animate-ping opacity-60"></div>
-                </div>
-              </div>
-              
-              <div className="relative z-10 max-w-md mt-auto">
-                <div className="mb-4 inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-zinc-300 backdrop-blur-md">
-                  Core Engine
-                </div>
-                <h3 className="font-display text-3xl font-bold mb-3 text-zinc-100">Real-Time Orchestration</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Monitor fleet telemetrics and reroute shipments dynamically. Our engine computes the optimal path instantly, ensuring your cargo arrives exactly when expected.
-                </p>
-              </div>
+          <div className="lg:col-span-7 bg-[#08080a] border border-white/[0.05] rounded-xl p-5 font-mono text-[11px] text-zinc-300 relative overflow-hidden">
+            <div className="absolute top-2 right-4 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
             </div>
-          </div>
-
-          {/* Card 2: Tall Vertical */}
-          <div className="md:col-span-4 group p-2 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01]">
-            <div className="rounded-[calc(2rem-0.5rem)] bg-[#0A0A0B] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] h-[400px] w-full p-8 md:p-10 relative overflow-hidden flex flex-col">
-              <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-brand-accent/10 blur-[90px] pointer-events-none group-hover:opacity-100 opacity-40 transition-opacity duration-700"></div>
-              
-              <div className="flex-1 flex items-center justify-center relative mt-4">
-                 <div className="relative w-32 h-32">
-                   <div className="absolute inset-0 rounded-full border border-white/5 flex items-center justify-center bg-white/[0.01]"></div>
-                   <div className="absolute inset-4 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_0_30px_rgba(94,234,212,0.05)]">
-                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="drop-shadow-[0_0_8px_rgba(94,234,212,0.5)]">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                        <line x1="12" y1="22" x2="12" y2="12"></line>
-                      </svg>
-                   </div>
-                 </div>
-              </div>
-
-              <div className="relative z-10 mt-auto">
-                <div className="mb-4 inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-zinc-300 backdrop-blur-md">
-                  Network
-                </div>
-                <h3 className="font-display text-2xl font-bold mb-3 text-zinc-100">Global Coverage</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Seamlessly dispatch across international borders with localized compliance built right in.
-                </p>
-              </div>
+            
+            <div className="border-b border-white/[0.04] pb-2 mb-3 text-[10px] text-zinc-500 font-bold tracking-wider uppercase">
+              POST /api/shipments
             </div>
-          </div>
+            
+            <pre className="overflow-x-auto leading-relaxed select-all">
+{`Authorization: Bearer <jwt_access_token>
+Content-Type: application/json
 
-        </div>
+{
+  "originId": "mumbai_hub_01",
+  "destinationId": "nagpur_hub_03",
+  "driverId": "drv_rajesh_kumar",
+  "targetDispatchDate": "2026-06-30T16:00:00.000Z"
+}`}
+            </pre>
+          </div>
+        </section>
+
       </main>
 
-      {/* High-End Footer */}
-      <footer className="relative z-20 flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-10 border-t border-white/5 bg-[#0A0A0B]/80 backdrop-blur-3xl mt-24">
-        <div className="flex items-center gap-3 mb-6 md:mb-0 opacity-80">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Structural Footer */}
+      <footer className="border-t border-white/[0.05] bg-[#08080a]/90 px-6 py-8 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-500 gap-4 mt-16">
+        <div className="flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2" />
             <polyline points="2 17 12 22 22 17" />
             <polyline points="2 12 12 17 22 12" />
           </svg>
-          <span className="font-display font-bold text-sm uppercase tracking-[0.15em] text-zinc-300">LogiTrack Base</span>
+          <span className="font-semibold text-zinc-400 font-display">LogiTrack Platform</span>
         </div>
         
-        <p className="text-zinc-600 text-xs mb-6 md:mb-0 font-medium">
-          © {new Date().getFullYear()} LogiTrack Infrastructure. All systems nominal.
-        </p>
+        <span className="font-medium text-zinc-600">© {new Date().getFullYear()} LogiTrack. All systems operational.</span>
         
-        <div className="flex gap-8 text-xs font-semibold tracking-wide text-zinc-500 uppercase">
+        <div className="flex gap-6 uppercase font-bold tracking-wider text-[10px] text-zinc-500">
           <a href="#" className="hover:text-zinc-300 transition-colors">Privacy</a>
           <a href="#" className="hover:text-zinc-300 transition-colors">Terms</a>
-          <a href="#" className="hover:text-brand-primary transition-colors flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
-            System Status
+          <a href="#" className="hover:text-brand-primary transition-colors flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Status
           </a>
         </div>
       </footer>

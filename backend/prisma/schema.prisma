@@ -63,7 +63,7 @@ model RefreshToken {
 model Shipment {
   id                     String   @id @default(uuid())
   trackingNumber         String   @unique
-  status                 String   // PENDING, EN_ROUTE, DELIVERED, DELAYED
+  status                 String   // PENDING, EN_ROUTE, DELIVERED,  DELAYED
   originWarehouseId      String
   originWarehouse        Warehouse @relation("OriginWarehouse", fields: [originWarehouseId], references: [id])
   destinationWarehouseId String
@@ -93,6 +93,7 @@ model ShipmentCheckpoint {
   orderIndex Int
   reached    Boolean   @default(false)
   reachedAt  DateTime?
+  isAbsent   Boolean   @default(false)
 
   @@index([shipmentId])
 }

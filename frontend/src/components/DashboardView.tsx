@@ -36,7 +36,7 @@ export default function DashboardView() {
   // Recent activity from shipments sorted by updatedAt
   const recentShipments = [...shipments]
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-    .slice(0, 5);
+    .slice(0, 8);
 
   const statusColor = (status: string) => {
     switch (status) {
@@ -84,187 +84,118 @@ export default function DashboardView() {
   });
 
   return (
-    <div className="flex flex-col h-full gap-6 overflow-y-auto custom-scrollbar pr-1">
-      {/* Header */}
-      <header className="flex justify-between items-end shrink-0">
-        <div>
-          <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-[0.2em] mb-1">Command Center</p>
-          <h1 className="font-display text-3xl font-bold text-white tracking-tight">System Overview</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider">Live</span>
-          </div>
-        </div>
+    <div className="flex flex-col h-full gap-5 overflow-y-auto custom-scrollbar pr-1">
+      {/* Header Row */}
+      <header className="shrink-0">
+        <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-[0.2em] mb-1">Command Center</p>
+        <h1 className="font-display text-2xl font-bold text-white tracking-tight">System Overview</h1>
       </header>
 
-      {/* Metric Cards Row */}
-      <div className="grid grid-cols-4 gap-4 shrink-0">
-        {/* Total Shipments */}
-        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 overflow-hidden transition-all duration-300 hover:border-white/10 hover:bg-white/[0.05]">
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em]">Total Shipments</p>
-              <div className="w-8 h-8 rounded-lg bg-teal-400/10 flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                </svg>
-              </div>
+      {/* Unified Status Bar */}
+      <div className="card p-3.5 flex items-center shrink-0">
+        {/* Shipments (Donut + Legend) */}
+        <div className="flex items-center gap-3.5 px-3">
+          <div className="relative w-10 h-10 shrink-0">
+            <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+              {donutSegments.length > 0 ? donutSegments.map((seg, i) => (
+                <circle
+                  key={i}
+                  cx="18" cy="18" r="14"
+                  fill="none"
+                  stroke={seg.color}
+                  strokeWidth="4"
+                  strokeDasharray={`${seg.pct * 0.88} ${88 - seg.pct * 0.88}`}
+                  strokeDashoffset={`${-seg.offset * 0.88}`}
+                  strokeLinecap="round"
+                  className="transition-all duration-700"
+                />
+              )) : (
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#1e293b" strokeWidth="4" />
+              )}
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[10px] font-bold text-white">{shipments.length}</span>
             </div>
-            <p className="text-3xl font-display font-semibold text-white tracking-tight">{metrics.totalCount}</p>
-            <p className="text-[10px] text-zinc-500 mt-1">{metrics.deliveredCount} delivered</p>
+          </div>
+          <div>
+            <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest mb-1">Shipments</p>
+            <div className="flex items-center gap-3">
+              {segments.map((seg, i) => (
+                <div key={i} className="flex items-center gap-1.5 text-[10px]">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: seg.color }}></span>
+                  <span className="text-zinc-400">{seg.label}</span>
+                  <span className="text-white font-semibold tabular-nums">{seg.count}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Active */}
-        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 overflow-hidden transition-all duration-300 hover:border-sky-500/20 hover:bg-white/[0.05]">
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em]">In Transit</p>
-              <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5eead4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
-              </div>
-            </div>
-            <p className="text-3xl font-display font-semibold text-white tracking-tight">{metrics.activeCount}</p>
-            <p className="text-[10px] text-zinc-500 mt-1">{delayed.length > 0 ? `${delayed.length} delayed` : 'all on schedule'}</p>
+        <div className="w-px h-8 bg-white/[0.06]"></div>
+        {/* In Transit */}
+        <div className="flex items-center gap-3 px-3">
+          <p className="text-xl font-bold text-white">{metrics.activeCount}</p>
+          <div>
+            <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">In Transit</p>
+            <p className="text-[10px] text-zinc-500">{delayed.length > 0 ? `${delayed.length} delayed` : 'on schedule'}</p>
           </div>
         </div>
-
-        {/* Utilization */}
-        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 overflow-hidden transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/[0.05]">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em]">Fleet Utilization</p>
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-              </div>
-            </div>
-            <p className="text-3xl font-display font-semibold text-white tracking-tight">{metrics.utilizationRate.toFixed(0)}%</p>
-            <p className="text-[10px] text-zinc-500 mt-1">{busyDrivers.length}/{drivers.length} drivers active</p>
-          </div>
-        </div>
-
+        <div className="w-px h-8 bg-white/[0.06]"></div>
         {/* On-Time */}
-        <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 overflow-hidden transition-all duration-300 hover:border-amber-500/20 hover:bg-white/[0.05]">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em]">On-Time Rate</p>
-              <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
+        <div className="flex items-center gap-3 px-3">
+          <p className="text-xl font-bold text-white">{metrics.onTimeRate.toFixed(0)}%</p>
+          <div>
+            <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">On-Time</p>
+            <p className="text-[10px] text-zinc-500">{delivered.length} done</p>
+          </div>
+        </div>
+        <div className="w-px h-8 bg-white/[0.06]"></div>
+        {/* Fleet */}
+        <div className="flex flex-col gap-1 px-3">
+          <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Fleet</p>
+          <div className="flex items-center gap-3 text-[11px]">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span className="text-zinc-400">{availableDrivers.length} avail</span>
             </div>
-            <p className="text-3xl font-display font-semibold text-white tracking-tight">{metrics.onTimeRate.toFixed(0)}%</p>
-            <p className="text-[10px] text-zinc-500 mt-1">{delivered.length} completed</p>
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+              <span className="text-zinc-400">{busyDrivers.length} active</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content: Two columns */}
-      <div className="grid grid-cols-[1fr_380px] gap-6 flex-1 min-h-0">
+      {/* Main Content: Two columns — Dispatch gets more space */}
+      <div className="grid grid-cols-[3fr_2fr] gap-5 flex-1 min-h-0">
 
-        {/* Left: Dispatch Control */}
-        <div className="flex flex-col gap-6 min-h-0">
+        {/* Dispatch Control — primary action area */}
+        <div className="flex flex-col min-h-0">
           <ControlCenter />
         </div>
 
-        {/* Right: Activity + Status */}
-        <div className="flex flex-col gap-6 min-h-0">
-          {/* Status Breakdown */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
-            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-4">Status Breakdown</p>
-            <div className="flex items-center gap-6">
-              {/* Mini donut */}
-              <div className="relative w-20 h-20 shrink-0">
-                <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                  {donutSegments.length > 0 ? donutSegments.map((seg, i) => (
-                    <circle
-                      key={i}
-                      cx="18" cy="18" r="14"
-                      fill="none"
-                      stroke={seg.color}
-                      strokeWidth="4"
-                      strokeDasharray={`${seg.pct * 0.88} ${88 - seg.pct * 0.88}`}
-                      strokeDashoffset={`${-seg.offset * 0.88}`}
-                      strokeLinecap="round"
-                      className="transition-all duration-700"
-                    />
-                  )) : (
-                    <circle cx="18" cy="18" r="14" fill="none" stroke="#1e293b" strokeWidth="4" />
-                  )}
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm font-bold text-white">{shipments.length}</span>
-                </div>
-              </div>
-              {/* Legend */}
-              <div className="flex flex-col gap-2 flex-1">
-                {segments.map((seg, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: seg.color }}></span>
-                      <span className="text-zinc-400">{seg.label}</span>
-                    </div>
-                    <span className="text-white font-semibold tabular-nums">{seg.count}</span>
+        {/* Activity Feed + conditional alerts */}
+        <div className="flex flex-col gap-5 min-h-0">
+          {/* Delayed Alerts */}
+          {delayed.length > 0 && (
+            <div className="card p-4 border-status-danger/20 shrink-0">
+              <p className="text-[10px] font-bold text-status-danger uppercase tracking-widest mb-2">⚠ Delayed ({delayed.length})</p>
+              <div className="flex flex-col gap-1.5">
+                {delayed.slice(0, 3).map(s => (
+                  <div key={s.id} className="flex items-center justify-between text-xs">
+                    <span className="font-mono text-zinc-400">{s.trackingNumber}</span>
+                    <span className="text-status-danger font-semibold">{s.originWarehouse.name.split(' ')[0]} → {s.destinationWarehouse.name.split(' ')[0]}</span>
                   </div>
                 ))}
-                {segments.length === 0 && (
-                  <p className="text-zinc-600 text-xs italic">No shipments yet</p>
-                )}
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Fleet Quick View */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
-            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-4">Fleet Quick View</p>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span className="text-sm text-zinc-300">Available</span>
-                </div>
-                <span className="text-sm text-white font-semibold tabular-nums">{availableDrivers.length}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                  <span className="text-sm text-zinc-300">On Delivery</span>
-                </div>
-                <span className="text-sm text-white font-semibold tabular-nums">{busyDrivers.length}</span>
-              </div>
-              {/* Utilization bar */}
-              <div className="mt-2">
-                <div className="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-sky-500 transition-all duration-700"
-                    style={{ width: `${drivers.length > 0 ? (busyDrivers.length / drivers.length) * 100 : 0}%` }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 flex-1 min-h-0 flex flex-col">
-            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-4">Recent Activity</p>
-            <div className="flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-1">
+          {/* Activity Feed */}
+          <div className="card p-5 flex flex-col flex-1 min-h-0">
+            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3 shrink-0">Activity Feed</p>
+            <div className="flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-1">
               {recentShipments.length > 0 ? recentShipments.map(s => (
-                <div key={s.id} className="flex items-center gap-3 py-2 border-b border-white/[0.04] last:border-0">
+                <div key={s.id} className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-white/[0.02] transition-colors">
                   <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusDot(s.status)}`}></span>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-zinc-200 font-medium truncate">
@@ -280,7 +211,7 @@ export default function DashboardView() {
                   </div>
                 </div>
               )) : (
-                <p className="text-zinc-600 text-xs italic text-center py-4">No shipments yet. Create one to get started.</p>
+                <p className="text-zinc-600 text-xs text-center py-4">No shipments yet. Create one to get started.</p>
               )}
             </div>
           </div>

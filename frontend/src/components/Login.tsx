@@ -64,8 +64,8 @@ export default function Login({ initialIsRegister = false, onBack }: LoginProps)
   };
 
   return (
-    <div className="min-h-[100dvh] w-screen flex flex-col items-center py-12 px-4 overflow-y-auto bg-transparent relative z-0 font-body">
-      <form onSubmit={handleSubmit} className="w-full max-w-[400px] my-auto card border border-white/[0.06] bg-bg-surface backdrop-blur-xl p-6 md:p-10 flex flex-col gap-5">
+    <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center py-8 px-4 overflow-y-auto bg-transparent relative z-0 font-body">
+      <form onSubmit={handleSubmit} className="w-full max-w-[380px] m-auto card border border-white/[0.06] bg-bg-surface backdrop-blur-xl p-6 sm:p-8 flex flex-col gap-4">
         <div className="text-center relative">
           {onBack && (
             <button 

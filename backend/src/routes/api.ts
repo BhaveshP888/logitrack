@@ -140,36 +140,78 @@ router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, requi
     data: { reached: true, reachedAt: new Date() }
   });
 
-  // Check if all checkpoints reached
-  const updatedShipment = await prisma.shipment.findUnique({ where: { id }, include: { checkpoints: true } });
-  const allReached = updatedShipment?.checkpoints.every(cp => cp.reached);
+  const finalShipment = await prisma.shipment.findUnique({
+    where: { id },
+    include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
+  });
 
-  if (allReached) {
-    await prisma.$transaction(async (tx) => {
-      await tx.shipment.update({
-        where: { id },
-        data: { status: 'DELIVERED' }
-      });
-      if (shipment.driverId) {
-        await tx.driver.update({
-          where: { id: shipment.driverId },
-          data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId }
-        });
-      }
-    });
+  req.app.get('io').emit('CHECKPOINT_REACHED', { shipmentId: shipment.id, checkpointId });
+
+  res.json(finalShipment);
+});
+
+// Driver: Mark Checkpoint Absent
+router.post('/shipments/:id/checkpoints/:checkpointId/absent', verifyToken, requireRole('DRIVER'), async (req, res) => {
+  const { id, checkpointId } = req.params;
+  const shipment = await prisma.shipment.findUnique({ where: { id }, include: { checkpoints: true } });
+
+  // @ts-ignore
+  if (!shipment || shipment.driverId !== req.user?.driverId) {
+    return res.status(403).json({ error: "Not authorized to update this shipment" });
   }
+
+  const checkpoint = shipment.checkpoints.find(cp => cp.id === checkpointId);
+  if (!checkpoint) return res.status(404).json({ error: "Checkpoint not found" });
+
+  await prisma.shipmentCheckpoint.update({
+    where: { id: checkpointId },
+    data: { isAbsent: true }
+  });
 
   const finalShipment = await prisma.shipment.findUnique({
     where: { id },
     include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
 
-  if (allReached) {
-    req.app.get('io').emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
-  } else {
-    req.app.get('io').emit('CHECKPOINT_REACHED', { shipmentId: shipment.id, checkpointId });
+  req.app.get('io').emit('CHECKPOINT_ABSENT', { shipmentId: shipment.id, checkpointId });
+  res.json(finalShipment);
+});
+
+// Driver: Confirm Destination Reached (Delivery)
+router.post('/shipments/:id/deliver', verifyToken, requireRole('DRIVER'), async (req, res) => {
+  const { id } = req.params;
+  const shipment = await prisma.shipment.findUnique({ where: { id }, include: { checkpoints: true } });
+
+  // @ts-ignore
+  if (!shipment || shipment.driverId !== req.user?.driverId) {
+    return res.status(403).json({ error: "Not authorized to update this shipment" });
   }
 
+  // Ensure all checkpoints are either reached or absent
+  const hasPending = shipment.checkpoints.some(cp => !cp.reached && !cp.isAbsent);
+  if (hasPending) {
+    return res.status(400).json({ error: "Cannot confirm delivery while checkpoints are pending. Mark them as reached or absent." });
+  }
+
+  await prisma.$transaction(async (tx) => {
+    await tx.shipment.update({
+      where: { id },
+      data: { status: 'DELIVERED' }
+    });
+    if (shipment.driverId) {
+      await tx.driver.update({
+        where: { id: shipment.driverId },
+        data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId }
+      });
+    }
+  });
+
+  const finalShipment = await prisma.shipment.findUnique({
+    where: { id },
+    include: { originWarehouse: true, destinationWarehouse: true, driver: true, checkpoints: { orderBy: { orderIndex: 'asc' } } }
+  });
+
+  req.app.get('io').emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
   res.json(finalShipment);
 });
 

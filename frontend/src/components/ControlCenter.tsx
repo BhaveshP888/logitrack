@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
-import { addShipment } from '../store/shipmentsSlice.js';
+import { addShipment, updateShipment } from '../store/shipmentsSlice.js';
 import { fetchDrivers } from '../store/driversSlice.js';
 import CustomSelect from './CustomSelect.js';
 import { API_BASE } from '../config.js';
@@ -23,10 +23,10 @@ export default function ControlCenter() {
       });
       if (res.ok) {
         setSuccessMsg('Driver assigned successfully!');
-        dispatch(addShipment(await res.json()));
+        dispatch(updateShipment(await res.json()));
         setTimeout(() => setSuccessMsg(''), 3000);
       }
-    } catch (err) {
+    } catch {
       setError('Failed to assign driver');
     }
   };
@@ -104,7 +104,7 @@ export default function ControlCenter() {
         setSuccessMsg('Shipment created successfully!');
         setTimeout(() => setSuccessMsg(''), 3000);
       }
-    } catch (err) {
+    } catch {
       setError("Connection error");
     } finally {
       setIsSubmitting(false);
@@ -125,16 +125,29 @@ export default function ControlCenter() {
   const driverOptions = drivers.map(d => ({ value: d.id, label: `${d.name} (${d.status})` }));
 
   return (
-    <div className="glass-panel p-6 flex flex-col gap-5 relative">
-      <div className="flex justify-between items-center">
-        <h3 className="font-display font-semibold text-zinc-100 tracking-wide">Dispatch Control</h3>
+    <div className="card p-5 flex flex-col gap-4 relative h-full">
+      <div className="flex justify-between items-center shrink-0">
+        <h3 className="font-display font-semibold text-zinc-100 text-sm tracking-wide">Dispatch Control</h3>
+        <button 
+          onClick={handleReset} 
+          className="text-[10px] text-zinc-500 hover:text-status-danger transition-colors flex items-center gap-1.5 cursor-pointer"
+          aria-label="Reset Application"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+            <path d="M3 21v-5h5" />
+          </svg>
+          Reset
+        </button>
       </div>
 
-      {error && <div className="p-3 bg-status-danger/10 text-status-danger border border-status-danger/30 rounded-lg text-sm">{error}</div>}
-      {successMsg && <div className="p-3 bg-status-success/10 text-status-success border border-status-success/30 rounded-lg text-sm transition-all">{successMsg}</div>}
+      {error && <div className="p-2.5 bg-status-danger/10 text-status-danger border border-status-danger/30 rounded-lg text-xs shrink-0">{error}</div>}
+      {successMsg && <div className="p-2.5 bg-status-success/10 text-status-success border border-status-success/30 rounded-lg text-xs shrink-0">{successMsg}</div>}
       
-      <form onSubmit={handleCreateShipment} className="flex flex-col gap-3">
-        <div className="grid grid-cols-2 gap-3">
+      <form onSubmit={handleCreateShipment} className="flex flex-col gap-3 shrink-0">
+        <div className="grid grid-cols-2 gap-2.5">
           <CustomSelect
             value={originId}
             onChange={setOriginId}
@@ -163,11 +176,17 @@ export default function ControlCenter() {
           />
         </div>
 
-        <div className="flex flex-col gap-2 mt-1">
-          <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5 block">Checkpoints</span>
-          <div className="flex flex-col gap-2 max-h-[100px] overflow-y-auto custom-scrollbar pr-1">
+        {/* Checkpoints inline */}
+        <div className="flex flex-col gap-2 mt-5">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">Checkpoints</span>
+            <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-[10px] font-semibold hover:text-brand-accent transition cursor-pointer">
+              + Add
+            </button>
+          </div>
+          <div className="flex flex-col gap-1.5 max-h-[80px] overflow-y-auto custom-scrollbar pr-1">
             {checkpoints.map((cp, idx) => (
-              <div key={idx} className="flex items-center gap-2">
+              <div key={idx} className="flex items-center gap-1.5">
                 <input 
                   type="text" 
                   aria-label={`Checkpoint ${idx + 1}`}
@@ -180,28 +199,25 @@ export default function ControlCenter() {
                   <button 
                     type="button" 
                     onClick={() => handleRemoveCheckpoint(idx)} 
-                    className="p-1.5 text-zinc-400 hover:text-status-danger transition"
+                    className="p-1 text-zinc-500 hover:text-status-danger transition shrink-0 cursor-pointer"
                     aria-label={`Remove checkpoint ${idx + 1}`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   </button>
                 )}
               </div>
             ))}
           </div>
-          <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-xs font-semibold self-start hover:text-brand-accent transition">
-            + Add Checkpoint
-          </button>
         </div>
 
         <button 
           type="submit" 
           disabled={isSubmitting}
-          className="w-full py-2.5 px-4 mt-1 rounded-lg bg-brand-primary text-zinc-950 font-semibold text-sm cursor-pointer transition duration-150 flex items-center justify-center gap-2 hover:bg-brand-accent disabled:opacity-50 disabled:cursor-wait"
+          className="glass-button w-full py-2.5 text-sm flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-4 w-4 text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -214,22 +230,18 @@ export default function ControlCenter() {
       </form>
 
       {/* Unassigned Shipments */}
-      <div className="mt-4 flex flex-col gap-3">
-        <h4 className="font-semibold text-zinc-300 text-sm">Pending Assignment</h4>
+      <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
+        <h4 className="font-semibold text-zinc-400 text-[10px] uppercase tracking-widest shrink-0">Pending Assignment</h4>
         {unassignedShipments.length > 0 ? (
           unassignedShipments.map(s => (
             <div key={s.id} className="p-3 bg-white/[0.02] border border-white/[0.05] rounded-lg flex flex-col gap-2">
               <div className="flex justify-between items-center">
                 <span className="text-xs font-mono text-zinc-400">{s.trackingNumber}</span>
-                <span className="text-xs text-zinc-300">₹{s.price}</span>
               </div>
               <div className="text-[11px] text-zinc-500">
                 {s.originWarehouse.name} → {s.destinationWarehouse.name}
               </div>
-              <div className="text-[11px] text-zinc-500 truncate">
-                Desc: {s.contentDescription || 'N/A'}
-              </div>
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-2">
                 <CustomSelect
                   value={''}
                   onChange={(val) => handleAssignDriver(s.id, val)}
@@ -240,27 +252,10 @@ export default function ControlCenter() {
             </div>
           ))
         ) : (
-          <div className="p-4 text-center border border-white/[0.05] rounded-lg bg-white/[0.01]">
+          <div className="p-3 text-center border border-white/[0.05] rounded-lg bg-white/[0.01]">
             <p className="text-[11px] text-zinc-500">All pending shipments have been assigned.</p>
           </div>
         )}
-      </div>
-
-      <hr className="border-none h-px bg-border-color my-0.5 mt-4" />
-
-      <div className="flex gap-2">
-        <button 
-          onClick={handleReset} 
-          className="flex-1 py-3 px-4 rounded-lg bg-white/4 border border-status-danger/20 text-status-danger font-semibold text-xs cursor-pointer transition duration-150 flex items-center justify-center gap-2 hover:bg-bg-surface-hover hover:border-status-danger/40"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-            <path d="M21 3v5h-5" />
-            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-            <path d="M3 21v-5h5" />
-          </svg>
-          Reset App
-        </button>
       </div>
     </div>
   );

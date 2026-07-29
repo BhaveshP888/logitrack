@@ -14,6 +14,7 @@ export interface ShipmentCheckpoint {
   orderIndex: number;
   reached: boolean;
   reachedAt: string | null;
+  isAbsent: boolean;
 }
 
 export interface Driver {
@@ -89,6 +90,15 @@ const shipmentsSlice = createSlice({
         }
       }
     },
+    checkpointAbsent: (state, action: PayloadAction<{ shipmentId: string; checkpointId: string }>) => {
+      const shipment = state.items.find(item => item.id === action.payload.shipmentId);
+      if (shipment) {
+        const cp = shipment.checkpoints.find(c => c.id === action.payload.checkpointId);
+        if (cp) {
+          cp.isAbsent = true;
+        }
+      }
+    },
     shipmentDelivered: (state, action: PayloadAction<{ shipmentId: string }>) => {
       const shipment = state.items.find(item => item.id === action.payload.shipmentId);
       if (shipment) {
@@ -97,6 +107,12 @@ const shipmentsSlice = createSlice({
     },
     addShipment: (state, action: PayloadAction<Shipment>) => {
       state.items.push(action.payload);
+    },
+    updateShipment: (state, action: PayloadAction<Shipment>) => {
+      const index = state.items.findIndex(item => item.id === action.payload.id);
+      if (index !== -1) {
+        state.items[index] = action.payload;
+      }
     },
     selectShipment: (state, action: PayloadAction<string | null>) => {
       state.selectedId = action.payload;
@@ -116,5 +132,5 @@ const shipmentsSlice = createSlice({
   }
 });
 
-export const { shipmentDelayed, shipmentDispatched, checkpointReached, shipmentDelivered, addShipment, selectShipment } = shipmentsSlice.actions;
+export const { shipmentDelayed, shipmentDispatched, checkpointReached, checkpointAbsent, shipmentDelivered, addShipment, updateShipment, selectShipment } = shipmentsSlice.actions;
 export default shipmentsSlice.reducer;
