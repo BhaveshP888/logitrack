@@ -2,7 +2,12 @@ import { Server } from 'socket.io';
 import { prisma } from './db.js';
 
 export function startSimulation(io: Server) {
+  let isRunning = false;
+
   setInterval(async () => {
+    if (isRunning) return;
+    isRunning = true;
+
     try {
       // 1. Check for PENDING shipments that missed their targetDispatchDate
       const now = new Date();
@@ -19,7 +24,7 @@ export function startSimulation(io: Server) {
           data: { status: 'DELAYED' }
         });
         
-        io.emit('SHIPMENT_DELAYED', { id: shipment.id });
+        io.emit('SHIPMENT_DELAYED', { shipmentId: shipment.id, id: shipment.id });
       }
 
       // 2. Automate fake drivers (drivers with no linked User account)
@@ -32,7 +37,8 @@ export function startSimulation(io: Server) {
       });
 
       for (const shipment of activeBotShipments) {
-        const nextCp = shipment.checkpoints.find(cp => !cp.reached);
+        // Find first checkpoint that has not been reached and not marked absent
+        const nextCp = shipment.checkpoints.find(cp => !cp.reached && !cp.isAbsent);
         if (nextCp) {
           // 10% chance to reach next checkpoint every interval
           if (Math.random() < 0.1) {
@@ -41,8 +47,12 @@ export function startSimulation(io: Server) {
               data: { reached: true, reachedAt: new Date() }
             });
             
-            const isLast = shipment.checkpoints[shipment.checkpoints.length - 1].id === nextCp.id;
-            if (isLast) {
+            // Check if all checkpoints are now completed (reached or absent)
+            const remainingPending = shipment.checkpoints.filter(
+              cp => cp.id !== nextCp.id && !cp.reached && !cp.isAbsent
+            );
+
+            if (remainingPending.length === 0) {
               await prisma.$transaction(async (tx) => {
                 await tx.shipment.update({ where: { id: shipment.id }, data: { status: 'DELIVERED' } });
                 if (shipment.driverId) {
@@ -55,16 +65,16 @@ export function startSimulation(io: Server) {
             }
           }
         } else if (shipment.checkpoints.length === 0) {
-            // Edge case: no checkpoints, just deliver it randomly
-            if (Math.random() < 0.05) {
-                await prisma.$transaction(async (tx) => {
-                  await tx.shipment.update({ where: { id: shipment.id }, data: { status: 'DELIVERED' } });
-                  if (shipment.driverId) {
-                    await tx.driver.update({ where: { id: shipment.driverId }, data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId } });
-                  }
-                });
-                io.emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
-            }
+          // Edge case: no checkpoints, just deliver it randomly
+          if (Math.random() < 0.05) {
+            await prisma.$transaction(async (tx) => {
+              await tx.shipment.update({ where: { id: shipment.id }, data: { status: 'DELIVERED' } });
+              if (shipment.driverId) {
+                await tx.driver.update({ where: { id: shipment.driverId }, data: { status: 'AVAILABLE', warehouseId: shipment.destinationWarehouseId } });
+              }
+            });
+            io.emit('SHIPMENT_DELIVERED', { shipmentId: shipment.id, driverId: shipment.driverId });
+          }
         }
       }
 
@@ -82,6 +92,8 @@ export function startSimulation(io: Server) {
 
     } catch (err) {
       console.error("Simulation run error:", err);
+    } finally {
+      isRunning = false;
     }
   }, 5000);
 }

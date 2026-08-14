@@ -69,4 +69,49 @@ describe('Auth HTTP Endpoints', () => {
     expect(dbDriver?.name).toBe('Jane Driver');
     expect(dbDriver?.status).toBe('AVAILABLE');
   });
+
+  it('should rotate refresh token and issue new access token on verification with expired token', async () => {
+    // 1. Login
+    const loginRes = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'admin@logitrack.com', password: 'Adminlogin@1212' });
+    
+    const cookies = loginRes.headers['set-cookie'] as string[];
+    const refreshTokenCookie = cookies.find(c => c.startsWith('refreshToken='));
+    expect(refreshTokenCookie).toBeDefined();
+    const rawRefreshToken = refreshTokenCookie?.split(';')[0].replace('refreshToken=', '');
+
+    // 2. Call /api/auth/me with ONLY refreshToken (simulating expired/missing access token)
+    const refreshRes = await request(app)
+      .get('/api/auth/me')
+      .set('Cookie', `refreshToken=${rawRefreshToken}`);
+
+    expect(refreshRes.status).toBe(200);
+    expect(refreshRes.body.user).toBeDefined();
+
+    // Verify cookies returned contain a new rotated refreshToken
+    const refreshedCookies = refreshRes.headers['set-cookie'] as string[];
+    expect(refreshedCookies).toBeDefined();
+    const newRefreshCookie = refreshedCookies.find(c => c.startsWith('refreshToken='));
+    const newAccessTokenCookie = refreshedCookies.find(c => c.startsWith('token='));
+
+    expect(newAccessTokenCookie).toBeDefined();
+    expect(newRefreshCookie).toBeDefined();
+
+    const newRawRefreshToken = newRefreshCookie?.split(';')[0].replace('refreshToken=', '');
+    expect(newRawRefreshToken).not.toBe(rawRefreshToken);
+
+    // Verify old refresh token is no longer in database
+    const oldInDb = await prisma.refreshToken.findUnique({
+      where: { token: rawRefreshToken as string }
+    });
+    expect(oldInDb).toBeNull();
+
+    // Verify new refresh token is in database
+    const newInDb = await prisma.refreshToken.findUnique({
+      where: { token: newRawRefreshToken as string }
+    });
+    expect(newInDb).toBeDefined();
+  });
 });
+

@@ -92,4 +92,60 @@ describe('LogiTrack API Endpoints', () => {
 
     expect(res.status).toBe(401);
   });
+
+  it('should enforce sequential checkpoint completion for drivers', async () => {
+    // Login as driver1
+    const driverLogin = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'driver1@logitrack.com', password: 'Driver@123' });
+    const driverCookies = driverLogin.headers['set-cookie'];
+    const driverCookie = Array.isArray(driverCookies) ? driverCookies.map(c => c.split(';')[0]).join('; ') : driverCookies || '';
+
+    const driverUser = await prisma.user.findUnique({ where: { email: 'driver1@logitrack.com' } });
+    const warehouses = await prisma.warehouse.findMany();
+
+    // Create a shipment assigned to driver1 with 3 checkpoints
+    const shipment = await prisma.shipment.create({
+      data: {
+        trackingNumber: `TRK-TEST-SEQ-${Date.now()}`,
+        status: 'EN_ROUTE',
+        originWarehouseId: warehouses[0].id,
+        destinationWarehouseId: warehouses[1].id,
+        driverId: driverUser?.driverId,
+        targetDispatchDate: new Date(),
+        checkpoints: {
+          create: [
+            { name: 'Stop 1', orderIndex: 1 },
+            { name: 'Stop 2', orderIndex: 2 },
+            { name: 'Stop 3', orderIndex: 3 }
+          ]
+        }
+      },
+      include: { checkpoints: { orderBy: { orderIndex: 'asc' } } }
+    });
+
+    const stop1 = shipment.checkpoints[0];
+    const stop2 = shipment.checkpoints[1];
+
+    // Attempt to reach Stop 2 before Stop 1
+    const invalidReach = await request(app)
+      .post(`/api/shipments/${shipment.id}/checkpoints/${stop2.id}/reach`)
+      .set('Cookie', driverCookie);
+
+    expect(invalidReach.status).toBe(400);
+    expect(invalidReach.body.error).toContain('Cannot reach checkpoint out of sequence');
+
+    // Reach Stop 1 first
+    const reach1 = await request(app)
+      .post(`/api/shipments/${shipment.id}/checkpoints/${stop1.id}/reach`)
+      .set('Cookie', driverCookie);
+    expect(reach1.status).toBe(200);
+
+    // Now reach Stop 2
+    const reach2 = await request(app)
+      .post(`/api/shipments/${shipment.id}/checkpoints/${stop2.id}/reach`)
+      .set('Cookie', driverCookie);
+    expect(reach2.status).toBe(200);
+  });
 });
+

@@ -83,6 +83,9 @@ model Shipment {
   @@index([status])
   @@index([trackingNumber])
   @@index([customerId])
+  @@index([driverId])
+  @@index([targetDispatchDate])
+  @@index([status, targetDispatchDate])
 }
 
 model ShipmentCheckpoint {

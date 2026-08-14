@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { verifyToken, requireRole, AuthRequest } from '../middleware/auth.js';
 import { prisma } from '../db.js';
+import { generateUniqueTrackingNumber } from '../utils/tracking.js';
 
 export const customerRouter = Router();
 
@@ -80,8 +81,14 @@ customerRouter.get('/stats', async (req: AuthRequest, res: Response) => {
 
 customerRouter.get('/shipments', async (req: AuthRequest, res: Response) => {
   try {
+    const page = req.query.page ? Math.max(1, parseInt(req.query.page as string) || 1) : undefined;
+    const limit = req.query.limit ? Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 50)) : undefined;
+    const skip = page && limit ? (page - 1) * limit : undefined;
+
     const shipments = await prisma.shipment.findMany({
       where: { customerId: req.user?.id },
+      skip,
+      take: limit,
       include: {
         originWarehouse: true,
         destinationWarehouse: true,
@@ -122,7 +129,7 @@ customerRouter.post('/book', async (req: AuthRequest, res: Response) => {
       price = Math.max(500, Math.round(distance * RATE_PER_KM)); // Base 500 or Distance * Rate
     }
 
-    const trackingNumber = `TRK-${Date.now().toString().slice(-6)}`;
+    const trackingNumber = await generateUniqueTrackingNumber();
 
     const shipment = await prisma.shipment.create({
       data: {
@@ -151,3 +158,4 @@ customerRouter.post('/book', async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: 'Failed to book shipment' });
   }
 });
+

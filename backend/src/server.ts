@@ -20,7 +20,21 @@ const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .filter(Boolean);
 
 function checkOrigin(origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-  if (!origin || allowedOrigins.includes(origin)) {
+  // Allow non-browser requests (e.g. curl, tests, mobile apps) if no origin header
+  if (!origin) {
+    return callback(null, true);
+  }
+
+  const isAllowed = allowedOrigins.some(allowed => {
+    if (allowed === origin) return true;
+    if (allowed.includes('*')) {
+      const regexPattern = '^' + allowed.replace(/\./g, '\\.').replace(/\*/g, '.*') + '$';
+      return new RegExp(regexPattern).test(origin);
+    }
+    return false;
+  });
+
+  if (isAllowed) {
     callback(null, true);
   } else {
     callback(null, false);

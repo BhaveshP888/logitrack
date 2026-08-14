@@ -62,13 +62,37 @@ export async function verifyToken(req: AuthRequest, res: Response, next: NextFun
     const payload = { id: user.id, email: user.email, role: user.role, driverId: user.driverId };
     const newToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
 
-    // Set new cookie
+    // Rotate Refresh Token
+    const newRefreshTokenString = (await import('crypto')).randomBytes(40).toString('hex');
+    const newExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
+    await prisma.$transaction([
+      prisma.refreshToken.delete({ where: { id: storedRefresh.id } }),
+      prisma.refreshToken.create({
+        data: {
+          token: newRefreshTokenString,
+          userId: user.id,
+          expiresAt: newExpiresAt
+        }
+      })
+    ]);
+
+    // Set updated cookies
     const isProd = process.env.NODE_ENV === 'production';
-    res.cookie('token', newToken, {
+    const cookieOptions = {
       httpOnly: true,
       secure: isProd,
-      sameSite: isProd ? 'none' : 'lax',
+      sameSite: isProd ? 'none' as const : 'lax' as const
+    };
+
+    res.cookie('token', newToken, {
+      ...cookieOptions,
       maxAge: 15 * 60 * 1000 // 15 mins
+    });
+
+    res.cookie('refreshToken', newRefreshTokenString, {
+      ...cookieOptions,
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
     req.user = payload as any;
