@@ -3,15 +3,40 @@ import { API_BASE } from '../config.js';
 
 export interface Warehouse {
   id: string;
+  code?: string;
   name: string;
+  address?: string;
+  city?: string;
+  state?: string;
   latitude: number;
   longitude: number;
+  capacityCbm?: number;
+}
+
+export interface Vehicle {
+  id: string;
+  licensePlate: string;
+  modelName: string;
+  vehicleType: string;
+  maxWeightKg: number;
+  maxVolumeCbm: number;
+}
+
+export interface ShipmentItem {
+  id: string;
+  description: string;
+  quantity: number;
+  weightKg: number;
+  volumeCbm: number;
+  isHazmat: boolean;
 }
 
 export interface ShipmentCheckpoint {
   id: string;
   name: string;
   orderIndex: number;
+  latitude?: number | null;
+  longitude?: number | null;
   reached: boolean;
   reachedAt: string | null;
   isAbsent: boolean;
@@ -20,25 +45,68 @@ export interface ShipmentCheckpoint {
 export interface Driver {
   id: string;
   name: string;
+  licenseNumber?: string;
+  phone?: string;
   status: 'AVAILABLE' | 'ON_DELIVERY' | 'OFFLINE';
-  latitude: number;
-  longitude: number;
-  warehouseId: string;
+  latitude?: number;
+  longitude?: number;
+  warehouseId?: string;
+}
+
+export interface ShipmentEvent {
+  id: string;
+  status: string;
+  description: string;
+  location?: string | null;
+  createdAt: string;
+}
+
+export interface ProofOfDelivery {
+  id: string;
+  receivedBy: string;
+  signatureData?: string | null;
+  photoUrl?: string | null;
+  deliveryLat?: number | null;
+  deliveryLng?: number | null;
+  notes?: string | null;
+  signedAt: string;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  amount: number;
+  taxAmount: number;
+  currency: string;
+  status: 'UNPAID' | 'PAID' | 'VOID';
+  issuedAt: string;
+  paidAt?: string | null;
 }
 
 export interface Shipment {
   id: string;
   trackingNumber: string;
-  status: 'PENDING' | 'EN_ROUTE' | 'DELIVERED' | 'DELAYED';
+  status: 'PENDING' | 'BOOKED' | 'ASSIGNED' | 'DISPATCHED' | 'EN_ROUTE' | 'IN_TRANSIT' | 'DELIVERED' | 'DELAYED' | 'EXCEPTION' | 'CANCELLED';
   originWarehouse: Warehouse;
   destinationWarehouse: Warehouse;
   driver: Driver | null;
   driverId?: string | null;
+  vehicle?: Vehicle | null;
+  vehicleId?: string | null;
+  customer?: { id: string; name?: string; email: string; companyName?: string } | null;
   price?: number;
+  rateAmount?: number;
+  currency?: string;
   contentDescription?: string;
   targetDispatchDate: string;
   actualDispatchDate: string | null;
+  estimatedDeliveryDate?: string | null;
+  actualDeliveryDate?: string | null;
+  items?: ShipmentItem[];
   checkpoints: ShipmentCheckpoint[];
+  events?: ShipmentEvent[];
+  proofOfDelivery?: ProofOfDelivery | null;
+  invoice?: Invoice | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -106,7 +174,7 @@ const shipmentsSlice = createSlice({
       }
     },
     addShipment: (state, action: PayloadAction<Shipment>) => {
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
     },
     updateShipment: (state, action: PayloadAction<Shipment>) => {
       const index = state.items.findIndex(item => item.id === action.payload.id);

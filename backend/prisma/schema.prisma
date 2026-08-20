@@ -6,47 +6,84 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Warehouse {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  drivers            Driver[]
-  originShipments      Shipment[] @relation("OriginWarehouse")
-  destinationShipments Shipment[] @relation("DestinationWarehouse")
-}
-
-model Driver {
-  id          String   @id @default(uuid())
-  name        String
-  status      String   // AVAILABLE, ON_DELIVERY, OFFLINE
-  warehouseId String
-  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
-  shipments   Shipment[]
-  user        User?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([status])
-}
-
 enum Role {
   ADMIN
+  DISPATCHER
   DRIVER
   CUSTOMER
 }
 
+enum VehicleType {
+  BOX_TRUCK_24FT
+  SEMI_TRAILER_53FT
+  FLATBED
+  REFRIGERATED_VAN
+}
+
+model Warehouse {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  name        String
+  address     String    @default("Hub Logistics Terminal")
+  city        String    @default("Mumbai")
+  state       String    @default("Maharashtra")
+  latitude    Float     @default(19.0760)
+  longitude   Float     @default(72.8777)
+  capacityCbm Float     @default(5000.0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  drivers              Driver[]
+  vehicles             Vehicle[]
+  originShipments      Shipment[] @relation("OriginWarehouse")
+  destinationShipments Shipment[] @relation("DestinationWarehouse")
+  checkpoints          ShipmentCheckpoint[]
+}
+
+model Vehicle {
+  id                 String       @id @default(uuid())
+  licensePlate       String       @unique
+  modelName          String       @default("Tata Prima 5530.S")
+  vehicleType        VehicleType  @default(SEMI_TRAILER_53FT)
+  maxWeightKg        Float        @default(28000.0)
+  maxVolumeCbm       Float        @default(110.0)
+  currentWarehouseId String?
+  currentWarehouse   Warehouse?   @relation(fields: [currentWarehouseId], references: [id])
+  shipments          Shipment[]
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model Driver {
+  id               String       @id @default(uuid())
+  name             String
+  licenseNumber    String       @default("MH-04-2022-887192")
+  phone            String       @default("+91 98201 55432")
+  status           String       @default("AVAILABLE") // AVAILABLE, ON_DELIVERY, OFFLINE
+  warehouseId      String
+  warehouse        Warehouse    @relation(fields: [warehouseId], references: [id])
+  currentLatitude  Float?
+  currentLongitude Float?
+  shipments        Shipment[]
+  user             User?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([status])
+}
+
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
-  passwordHash String
-  role         Role
-  driverId     String?  @unique
-  driver       Driver?  @relation(fields: [driverId], references: [id])
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String?        @default("User")
+  passwordHash  String
+  role          Role
+  companyName   String?
+  driverId      String?        @unique
+  driver        Driver?        @relation(fields: [driverId], references: [id])
   refreshTokens RefreshToken[]
-  shipments    Shipment[]
-  createdAt    DateTime @default(now())
+  shipments     Shipment[]
+  createdAt     DateTime       @default(now())
 }
 
 model RefreshToken {
@@ -61,42 +98,113 @@ model RefreshToken {
 }
 
 model Shipment {
-  id                     String   @id @default(uuid())
-  trackingNumber         String   @unique
-  status                 String   // PENDING, EN_ROUTE, DELIVERED,  DELAYED
+  id                     String           @id @default(uuid())
+  trackingNumber         String           @unique
+  status                 String           @default("PENDING") // PENDING, BOOKED, ASSIGNED, DISPATCHED, EN_ROUTE, IN_TRANSIT, DELIVERED, DELAYED, EXCEPTION, CANCELLED
   originWarehouseId      String
-  originWarehouse        Warehouse @relation("OriginWarehouse", fields: [originWarehouseId], references: [id])
+  originWarehouse        Warehouse        @relation("OriginWarehouse", fields: [originWarehouseId], references: [id])
   destinationWarehouseId String
-  destinationWarehouse   Warehouse @relation("DestinationWarehouse", fields: [destinationWarehouseId], references: [id])
+  destinationWarehouse   Warehouse        @relation("DestinationWarehouse", fields: [destinationWarehouseId], references: [id])
+  
   driverId               String?
-  driver                 Driver?   @relation(fields: [driverId], references: [id])
+  driver                 Driver?          @relation(fields: [driverId], references: [id])
+  vehicleId              String?
+  vehicle                Vehicle?         @relation(fields: [vehicleId], references: [id])
+  
   customerId             String?
-  customer               User?     @relation(fields: [customerId], references: [id])
+  customer               User?            @relation(fields: [customerId], references: [id])
   price                  Float?
+  rateAmount             Float?
+  currency               String           @default("INR")
   contentDescription     String?
+  
   targetDispatchDate     DateTime
   actualDispatchDate     DateTime?
+  estimatedDeliveryDate  DateTime?
+  actualDeliveryDate     DateTime?
+
+  items                  ShipmentItem[]
   checkpoints            ShipmentCheckpoint[]
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
+  events                 ShipmentEvent[]
+  proofOfDelivery        ProofOfDelivery?
+  invoice                Invoice?
+
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
 
   @@index([status])
   @@index([trackingNumber])
   @@index([customerId])
   @@index([driverId])
   @@index([targetDispatchDate])
-  @@index([status, targetDispatchDate])
+}
+
+model ShipmentItem {
+  id           String    @id @default(uuid())
+  shipmentId   String
+  shipment     Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  description  String
+  quantity     Int       @default(1)
+  weightKg     Float     @default(100.0)
+  volumeCbm    Float     @default(1.0)
+  isHazmat     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  @@index([shipmentId])
 }
 
 model ShipmentCheckpoint {
-  id         String    @id @default(uuid())
-  shipmentId String
-  shipment   Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
-  name       String
-  orderIndex Int
-  reached    Boolean   @default(false)
-  reachedAt  DateTime?
-  isAbsent   Boolean   @default(false)
+  id                 String     @id @default(uuid())
+  shipmentId         String
+  shipment           Shipment   @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  warehouseId        String?
+  warehouse          Warehouse? @relation(fields: [warehouseId], references: [id])
+  name               String
+  orderIndex         Int
+  latitude           Float?
+  longitude          Float?
+  reached            Boolean    @default(false)
+  reachedAt          DateTime?
+  isAbsent           Boolean    @default(false)
+  notes              String?
 
   @@index([shipmentId])
+}
+
+model ProofOfDelivery {
+  id             String    @id @default(uuid())
+  shipmentId     String    @unique
+  shipment       Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  receivedBy     String
+  signatureData  String?   // Base64 signature vector / text
+  photoUrl       String?
+  deliveryLat    Float?
+  deliveryLng    Float?
+  notes          String?
+  signedAt       DateTime  @default(now())
+}
+
+model ShipmentEvent {
+  id          String    @id @default(uuid())
+  shipmentId  String
+  shipment    Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  status      String
+  description String
+  location    String?
+  createdAt   DateTime  @default(now())
+
+  @@index([shipmentId])
+}
+
+model Invoice {
+  id            String    @id @default(uuid())
+  invoiceNumber String    @unique
+  shipmentId    String    @unique
+  shipment      Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  amount        Float
+  taxAmount     Float     @default(0.0)
+  currency      String    @default("INR")
+  status        String    @default("UNPAID") // UNPAID, PAID, VOID
+  issuedAt      DateTime  @default(now())
+  paidAt        DateTime?
 }
