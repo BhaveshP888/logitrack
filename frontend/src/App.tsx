@@ -6,6 +6,8 @@ import { fetchWarehouses } from './store/warehousesSlice.js';
 import { checkSession, logoutUser } from './store/authSlice.js';
 import { API_BASE } from './config.js';
 
+import { fetchVehicles } from './store/vehiclesSlice.js';
+
 import Sidebar, { ViewMode } from './components/Sidebar.js';
 import DashboardView from './components/DashboardView.js';
 import AnalyticsView from './components/AnalyticsView.js';
@@ -43,6 +45,7 @@ export default function App() {
       dispatch(fetchShipments());
       dispatch(fetchDrivers());
       dispatch(fetchWarehouses());
+      dispatch(fetchVehicles());
     }
   }, [dispatch, user]);
 

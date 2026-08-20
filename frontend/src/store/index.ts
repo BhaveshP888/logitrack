@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import shipmentsReducer from './shipmentsSlice.js';
 import driversReducer from './driversSlice.js';
 import warehousesReducer from './warehousesSlice.js';
+import vehiclesReducer from './vehiclesSlice.js';
 import authReducer from './authSlice.js';
 import { socketMiddleware } from './socketMiddleware.js';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     shipments: shipmentsReducer,
     drivers: driversReducer,
     warehouses: warehousesReducer,
+    vehicles: vehiclesReducer,
     auth: authReducer
   },
   middleware: (getDefaultMiddleware) =>

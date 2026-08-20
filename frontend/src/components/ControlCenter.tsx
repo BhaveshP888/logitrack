@@ -1,7 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks.js';
-import { addShipment, updateShipment } from '../store/shipmentsSlice.js';
+import { addShipment } from '../store/shipmentsSlice.js';
 import { fetchDrivers } from '../store/driversSlice.js';
+import { fetchVehicles } from '../store/vehiclesSlice.js';
 import CustomSelect from './CustomSelect.js';
 import { API_BASE } from '../config.js';
 
@@ -9,38 +10,26 @@ export default function ControlCenter() {
   const dispatch = useAppDispatch();
   const warehouses = useAppSelector((state) => state.warehouses.items);
   const drivers = useAppSelector((state) => state.drivers.items);
-  const shipments = useAppSelector((state) => state.shipments.items);
-  
-  const unassignedShipments = shipments.filter(s => s.status === 'PENDING' && !s.driver);
-
-  const handleAssignDriver = async (shipmentId: string, driverId: string) => {
-    try {
-      const res = await fetch(`${API_BASE}/api/shipments/${shipmentId}/assign`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ driverId })
-      });
-      if (res.ok) {
-        setSuccessMsg('Driver assigned successfully!');
-        dispatch(updateShipment(await res.json()));
-        setTimeout(() => setSuccessMsg(''), 3000);
-      }
-    } catch {
-      setError('Failed to assign driver');
-    }
-  };
+  const vehicles = useAppSelector((state) => state.vehicles.items);
 
   const [originId, setOriginId] = useState('');
   const [destId, setDestId] = useState('');
   const [driverId, setDriverId] = useState('');
+  const [vehicleId, setVehicleId] = useState('');
   const [targetDispatchDate, setTargetDispatchDate] = useState('');
-  const [checkpoints, setCheckpoints] = useState<{name: string}[]>([{name: ''}]);
+  const [cargoDescription, setCargoDescription] = useState('Precision Industrial Components');
+  const [weightKg, setWeightKg] = useState('4500');
+  const [volumeCbm, setVolumeCbm] = useState('12.5');
+  const [isHazmat, setIsHazmat] = useState(false);
+  const [checkpoints, setCheckpoints] = useState<{ name: string }[]>([
+    { name: 'Regional Weigh & Toll Plaza' },
+    { name: 'Midway Highway Checkpost' }
+  ]);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const inputClass = "glass-input p-2 w-full text-xs";
+  const inputClass = "w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-zinc-100 text-xs focus:outline-none focus:border-brand-primary transition-colors";
 
   const handleAddCheckpoint = () => {
     setCheckpoints([...checkpoints, { name: '' }]);
@@ -60,149 +49,214 @@ export default function ControlCenter() {
     e.preventDefault();
     setError('');
     setSuccessMsg('');
-    
-    if (!originId || !destId || !driverId || !targetDispatchDate) {
-      setError("Please fill all required fields");
+
+    if (!originId || !destId || !targetDispatchDate) {
+      setError("Please specify Origin, Destination, and Target Departure Date");
       return;
     }
     if (originId === destId) {
-      setError("Origin and Destination must differ");
+      setError("Origin and Destination must be different facilities");
       return;
     }
 
-    const validCheckpoints = checkpoints.filter(c => c.name.trim() !== '');
+    const validCheckpoints = checkpoints.filter((c) => c.name.trim() !== '');
 
     setIsSubmitting(true);
 
     try {
-      // Artificial delay of 1s
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
       const res = await fetch(`${API_BASE}/api/shipments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ 
-          originId, 
+        body: JSON.stringify({
+          originId,
           destinationId: destId,
-          driverId,
+          driverId: driverId || null,
+          vehicleId: vehicleId || null,
           targetDispatchDate: new Date(targetDispatchDate).toISOString(),
+          contentDescription: cargoDescription,
+          items: [
+            {
+              description: cargoDescription,
+              quantity: 1,
+              weightKg: parseFloat(weightKg) || 1000,
+              volumeCbm: parseFloat(volumeCbm) || 4.0,
+              isHazmat
+            }
+          ],
           checkpoints: validCheckpoints
         })
       });
+
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Failed to create shipment");
+        setError(data.error || "Failed to create consignment");
       } else {
         dispatch(addShipment(data));
         dispatch(fetchDrivers());
+        dispatch(fetchVehicles());
         setOriginId('');
         setDestId('');
         setDriverId('');
+        setVehicleId('');
         setTargetDispatchDate('');
-        setCheckpoints([{name: ''}]);
-        setSuccessMsg('Shipment created successfully!');
-        setTimeout(() => setSuccessMsg(''), 3000);
+        setSuccessMsg(`Consignment ${data.trackingNumber} booked successfully!`);
+        setTimeout(() => setSuccessMsg(''), 4000);
       }
     } catch {
-      setError("Connection error");
+      setError("Network or server communication error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleReset = async () => {
-    if (!confirm("Reset database state?")) return;
-    try {
-      await fetch(`${API_BASE}/api/reset`, { method: 'POST', credentials: 'include' });
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const warehouseOptions = warehouses.map(w => ({ value: w.id, label: w.name }));
-  const driverOptions = drivers.map(d => ({ value: d.id, label: `${d.name} (${d.status})` }));
-
   return (
-    <div className="card p-5 flex flex-col gap-4 relative h-full">
-      <div className="flex justify-between items-center shrink-0">
-        <h3 className="font-display font-semibold text-zinc-100 text-sm tracking-wide">Dispatch Control</h3>
-        <button 
-          onClick={handleReset} 
-          className="text-[10px] text-zinc-500 hover:text-status-danger transition-colors flex items-center gap-1.5 cursor-pointer"
-          aria-label="Reset Application"
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-            <path d="M21 3v5h-5" />
-            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-            <path d="M3 21v-5h5" />
-          </svg>
-          Reset
-        </button>
+    <div className="card p-6 flex flex-col gap-5 text-zinc-200 font-body">
+      <div>
+        <h2 className="font-display font-bold text-base text-zinc-100">Create Freight Consignment</h2>
+        <p className="text-xs text-zinc-400">Book new line-haul, allocate equipment, and define waypoints</p>
       </div>
 
-      {error && <div className="p-2.5 bg-status-danger/10 text-status-danger border border-status-danger/30 rounded-lg text-xs shrink-0">{error}</div>}
-      {successMsg && <div className="p-2.5 bg-status-success/10 text-status-success border border-status-success/30 rounded-lg text-xs shrink-0">{successMsg}</div>}
-      
-      <form onSubmit={handleCreateShipment} className="flex flex-col gap-3 shrink-0">
-        <div className="grid grid-cols-2 gap-2.5">
-          <CustomSelect
-            value={originId}
-            onChange={setOriginId}
-            options={warehouseOptions}
-            placeholder="Origin..."
-          />
-          <CustomSelect
-            value={destId}
-            onChange={setDestId}
-            options={warehouseOptions}
-            placeholder="Destination..."
-          />
-          <CustomSelect
-            value={driverId}
-            onChange={setDriverId}
-            options={driverOptions}
-            placeholder="Driver..."
-          />
-          <input 
-            type="datetime-local" 
-            aria-label="Target Dispatch Date"
-            value={targetDispatchDate} 
-            onChange={e => setTargetDispatchDate(e.target.value)} 
+      <form onSubmit={handleCreateShipment} className="flex flex-col gap-4">
+        {/* Origin & Destination Hubs */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Origin Facility *</label>
+            <CustomSelect
+              options={warehouses.map((w) => ({ value: w.id, label: `${w.name} (${w.code || 'HUB'})` }))}
+              value={originId}
+              onChange={setOriginId}
+              placeholder="Select Origin Hub"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Destination Facility *</label>
+            <CustomSelect
+              options={warehouses.map((w) => ({ value: w.id, label: `${w.name} (${w.code || 'HUB'})` }))}
+              value={destId}
+              onChange={setDestId}
+              placeholder="Select Destination Hub"
+            />
+          </div>
+        </div>
+
+        {/* Departure Date & Time */}
+        <div>
+          <label className="block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Target Departure Date & Time *</label>
+          <input
+            type="datetime-local"
+            value={targetDispatchDate}
+            onChange={(e) => setTargetDispatchDate(e.target.value)}
             className={inputClass}
-            style={{ colorScheme: 'dark' }}
+            required
           />
         </div>
 
-        {/* Checkpoints inline */}
-        <div className="flex flex-col gap-2 mt-5">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">Checkpoints</span>
-            <button type="button" onClick={handleAddCheckpoint} className="text-brand-primary text-[10px] font-semibold hover:text-brand-accent transition cursor-pointer">
-              + Add
+        {/* Cargo Details */}
+        <div className="p-3.5 rounded-xl border border-white/5 bg-white/[0.01] space-y-3">
+          <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Cargo Manifest Details</span>
+          <div>
+            <input
+              type="text"
+              placeholder="Cargo Description (e.g. Euro-6 Engine Assemblies, Solar Inverters)"
+              value={cargoDescription}
+              onChange={(e) => setCargoDescription(e.target.value)}
+              className={inputClass}
+              required
+            />
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div>
+              <label className="text-[10px] text-zinc-500 block mb-0.5">Weight (kg)</label>
+              <input
+                type="number"
+                value={weightKg}
+                onChange={(e) => setWeightKg(e.target.value)}
+                className={inputClass}
+                placeholder="4500"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] text-zinc-500 block mb-0.5">Volume (m³)</label>
+              <input
+                type="number"
+                step="0.1"
+                value={volumeCbm}
+                onChange={(e) => setVolumeCbm(e.target.value)}
+                className={inputClass}
+                placeholder="12.5"
+              />
+            </div>
+            <div className="flex flex-col justify-end">
+              <label className="flex items-center gap-2 text-xs text-zinc-300 cursor-pointer pb-2">
+                <input
+                  type="checkbox"
+                  checked={isHazmat}
+                  onChange={(e) => setIsHazmat(e.target.checked)}
+                  className="rounded border-white/10 bg-zinc-900 text-brand-primary"
+                />
+                <span className="text-[11px]">HazMat Cargo</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* Equipment & Driver (Optional at creation) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Assign Driver (Optional)</label>
+            <CustomSelect
+              options={drivers.map((d) => ({ value: d.id, label: `${d.name} (${d.status})` }))}
+              value={driverId}
+              onChange={setDriverId}
+              placeholder="Assign Driver Later"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Assign Commercial Vehicle</label>
+            <CustomSelect
+              options={vehicles.map((v) => ({ value: v.id, label: `${v.licensePlate} (${v.modelName})` }))}
+              value={vehicleId}
+              onChange={setVehicleId}
+              placeholder="Assign Vehicle Later"
+            />
+          </div>
+        </div>
+
+        {/* Route Waypoints */}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Transit Waypoints & Checkpoints</label>
+            <button
+              type="button"
+              onClick={handleAddCheckpoint}
+              className="text-[11px] font-semibold text-brand-primary hover:text-brand-accent cursor-pointer"
+            >
+              + Add Waypoint
             </button>
           </div>
-          <div className="flex flex-col gap-1.5 max-h-[80px] overflow-y-auto custom-scrollbar pr-1">
+
+          <div className="space-y-2">
             {checkpoints.map((cp, idx) => (
-              <div key={idx} className="flex items-center gap-1.5">
-                <input 
-                  type="text" 
-                  aria-label={`Checkpoint ${idx + 1}`}
-                  placeholder={`Checkpoint ${idx + 1}`} 
+              <div key={idx} className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-zinc-500 w-5">#{idx + 1}</span>
+                <input
+                  type="text"
+                  placeholder={`Waypoint name (e.g. Toll Plaza, Regional Transshipment Hub)`}
                   value={cp.name}
-                  onChange={e => handleCheckpointChange(idx, e.target.value)}
+                  onChange={(e) => handleCheckpointChange(idx, e.target.value)}
                   className={inputClass}
                 />
                 {checkpoints.length > 1 && (
-                  <button 
-                    type="button" 
-                    onClick={() => handleRemoveCheckpoint(idx)} 
-                    className="p-1 text-zinc-500 hover:text-status-danger transition shrink-0 cursor-pointer"
-                    aria-label={`Remove checkpoint ${idx + 1}`}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveCheckpoint(idx)}
+                    className="p-1.5 text-zinc-500 hover:text-rose-400 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                   </button>
                 )}
               </div>
@@ -210,53 +264,26 @@ export default function ControlCenter() {
           </div>
         </div>
 
-        <button 
-          type="submit" 
-          disabled={isSubmitting}
-          className="glass-button w-full py-2.5 text-sm flex items-center justify-center gap-2"
-        >
-          {isSubmitting ? (
-            <>
-              <svg className="animate-spin h-4 w-4 text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Creating...
-            </>
-          ) : (
-            'Create Shipment'
-          )}
-        </button>
-      </form>
-
-      {/* Unassigned Shipments */}
-      <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
-        <h4 className="font-semibold text-zinc-400 text-[10px] uppercase tracking-widest shrink-0">Pending Assignment</h4>
-        {unassignedShipments.length > 0 ? (
-          unassignedShipments.map(s => (
-            <div key={s.id} className="p-3 bg-white/[0.02] border border-white/[0.05] rounded-lg flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-mono text-zinc-400">{s.trackingNumber}</span>
-              </div>
-              <div className="text-[11px] text-zinc-500">
-                {s.originWarehouse.name} → {s.destinationWarehouse.name}
-              </div>
-              <div className="flex gap-2">
-                <CustomSelect
-                  value={''}
-                  onChange={(val) => handleAssignDriver(s.id, val)}
-                  options={driverOptions}
-                  placeholder="Assign Driver..."
-                />
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="p-3 text-center border border-white/[0.05] rounded-lg bg-white/[0.01]">
-            <p className="text-[11px] text-zinc-500">All pending shipments have been assigned.</p>
+        {error && (
+          <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+            {error}
           </div>
         )}
-      </div>
+
+        {successMsg && (
+          <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+            {successMsg}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full py-2.5 px-4 rounded-xl bg-brand-primary hover:bg-brand-accent text-zinc-950 font-semibold text-xs transition-colors cursor-pointer disabled:opacity-50 shadow-sm"
+        >
+          {isSubmitting ? 'Creating Consignment...' : 'Book & Issue Waybill'}
+        </button>
+      </form>
     </div>
   );
 }
