@@ -110,13 +110,25 @@ export default function DriverPortal() {
     }
   };
 
-  const handleDeliver = async () => {
+  const handleDeliver = async (podData: {
+    receivedBy: string;
+    signatureData: string;
+    photoUrl?: string;
+    notes?: string;
+    deliveryLat?: number;
+    deliveryLng?: number;
+  }) => {
     if (!activeShipment) return;
     try {
-      const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/deliver`, { method: 'POST', credentials: 'include' });
+      const res = await fetch(`${API_BASE}/shipments/${activeShipment.id}/deliver`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(podData),
+      });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to deliver shipment');
+        throw new Error(data.error || 'Failed to complete delivery');
       }
       loadShipments();
     } catch (err: any) { 
