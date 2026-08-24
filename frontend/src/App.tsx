@@ -3,10 +3,8 @@ import { useAppDispatch, useAppSelector } from './store/hooks.js';
 import { fetchShipments } from './store/shipmentsSlice.js';
 import { fetchDrivers } from './store/driversSlice.js';
 import { fetchWarehouses } from './store/warehousesSlice.js';
-import { checkSession, logoutUser } from './store/authSlice.js';
-import { API_BASE } from './config.js';
-
 import { fetchVehicles } from './store/vehiclesSlice.js';
+import { checkSession } from './store/authSlice.js';
 
 import Sidebar, { ViewMode } from './components/Sidebar.js';
 import DashboardView from './components/DashboardView.js';
@@ -15,31 +13,20 @@ import FleetView from './components/FleetView.js';
 import TrackingView from './components/TrackingView.js';
 import Login from './components/Login.js';
 import Landing from './components/Landing.js';
-import DriverPortal from './components/DriverPortal/index.js';
-import CustomerDashboard from './components/CustomerDashboard.js';
-import PublicTrackingView from './components/PublicTrackingView.js';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const { user, loading } = useAppSelector((state) => state.auth);
-  const [authView, setAuthView] = useState<'landing' | 'login' | 'register' | 'tracking'>('landing');
+  const [authView, setAuthView] = useState<'landing' | 'login' | 'register'>('landing');
   const [activeView, setActiveView] = useState<ViewMode>('dashboard');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [publicTrkNumber, setPublicTrkNumber] = useState<string>('TRK-2026-8801');
-
-  const handleLogout = async () => {
-    try {
-      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
-    } catch (_) {}
-    dispatch(logoutUser());
-  };
 
   useEffect(() => {
     dispatch(checkSession());
   }, [dispatch]);
 
   useEffect(() => {
-    if (user && user.role === 'ADMIN') {
+    if (user) {
       // Connect to Socket server
       dispatch({ type: 'socket/connect' });
 
@@ -59,42 +46,20 @@ export default function App() {
     );
   }
 
-  // Public Unauthenticated Views
+  // Unauthenticated: Landing & Login
   if (!user) {
-    if (authView === 'tracking') {
-      return (
-        <PublicTrackingView
-          initialTrackingNumber={publicTrkNumber}
-          onBack={() => setAuthView('landing')}
-        />
-      );
-    }
     if (authView === 'landing') {
       return (
         <Landing
           onLogin={() => setAuthView('login')}
           onRegister={() => setAuthView('register')}
-          onTrack={(trk) => {
-            setPublicTrkNumber(trk);
-            setAuthView('tracking');
-          }}
         />
       );
     }
     return <Login initialIsRegister={authView === 'register'} onBack={() => setAuthView('landing')} />;
   }
 
-  // Driver Experience
-  if (user.role === 'DRIVER') {
-    return <DriverPortal />;
-  }
-
-  // Customer / Shipper Experience
-  if (user.role === 'CUSTOMER') {
-    return <CustomerDashboard onLogout={handleLogout} />;
-  }
-
-  // Admin / Dispatcher Operations Experience
+  // Single Unified Logistics Command Console
   return (
     <div className="flex h-screen w-screen bg-[#09090b] text-zinc-200 relative z-0 font-body">
       <Sidebar

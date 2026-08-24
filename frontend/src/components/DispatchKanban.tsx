@@ -1,14 +1,74 @@
 import { useState } from 'react';
-import { useAppSelector } from '../store/hooks.js';
-import { Shipment } from '../store/shipmentsSlice.js';
+import { useAppDispatch, useAppSelector } from '../store/hooks.js';
+import { Shipment, fetchShipments } from '../store/shipmentsSlice.js';
 import BillOfLadingModal from './BillOfLadingModal.js';
 import AllocateModal from './AllocateModal.js';
+import { API_BASE } from '../config.js';
 
 export default function DispatchKanban() {
+  const dispatch = useAppDispatch();
   const shipments = useAppSelector((state) => state.shipments.items);
   const [selectedBolShipment, setSelectedBolShipment] = useState<Shipment | null>(null);
   const [selectedAllocateShipment, setSelectedAllocateShipment] = useState<Shipment | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loadingAction, setLoadingAction] = useState<string | null>(null);
+
+  const handleQuickDispatch = async (shipmentId: string) => {
+    setLoadingAction(shipmentId);
+    try {
+      const res = await fetch(`${API_BASE}/api/shipments/${shipmentId}/dispatch`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (res.ok) {
+        dispatch(fetchShipments());
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingAction(null);
+    }
+  };
+
+  const handleQuickAdvanceWaypoint = async (shipmentId: string, cpId: string) => {
+    setLoadingAction(`${shipmentId}-${cpId}`);
+    try {
+      const res = await fetch(`${API_BASE}/api/shipments/${shipmentId}/checkpoints/${cpId}/reach`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (res.ok) {
+        dispatch(fetchShipments());
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingAction(null);
+    }
+  };
+
+  const handleQuickDeliver = async (shipmentId: string) => {
+    setLoadingAction(shipmentId);
+    try {
+      const res = await fetch(`${API_BASE}/api/shipments/${shipmentId}/deliver`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          receivedBy: 'Warehouse Terminal Manager',
+          signatureData: 'OPERATOR_VERIFIED_SIGNATURE',
+          notes: 'Delivered and verified at destination hub',
+        }),
+      });
+      if (res.ok) {
+        dispatch(fetchShipments());
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingAction(null);
+    }
+  };
 
   const filteredShipments = shipments.filter((s) => {
     const q = searchQuery.toLowerCase();
@@ -31,6 +91,7 @@ export default function DispatchKanban() {
     const totalWeight = shipment.items?.reduce((sum, it) => sum + it.weightKg, 0) || 1000;
     const reachedCount = shipment.checkpoints?.filter((c) => c.reached).length || 0;
     const totalCheckpoints = shipment.checkpoints?.length || 0;
+    const nextUnreachedCp = shipment.checkpoints?.find((c) => !c.reached && !c.isAbsent);
 
     return (
       <div
@@ -98,7 +159,7 @@ export default function DispatchKanban() {
           </span>
         </div>
 
-        {/* Milestone Indicator if In-Transit */}
+        {/* Milestone Progress Bar */}
         {totalCheckpoints > 0 && (shipment.status === 'EN_ROUTE' || shipment.status === 'DELAYED') && (
           <div className="space-y-1">
             <div className="flex justify-between text-[10px] text-zinc-500">
@@ -119,7 +180,7 @@ export default function DispatchKanban() {
         {/* Delivered POD details */}
         {shipment.proofOfDelivery && (
           <div className="text-[10px] text-emerald-400 bg-emerald-500/10 p-1.5 rounded font-mono truncate">
-            ✓ Signed: {shipment.proofOfDelivery.receivedBy}
+            ✓ POD: {shipment.proofOfDelivery.receivedBy}
           </div>
         )}
 
@@ -136,13 +197,47 @@ export default function DispatchKanban() {
             Waybill
           </button>
 
-          {(!shipment.driverId || shipment.status === 'PENDING') && (
+          {/* Unassigned -> Allocate */}
+          {!shipment.driverId && shipment.status === 'PENDING' && (
             <button
               onClick={() => setSelectedAllocateShipment(shipment)}
-              className="py-1.5 px-3 text-[11px] font-semibold text-zinc-950 bg-brand-primary hover:bg-brand-accent rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer"
+              className="py-1.5 px-3 text-[11px] font-bold text-zinc-950 bg-brand-primary hover:bg-brand-accent rounded-lg transition-colors cursor-pointer"
             >
               Allocate
             </button>
+          )}
+
+          {/* Allocated / Ready -> Dispatch */}
+          {shipment.driverId && (shipment.status === 'PENDING' || shipment.status === 'ASSIGNED') && (
+            <button
+              disabled={loadingAction === shipment.id}
+              onClick={() => handleQuickDispatch(shipment.id)}
+              className="py-1.5 px-3 text-[11px] font-bold text-zinc-950 bg-indigo-400 hover:bg-indigo-300 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {loadingAction === shipment.id ? 'Starting...' : 'Dispatch'}
+            </button>
+          )}
+
+          {/* In-Transit -> Advance Waypoint or Deliver */}
+          {(shipment.status === 'EN_ROUTE' || shipment.status === 'DELAYED') && (
+            nextUnreachedCp ? (
+              <button
+                disabled={loadingAction === `${shipment.id}-${nextUnreachedCp.id}`}
+                onClick={() => handleQuickAdvanceWaypoint(shipment.id, nextUnreachedCp.id)}
+                className="py-1.5 px-2 text-[10px] font-bold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-colors cursor-pointer truncate max-w-[110px]"
+                title={`Advance: ${nextUnreachedCp.name}`}
+              >
+                ✓ Clear {nextUnreachedCp.name.split(' ')[0]}
+              </button>
+            ) : (
+              <button
+                disabled={loadingAction === shipment.id}
+                onClick={() => handleQuickDeliver(shipment.id)}
+                className="py-1.5 px-3 text-[11px] font-bold text-zinc-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-colors cursor-pointer"
+              >
+                Deliver
+              </button>
+            )
           )}
         </div>
       </div>
@@ -150,7 +245,7 @@ export default function DispatchKanban() {
   };
 
   return (
-    <div className="flex flex-col h-full gap-4">
+    <div className="flex flex-col h-full gap-4 font-body">
       {/* Search and Filters Bar */}
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
@@ -176,7 +271,7 @@ export default function DispatchKanban() {
         </div>
 
         <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
-          <span>Total Operations: {filteredShipments.length}</span>
+          <span>Active Pipeline: {filteredShipments.length}</span>
         </div>
       </div>
 
@@ -228,7 +323,7 @@ export default function DispatchKanban() {
         <div className="flex flex-col rounded-2xl bg-[#0e0e11] border border-sky-500/20 overflow-hidden flex-1 min-w-[280px]">
           <div className="px-4 py-3 border-b border-sky-500/20 bg-sky-500/5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-sky-400"></span>
               <span className="font-display text-xs font-bold uppercase tracking-wider text-sky-400">In Transit</span>
             </div>
             <span className="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 font-mono text-xs font-bold">
@@ -238,7 +333,7 @@ export default function DispatchKanban() {
 
           <div className="p-3 flex-1 overflow-y-auto custom-scrollbar space-y-3">
             {inTransit.length === 0 ? (
-              <div className="py-12 text-center text-xs text-zinc-600">No shipments in transit</div>
+              <div className="py-12 text-center text-xs text-zinc-600">No active line-hauls</div>
             ) : (
               inTransit.map(renderCard)
             )}
@@ -259,7 +354,7 @@ export default function DispatchKanban() {
 
           <div className="p-3 flex-1 overflow-y-auto custom-scrollbar space-y-3">
             {delivered.length === 0 ? (
-              <div className="py-12 text-center text-xs text-zinc-600">No completed deliveries</div>
+              <div className="py-12 text-center text-xs text-zinc-600">No completed runs</div>
             ) : (
               delivered.map(renderCard)
             )}
@@ -275,11 +370,14 @@ export default function DispatchKanban() {
         />
       )}
 
-      {/* Allocation Modal */}
+      {/* Truck & Driver Allocation Modal */}
       {selectedAllocateShipment && (
         <AllocateModal
           shipment={selectedAllocateShipment}
-          onClose={() => setSelectedAllocateShipment(null)}
+          onClose={() => {
+            setSelectedAllocateShipment(null);
+            dispatch(fetchShipments());
+          }}
         />
       )}
     </div>

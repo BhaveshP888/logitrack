@@ -214,8 +214,8 @@ export default function Landing({ onLogin, onRegister, onTrack }: LandingProps) 
         <section id="workflows" className="flex flex-col gap-8">
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div>
-              <span className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] block mb-2">Workflows</span>
-              <h2 className="font-display text-2xl font-bold text-white">Three workspaces, synchronized state</h2>
+              <span className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] block mb-2">Operations Architecture</span>
+              <h2 className="font-display text-2xl font-bold text-white">Unified Command & Dispatch Console</h2>
             </div>
 
             {/* Flat switcher tab */}
@@ -224,19 +224,19 @@ export default function Landing({ onLogin, onRegister, onTrack }: LandingProps) 
                 onClick={() => setActiveTab('admin')}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'admin' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
               >
-                Administrator
+                Dispatch Kanban
               </button>
               <button 
                 onClick={() => setActiveTab('driver')}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'driver' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
               >
-                Driver
+                Route Waypoints
               </button>
               <button 
                 onClick={() => setActiveTab('customer')}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${activeTab === 'customer' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'}`}
               >
-                Customer
+                Fleet & Equipment
               </button>
             </div>
           </div>
@@ -244,58 +244,58 @@ export default function Landing({ onLogin, onRegister, onTrack }: LandingProps) 
           <div className="border border-white/[0.05] bg-[#0c0c0f] rounded-2xl p-8 min-h-[220px] flex flex-col md:flex-row gap-8 justify-between items-start md:items-center">
             <div className="flex flex-col gap-3 max-w-xl">
               <span className="text-[10px] font-mono text-brand-primary uppercase tracking-widest font-bold">
-                {activeTab === 'admin' ? 'Control center console' : activeTab === 'driver' ? 'Driver terminal portal' : 'Timeline search interface'}
+                {activeTab === 'admin' ? 'Pipeline Kanban' : activeTab === 'driver' ? 'Sequential Milestones' : 'Heavy Commercial Equipment'}
               </span>
               
               {activeTab === 'admin' && (
                 <>
-                  <h3 className="font-display text-xl font-bold text-white">Assign routes, monitor telemetry</h3>
+                  <h3 className="font-display text-xl font-bold text-white">Allocate trucks, schedule dispatches</h3>
                   <p className="text-zinc-400 text-xs leading-relaxed">
-                    Administrators allocate drivers to active containers, schedule dispatch target dates, mark checkpoints reached, and track active statuses from the dashboard.
+                    Dispatchers drag and organize line-hauls across 4 pipeline stages (Unassigned, Allocated, In Transit, Delivered) with live weight/volume capacity meters.
                   </p>
                 </>
               )}
 
               {activeTab === 'driver' && (
                 <>
-                  <h3 className="font-display text-xl font-bold text-white">Live coordinate tracking manifest</h3>
+                  <h3 className="font-display text-xl font-bold text-white">Sequential route milestone clearance</h3>
                   <p className="text-zinc-400 text-xs leading-relaxed">
-                    Drivers login to view assigned manifests. Toggling the live tracker updates coordinates, marks milestones reached/absent, and processes delivery.
+                    Clear highway checkposts, mountain passes, and transshipment gates in chronological sequence with 1-click status updates directly from the command center.
                   </p>
                 </>
               )}
 
               {activeTab === 'customer' && (
                 <>
-                  <h3 className="font-display text-xl font-bold text-white">Check progress milestones</h3>
+                  <h3 className="font-display text-xl font-bold text-white">Commercial Fleet Asset Registry</h3>
                   <p className="text-zinc-400 text-xs leading-relaxed">
-                    Customers search active tracking codes to see milestone timelines, check regional depot locations, and book new freight shipments directly.
+                    Track certified drivers, multi-axle semi-trailers, box trucks, and stationed hub facilities with live payload utilization metrics.
                   </p>
                 </>
               )}
             </div>
 
             <div className="w-full md:w-auto shrink-0 bg-[#08080a] border border-white/[0.04] p-5 rounded-xl flex flex-col gap-2 min-w-[260px] font-mono text-xs text-zinc-400">
-              <span className="text-[10px] text-zinc-500 uppercase">Context Info</span>
+              <span className="text-[10px] text-zinc-500 uppercase">Console Status</span>
               {activeTab === 'admin' && (
                 <>
-                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">ADMIN</span></div>
-                  <div className="flex justify-between"><span>Allowed Actions</span><span className="text-zinc-200">All Operations</span></div>
-                  <div className="flex justify-between"><span>Dashboard Mode</span><span className="text-zinc-200">Management</span></div>
+                  <div className="flex justify-between"><span>Module</span><span className="text-white font-semibold">Dispatch Kanban</span></div>
+                  <div className="flex justify-between"><span>Payload Check</span><span className="text-emerald-400">Auto-Enforced</span></div>
+                  <div className="flex justify-between"><span>Waybill</span><span className="text-zinc-200">e-BOL Ready</span></div>
                 </>
               )}
               {activeTab === 'driver' && (
                 <>
-                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">DRIVER</span></div>
-                  <div className="flex justify-between"><span>Assigned Container</span><span className="text-zinc-200">TRK-SEED-001</span></div>
-                  <div className="flex justify-between"><span>Tracker Status</span><span className="text-emerald-400 font-medium">Ready</span></div>
+                  <div className="flex justify-between"><span>Milestone Mode</span><span className="text-white font-semibold">Sequential</span></div>
+                  <div className="flex justify-between"><span>Check-in</span><span className="text-zinc-200">1-Click Fast Action</span></div>
+                  <div className="flex justify-between"><span>Event Logs</span><span className="text-emerald-400">Audit-Verified</span></div>
                 </>
               )}
               {activeTab === 'customer' && (
                 <>
-                  <div className="flex justify-between"><span>User Role</span><span className="text-white font-semibold">CUSTOMER</span></div>
-                  <div className="flex justify-between"><span>Booking Action</span><span className="text-zinc-200">Allowed</span></div>
-                  <div className="flex justify-between"><span>Search Index</span><span className="text-zinc-200">Active manifests</span></div>
+                  <div className="flex justify-between"><span>Fleet Type</span><span className="text-white font-semibold">Heavy Commercial</span></div>
+                  <div className="flex justify-between"><span>Depots</span><span className="text-zinc-200">5 Regional Hubs</span></div>
+                  <div className="flex justify-between"><span>Telemetry</span><span className="text-emerald-400">Realtime Feed</span></div>
                 </>
               )}
             </div>

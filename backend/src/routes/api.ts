@@ -226,8 +226,8 @@ router.post('/shipments', verifyToken, requireRole('ADMIN'), async (req, res) =>
   }
 });
 
-// Admin: Assign Driver & Vehicle
-router.post('/shipments/:id/assign', verifyToken, requireRole('ADMIN'), async (req, res) => {
+// Operations: Assign Driver & Vehicle
+router.post('/shipments/:id/assign', verifyToken, async (req, res) => {
   const { id } = req.params;
   const { driverId, vehicleId } = req.body;
   
@@ -273,19 +273,14 @@ router.post('/shipments/:id/assign', verifyToken, requireRole('ADMIN'), async (r
   }
 });
 
-// Driver: Dispatch shipment
-router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async (req: AuthRequest, res) => {
+// Operations: Dispatch shipment
+router.post('/shipments/:id/dispatch', verifyToken, async (req: AuthRequest, res) => {
   const { id } = req.params;
-  const userDriverId = req.user?.driverId;
-
-  if (!userDriverId) {
-    return res.status(403).json({ error: "User is not associated with an active driver profile" });
-  }
 
   const shipment = await prisma.shipment.findUnique({ where: { id }, include: { originWarehouse: true } });
   
-  if (!shipment || shipment.driverId !== userDriverId) {
-    return res.status(403).json({ error: "Not authorized to dispatch this shipment" });
+  if (!shipment) {
+    return res.status(404).json({ error: "Shipment not found" });
   }
   if (shipment.status !== 'PENDING' && shipment.status !== 'ASSIGNED' && shipment.status !== 'DELAYED') {
     return res.status(400).json({ error: "Shipment cannot be dispatched from current status" });
@@ -293,10 +288,12 @@ router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async
 
   try {
     const updated = await prisma.$transaction(async (tx) => {
-      await tx.driver.update({
-        where: { id: userDriverId },
-        data: { status: "ON_DELIVERY" }
-      });
+      if (shipment.driverId) {
+        await tx.driver.update({
+          where: { id: shipment.driverId },
+          data: { status: "ON_DELIVERY" }
+        });
+      }
 
       return tx.shipment.update({
         where: { id },
@@ -333,22 +330,17 @@ router.post('/shipments/:id/dispatch', verifyToken, requireRole('DRIVER'), async
   }
 });
 
-// Driver: Mark Checkpoint Reached
-router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, requireRole('DRIVER'), async (req: AuthRequest, res) => {
+// Operations: Mark Checkpoint Reached
+router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, async (req: AuthRequest, res) => {
   const { id, checkpointId } = req.params;
-  const userDriverId = req.user?.driverId;
-
-  if (!userDriverId) {
-    return res.status(403).json({ error: "User is not associated with an active driver profile" });
-  }
 
   const shipment = await prisma.shipment.findUnique({
     where: { id },
     include: { checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
 
-  if (!shipment || shipment.driverId !== userDriverId) {
-    return res.status(403).json({ error: "Not authorized to update this shipment" });
+  if (!shipment) {
+    return res.status(404).json({ error: "Shipment not found" });
   }
 
   const targetIndex = shipment.checkpoints.findIndex(cp => cp.id === checkpointId);
@@ -403,22 +395,17 @@ router.post('/shipments/:id/checkpoints/:checkpointId/reach', verifyToken, requi
   }
 });
 
-// Driver: Mark Checkpoint Absent
-router.post('/shipments/:id/checkpoints/:checkpointId/absent', verifyToken, requireRole('DRIVER'), async (req: AuthRequest, res) => {
+// Operations: Mark Checkpoint Absent
+router.post('/shipments/:id/checkpoints/:checkpointId/absent', verifyToken, async (req: AuthRequest, res) => {
   const { id, checkpointId } = req.params;
-  const userDriverId = req.user?.driverId;
-
-  if (!userDriverId) {
-    return res.status(403).json({ error: "User is not associated with an active driver profile" });
-  }
 
   const shipment = await prisma.shipment.findUnique({
     where: { id },
     include: { checkpoints: { orderBy: { orderIndex: 'asc' } } }
   });
 
-  if (!shipment || shipment.driverId !== userDriverId) {
-    return res.status(403).json({ error: "Not authorized to update this shipment" });
+  if (!shipment) {
+    return res.status(404).json({ error: "Shipment not found" });
   }
 
   const checkpoint = shipment.checkpoints.find(cp => cp.id === checkpointId);
@@ -463,23 +450,18 @@ router.post('/shipments/:id/checkpoints/:checkpointId/absent', verifyToken, requ
   }
 });
 
-// Driver: Confirm Destination Reached with Proof of Delivery (POD)
-router.post('/shipments/:id/deliver', verifyToken, requireRole('DRIVER'), async (req: AuthRequest, res) => {
+// Operations: Confirm Destination Reached with Proof of Delivery (POD)
+router.post('/shipments/:id/deliver', verifyToken, async (req: AuthRequest, res) => {
   const { id } = req.params;
-  const { receivedBy, signatureData, photoUrl, notes, deliveryLat, deliveryLng } = req.body;
-  const userDriverId = req.user?.driverId;
-
-  if (!userDriverId) {
-    return res.status(403).json({ error: "User is not associated with an active driver profile" });
-  }
+  const { receivedBy, signatureData, photoUrl, notes, deliveryLat, deliveryLng } = req.body || {};
 
   const shipment = await prisma.shipment.findUnique({
     where: { id },
     include: { checkpoints: true, destinationWarehouse: true }
   });
 
-  if (!shipment || shipment.driverId !== userDriverId) {
-    return res.status(403).json({ error: "Not authorized to update this shipment" });
+  if (!shipment) {
+    return res.status(404).json({ error: "Shipment not found" });
   }
 
   const hasPending = shipment.checkpoints.some(cp => !cp.reached && !cp.isAbsent);

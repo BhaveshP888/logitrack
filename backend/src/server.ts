@@ -7,7 +7,6 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import apiRouter from './routes/api.js';
 import { authRouter } from './routes/auth.js';
-import { customerRouter } from './routes/customer.js';
 import { startSimulation } from './simulation.js';
 
 dotenv.config();
@@ -59,7 +58,6 @@ app.use(express.json());
 app.set('io', io);
 
 app.use('/api/auth', authRouter);
-app.use('/api/customer', customerRouter);
 app.use('/api', apiRouter);
 
 // Healthcheck
