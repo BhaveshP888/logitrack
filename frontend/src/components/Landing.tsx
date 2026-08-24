@@ -3,10 +3,19 @@ import { useState } from 'react';
 interface LandingProps {
   onLogin: () => void;
   onRegister: () => void;
+  onTrack?: (trackingNumber: string) => void;
 }
 
-export default function Landing({ onLogin, onRegister }: LandingProps) {
+export default function Landing({ onLogin, onRegister, onTrack }: LandingProps) {
   const [activeTab, setActiveTab] = useState<'admin' | 'driver' | 'customer'>('admin');
+  const [heroTrackingInput, setHeroTrackingInput] = useState('TRK-2026-8801');
+
+  const handleHeroTrack = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (heroTrackingInput.trim() && onTrack) {
+      onTrack(heroTrackingInput.trim());
+    }
+  };
 
   return (
     <div className="relative flex flex-col h-screen overflow-y-auto overflow-x-hidden w-full bg-[#0a0a0c] font-body text-zinc-100 selection:bg-brand-primary/30">
@@ -52,6 +61,21 @@ export default function Landing({ onLogin, onRegister }: LandingProps) {
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-2xl font-light">
             Coordinate vehicle routing, dispatch flows, and checkpoint milestones through a structured database. Connect telemetry feeds over secure WebSockets.
           </p>
+
+          {/* Quick Tracking Search in Hero */}
+          <form onSubmit={handleHeroTrack} className="w-full max-w-md flex items-center gap-2 p-1.5 rounded-xl bg-zinc-900 border border-white/10 shadow-lg mt-2">
+            <input 
+              type="text" 
+              placeholder="Track consignment # (e.g. TRK-2026-8801)" 
+              value={heroTrackingInput} 
+              onChange={e => setHeroTrackingInput(e.target.value)} 
+              className="flex-1 bg-transparent px-3 py-2 text-xs font-mono uppercase text-zinc-100 placeholder:normal-case placeholder:text-zinc-500 focus:outline-none" 
+            />
+            <button type="submit" className="bg-brand-primary hover:bg-brand-accent text-zinc-950 text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer shrink-0">
+              Track Freight
+            </button>
+          </form>
+
           <div className="flex flex-wrap gap-4 mt-2">
             <button 
               onClick={onRegister}

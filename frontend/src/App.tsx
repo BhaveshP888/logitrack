@@ -17,18 +17,20 @@ import Login from './components/Login.js';
 import Landing from './components/Landing.js';
 import DriverPortal from './components/DriverPortal/index.js';
 import CustomerDashboard from './components/CustomerDashboard.js';
+import PublicTrackingView from './components/PublicTrackingView.js';
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const { user, loading } = useAppSelector(state => state.auth);
-  const [authView, setAuthView] = useState<'landing' | 'login' | 'register'>('landing');
+  const { user, loading } = useAppSelector((state) => state.auth);
+  const [authView, setAuthView] = useState<'landing' | 'login' | 'register' | 'tracking'>('landing');
   const [activeView, setActiveView] = useState<ViewMode>('dashboard');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [publicTrkNumber, setPublicTrkNumber] = useState<string>('TRK-2026-8801');
 
   const handleLogout = async () => {
     try {
       await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
-    } catch (err) {}
+    } catch (_) {}
     dispatch(logoutUser());
   };
 
@@ -40,7 +42,7 @@ export default function App() {
     if (user && user.role === 'ADMIN') {
       // Connect to Socket server
       dispatch({ type: 'socket/connect' });
-      
+
       // Load initial lists
       dispatch(fetchShipments());
       dispatch(fetchDrivers());
@@ -51,30 +53,56 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-bg-main text-zinc-500 font-body">
+      <div className="flex h-screen w-screen items-center justify-center bg-[#09090b] text-zinc-500 font-body">
         Syncing logistics feed...
       </div>
     );
   }
 
+  // Public Unauthenticated Views
   if (!user) {
+    if (authView === 'tracking') {
+      return (
+        <PublicTrackingView
+          initialTrackingNumber={publicTrkNumber}
+          onBack={() => setAuthView('landing')}
+        />
+      );
+    }
     if (authView === 'landing') {
-      return <Landing onLogin={() => setAuthView('login')} onRegister={() => setAuthView('register')} />;
+      return (
+        <Landing
+          onLogin={() => setAuthView('login')}
+          onRegister={() => setAuthView('register')}
+          onTrack={(trk) => {
+            setPublicTrkNumber(trk);
+            setAuthView('tracking');
+          }}
+        />
+      );
     }
     return <Login initialIsRegister={authView === 'register'} onBack={() => setAuthView('landing')} />;
   }
 
+  // Driver Experience
   if (user.role === 'DRIVER') {
     return <DriverPortal />;
   }
 
+  // Customer / Shipper Experience
   if (user.role === 'CUSTOMER') {
     return <CustomerDashboard onLogout={handleLogout} />;
   }
 
+  // Admin / Dispatcher Operations Experience
   return (
-    <div className="flex h-screen w-screen bg-transparent relative z-0">
-      <Sidebar activeView={activeView} onNavigate={setActiveView} isCollapsed={isSidebarCollapsed} onToggle={() => setIsSidebarCollapsed(prev => !prev)} />
+    <div className="flex h-screen w-screen bg-[#09090b] text-zinc-200 relative z-0 font-body">
+      <Sidebar
+        activeView={activeView}
+        onNavigate={setActiveView}
+        isCollapsed={isSidebarCollapsed}
+        onToggle={() => setIsSidebarCollapsed((prev) => !prev)}
+      />
       <div className="flex-1 flex flex-col h-full min-w-0">
         <main className="flex-1 flex flex-col px-6 lg:px-8 pt-6 pb-6 gap-6 overflow-y-auto custom-scrollbar min-w-0">
           {activeView === 'dashboard' && <DashboardView />}
@@ -86,4 +114,3 @@ export default function App() {
     </div>
   );
 }
-

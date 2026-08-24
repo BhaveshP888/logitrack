@@ -3,24 +3,13 @@ import { API_BASE } from '../config.js';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import TrackingTimeline from './TrackingTimeline.js';
 import BookShipmentModal from './BookShipmentModal.js';
+import BillOfLadingModal from './BillOfLadingModal.js';
 import Skeleton from './ui/Skeleton.js';
 import EmptyState from './ui/EmptyState.js';
+import { Shipment } from '../store/shipmentsSlice.js';
 
 interface CustomerDashboardProps {
   onLogout: () => void;
-}
-
-interface Shipment {
-  id: string;
-  trackingNumber: string;
-  status: string;
-  price: number;
-  contentDescription: string;
-  targetDispatchDate: string;
-  originWarehouse: { name: string };
-  destinationWarehouse: { name: string };
-  checkpoints: { id: string; name: string; reached: boolean; orderIndex: number }[];
-  createdAt: string;
 }
 
 interface Stats {
@@ -31,16 +20,37 @@ interface Stats {
   recentShipments: Shipment[];
 }
 
+interface InvoiceItem {
+  id: string;
+  invoiceNumber: string;
+  amount: number;
+  taxAmount: number;
+  currency: string;
+  status: string;
+  issuedAt: string;
+  paidAt?: string | null;
+  shipment: {
+    trackingNumber: string;
+    originWarehouse: { name: string };
+    destinationWarehouse: { name: string };
+    actualDeliveryDate?: string | null;
+  };
+}
+
 export default function CustomerDashboard({ onLogout }: CustomerDashboardProps) {
+  const [activeTab, setActiveTab] = useState<'overview' | 'invoices'>('overview');
   const [stats, setStats] = useState<Stats | null>(null);
   const [allShipments, setAllShipments] = useState<Shipment[]>([]);
+  const [invoices, setInvoices] = useState<InvoiceItem[]>([]);
   const [warehouses, setWarehouses] = useState<any[]>([]);
   
   const [isLoadingStats, setIsLoadingStats] = useState(true);
   const [isLoadingShipments, setIsLoadingShipments] = useState(true);
+  const [isLoadingInvoices, setIsLoadingInvoices] = useState(false);
   
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [activeTrackingShipment, setActiveTrackingShipment] = useState<Shipment | null>(null);
+  const [activeBolShipment, setActiveBolShipment] = useState<Shipment | null>(null);
 
   const fetchStats = async () => {
     setIsLoadingStats(true);
@@ -66,6 +76,18 @@ export default function CustomerDashboard({ onLogout }: CustomerDashboardProps) 
     }
   };
 
+  const fetchInvoices = async () => {
+    setIsLoadingInvoices(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/customer/invoices`, { credentials: 'include' });
+      if (res.ok) setInvoices(await res.json());
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoadingInvoices(false);
+    }
+  };
+
   const fetchWarehouses = async () => {
     try {
       const res = await fetch(`${API_BASE}/api/warehouses`, { credentials: 'include' });
@@ -78,6 +100,7 @@ export default function CustomerDashboard({ onLogout }: CustomerDashboardProps) 
   useEffect(() => {
     fetchStats();
     fetchAllShipments();
+    fetchInvoices();
     fetchWarehouses();
   }, []);
 
@@ -85,144 +108,246 @@ export default function CustomerDashboard({ onLogout }: CustomerDashboardProps) 
     setShowBookingModal(false);
     fetchStats();
     fetchAllShipments();
+    fetchInvoices();
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-bg-main overflow-y-auto font-body">
+    <div className="flex flex-col h-screen w-screen bg-[#09090b] text-zinc-200 overflow-y-auto font-body">
       {/* Top Navbar */}
-      <nav className="flex items-center justify-between px-10 py-6 border-b border-white/[0.04]">
+      <nav className="flex items-center justify-between px-6 sm:px-10 py-5 border-b border-white/10 bg-[#0e0e11] shrink-0 sticky top-0 z-20">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center font-bold text-zinc-950 text-sm">
+            LT
           </div>
-          <span className="font-display font-bold text-lg text-zinc-100 tracking-tight">
-            LogiTrack <span className="text-zinc-500 font-medium">Customer Portal</span>
+          <span className="font-display font-bold text-base text-zinc-100 tracking-tight">
+            LOGITRACK <span className="text-zinc-500 font-medium">Shipper Portal</span>
           </span>
         </div>
-        <button
-          onClick={onLogout}
-          className="text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors"
-        >
-          Sign Out
-        </button>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center p-1 rounded-xl bg-zinc-900 border border-white/10 text-xs font-semibold">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                activeTab === 'overview' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              Shipments & Freight
+            </button>
+            <button
+              onClick={() => setActiveTab('invoices')}
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                activeTab === 'invoices' ? 'bg-brand-primary text-zinc-950' : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              Billing & Invoices ({invoices.length})
+            </button>
+          </div>
+
+          <button
+            onClick={onLogout}
+            className="text-xs font-semibold text-zinc-400 hover:text-white px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 transition-colors cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </div>
       </nav>
 
-      <main className="flex-1 max-w-7xl w-full mx-auto p-10 flex flex-col gap-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-6 sm:p-10 flex flex-col gap-6">
         
         {/* Header Actions */}
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-display font-bold text-zinc-100 mb-2">Welcome Back</h1>
-            <p className="text-zinc-500 text-sm">Here is your shipping activity overview.</p>
+            <h1 className="text-2xl sm:text-3xl font-display font-bold text-zinc-100">Enterprise Logistics Portal</h1>
+            <p className="text-zinc-400 text-xs mt-1">Manage line-haul consignments, track live milestones, and download e-waybills.</p>
           </div>
           <button 
             onClick={() => setShowBookingModal(true)}
-            className="glass-button px-6 py-2.5 flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-accent text-zinc-950 font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-md shadow-brand-primary/20 shrink-0"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Book Shipment
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Book New Consignment
           </button>
         </div>
 
         {/* Stats Row */}
         {isLoadingStats ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Skeleton className="h-28" />
-            <Skeleton className="h-28" />
-            <Skeleton className="h-28" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Skeleton className="h-24" />
+            <Skeleton className="h-24" />
+            <Skeleton className="h-24" />
           </div>
         ) : stats ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="card border border-white/[0.06] bg-white/[0.01] p-6">
-              <p className="text-zinc-500 text-xs font-medium mb-1">Total Spend</p>
-              <h2 className="text-2xl font-bold text-zinc-100 font-display">₹{stats.totalSpend.toLocaleString()}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-5 rounded-2xl border border-white/10 bg-[#0e0e11]">
+              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Total Freight Spend</p>
+              <h2 className="text-2xl font-bold text-zinc-100 font-mono">₹{stats.totalSpend.toLocaleString()}</h2>
             </div>
-            <div className="card border border-white/[0.06] bg-white/[0.01] p-6">
-              <p className="text-zinc-500 text-xs font-medium mb-1">Total Shipments</p>
-              <h2 className="text-2xl font-bold text-zinc-100 font-display">{stats.totalShipments}</h2>
+            <div className="p-5 rounded-2xl border border-white/10 bg-[#0e0e11]">
+              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Total Consignments Booked</p>
+              <h2 className="text-2xl font-bold text-zinc-100 font-mono">{stats.totalShipments}</h2>
             </div>
-            <div className="card border border-white/[0.06] bg-white/[0.01] p-6">
-              <p className="text-zinc-500 text-xs font-medium mb-1">Active Shipments</p>
-              <h2 className="text-2xl font-bold text-brand-primary font-display">{stats.activeShipments}</h2>
+            <div className="p-5 rounded-2xl border border-sky-500/20 bg-sky-500/5">
+              <p className="text-sky-400 text-[10px] font-bold uppercase tracking-widest mb-1">Active Line-Hauls In Transit</p>
+              <h2 className="text-2xl font-bold text-sky-400 font-mono">{stats.activeShipments}</h2>
             </div>
           </div>
         ) : null}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Chart Section */}
-          <div className="lg:col-span-2 card border border-white/[0.06] bg-white/[0.01] p-6 flex flex-col min-h-[300px]">
-            <h3 className="font-display font-bold text-zinc-100 mb-6">Spend Over Time</h3>
-            <div className="flex-1 min-h-[300px]">
-              {isLoadingStats ? (
-                <Skeleton className="h-[300px]" />
-              ) : stats?.spendChartData && stats.spendChartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={stats.spendChartData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                    <XAxis dataKey="name" stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#52525b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val) => `₹${val}`} />
-                    <Tooltip 
-                      cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                      contentStyle={{ backgroundColor: '#18181b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                    />
-                    <Bar dataKey="spend" fill="#2dd4bf" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : (
-                <EmptyState 
-                  title="No Spend Data" 
-                  description="You haven't completed any shipments yet." 
-                />
-              )}
+        {activeTab === 'overview' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            {/* Spend Chart */}
+            <div className="lg:col-span-2 p-6 rounded-2xl border border-white/10 bg-[#0e0e11] flex flex-col min-h-[300px]">
+              <h3 className="font-display font-bold text-sm text-zinc-100 mb-4">Monthly Freight Spend (INR)</h3>
+              <div className="flex-1 min-h-[260px]">
+                {isLoadingStats ? (
+                  <Skeleton className="h-[260px]" />
+                ) : stats?.spendChartData && stats.spendChartData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={stats.spendChartData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                      <XAxis dataKey="name" stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(val) => `₹${val}`} />
+                      <Tooltip 
+                        cursor={{ fill: 'rgba(255,255,255,0.02)' }}
+                        contentStyle={{ backgroundColor: '#141419', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      />
+                      <Bar dataKey="spend" fill="#2dd4bf" radius={[6, 6, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <EmptyState 
+                    title="No Spend Data" 
+                    description="Complete your first shipment to see spending analytics." 
+                  />
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Recent Shipments List */}
-          <div className="card border border-white/[0.06] bg-white/[0.01] p-6 flex flex-col">
-            <h3 className="font-display font-bold text-zinc-100 mb-4">Your Shipments</h3>
-            <div className="flex flex-col gap-3 overflow-y-auto max-h-[400px] custom-scrollbar pr-2 h-full">
-              {isLoadingShipments ? (
-                <Skeleton count={4} className="h-[88px]" />
-              ) : allShipments.length > 0 ? (
-                allShipments.map(s => (
-                  <button 
-                    key={s.id} 
-                    onClick={() => setActiveTrackingShipment(s)}
-                    className="p-4 rounded-xl border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.04] cursor-pointer transition-colors flex flex-col gap-2 text-left outline-none focus:ring-2 focus:ring-brand-primary/50"
-                    aria-label={`View details for shipment ${s.trackingNumber}`}
-                  >
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-xs font-mono text-zinc-400">{s.trackingNumber}</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                        s.status === 'DELIVERED' ? 'bg-emerald-500/10 text-emerald-500' :
-                        s.status === 'PENDING' ? 'bg-amber-500/10 text-amber-500' :
-                        'bg-brand-primary/10 text-brand-primary'
-                      }`}>
-                        {s.status}
-                      </span>
+            {/* Consignments List */}
+            <div className="p-6 rounded-2xl border border-white/10 bg-[#0e0e11] flex flex-col">
+              <h3 className="font-display font-bold text-sm text-zinc-100 mb-4">Recent Consignments</h3>
+              <div className="flex flex-col gap-3 overflow-y-auto max-h-[400px] custom-scrollbar pr-1 h-full">
+                {isLoadingShipments ? (
+                  <Skeleton count={4} className="h-[88px]" />
+                ) : allShipments.length > 0 ? (
+                  allShipments.map((s) => (
+                    <div 
+                      key={s.id} 
+                      className="p-3.5 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-colors flex flex-col gap-2"
+                    >
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-xs font-mono font-bold text-brand-primary">{s.trackingNumber}</span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-md font-mono uppercase font-bold ${
+                          s.status === 'DELIVERED' ? 'bg-emerald-500/10 text-emerald-400' :
+                          s.status === 'PENDING' ? 'bg-amber-500/10 text-amber-400' :
+                          'bg-sky-500/10 text-sky-400'
+                        }`}>
+                          {s.status}
+                        </span>
+                      </div>
+                      <div className="text-xs font-medium text-zinc-200">
+                        {s.originWarehouse.name.split(' ')[0]} → {s.destinationWarehouse.name.split(' ')[0]}
+                      </div>
+                      <div className="text-[11px] text-zinc-400 flex justify-between items-center pt-1 border-t border-white/5">
+                        <span className="font-mono">₹{(s.price || s.rateAmount || 0).toLocaleString()}</span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => setActiveBolShipment(s)}
+                            className="text-[10px] font-semibold text-zinc-400 hover:text-white px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                          >
+                            e-BOL
+                          </button>
+                          <button
+                            onClick={() => setActiveTrackingShipment(s)}
+                            className="text-[10px] font-bold text-zinc-950 px-2 py-0.5 rounded bg-brand-primary hover:bg-brand-accent transition-colors cursor-pointer"
+                          >
+                            Track
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm font-medium text-zinc-200">
-                      {s.originWarehouse.name} → {s.destinationWarehouse.name}
-                    </div>
-                    <div className="text-xs text-zinc-500 flex justify-between w-full">
-                      <span>{new Date(s.createdAt).toLocaleDateString()}</span>
-                      <span>₹{s.price}</span>
-                    </div>
-                  </button>
-                ))
-              ) : (
-                <EmptyState 
-                  title="No shipments found" 
-                  description="Book your first shipment to see tracking details here." 
-                />
-              )}
+                  ))
+                ) : (
+                  <EmptyState 
+                    title="No consignments found" 
+                    description="Book a line-haul cargo shipment to begin tracking." 
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          /* Billing & Invoices Ledger Tab */
+          <div className="p-6 rounded-2xl border border-white/10 bg-[#0e0e11] space-y-4">
+            <div>
+              <h3 className="font-display font-bold text-sm text-zinc-100">Commercial Freight Invoices & Tax Receipts</h3>
+              <p className="text-xs text-zinc-400">Download itemized billing receipts for completed line-haul logistics</p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-zinc-300 font-body border-collapse">
+                <thead className="bg-zinc-900/80 text-[10px] uppercase font-bold tracking-wider text-zinc-400 border-b border-white/10">
+                  <tr>
+                    <th className="px-4 py-3">Invoice #</th>
+                    <th className="px-4 py-3">Consignment Reference</th>
+                    <th className="px-4 py-3">Route Corridor</th>
+                    <th className="px-4 py-3 text-right">Base Amount</th>
+                    <th className="px-4 py-3 text-right">GST (18%)</th>
+                    <th className="px-4 py-3 text-right">Total (INR)</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3">Issue Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {isLoadingInvoices ? (
+                    <tr>
+                      <td colSpan={8} className="p-4">
+                        <Skeleton count={3} className="h-10 my-1" />
+                      </td>
+                    </tr>
+                  ) : invoices.length === 0 ? (
+                    <tr>
+                      <td colSpan={8} className="px-4 py-10 text-center text-zinc-500">
+                        No issued invoices yet. Invoices are generated upon successful delivery verification.
+                      </td>
+                    </tr>
+                  ) : (
+                    invoices.map((inv) => (
+                      <tr key={inv.id} className="hover:bg-white/[0.02] transition-colors">
+                        <td className="px-4 py-3.5 font-mono font-bold text-brand-primary">{inv.invoiceNumber}</td>
+                        <td className="px-4 py-3.5 font-mono text-zinc-200">{inv.shipment.trackingNumber}</td>
+                        <td className="px-4 py-3.5 text-zinc-400">
+                          {inv.shipment.originWarehouse.name.split(' ')[0]} → {inv.shipment.destinationWarehouse.name.split(' ')[0]}
+                        </td>
+                        <td className="px-4 py-3.5 text-right font-mono text-zinc-300">₹{inv.amount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5 text-right font-mono text-zinc-400">₹{inv.taxAmount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5 text-right font-mono font-bold text-zinc-100">
+                          ₹{(inv.amount + inv.taxAmount).toLocaleString()}
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
+                            inv.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                          }`}>
+                            {inv.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3.5 text-zinc-500 font-mono">{new Date(inv.issuedAt).toLocaleDateString()}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
       </main>
 
-      {/* Extracted Booking Modal */}
+      {/* Booking Modal */}
       {showBookingModal && (
         <BookShipmentModal 
           onClose={() => setShowBookingModal(false)}
@@ -231,32 +356,30 @@ export default function CustomerDashboard({ onLogout }: CustomerDashboardProps) 
         />
       )}
 
-      {/* Tracking Timeline Modal */}
+      {/* Tracking Modal */}
       {activeTrackingShipment && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 md:p-10"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="tracking-title"
-        >
-          <div className="w-full max-w-4xl card border border-white/[0.08] bg-bg-surface p-6 md:p-10 flex flex-col relative shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="w-full max-w-4xl p-6 sm:p-8 rounded-2xl bg-[#0e0e11] border border-white/10 shadow-2xl relative">
             <button 
               onClick={() => setActiveTrackingShipment(null)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 text-zinc-500 hover:text-zinc-200 transition-colors"
-              aria-label="Close tracking view"
+              className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-200 transition-colors p-1 cursor-pointer"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
             </button>
-            
-            <div className="mb-8 md:mb-12 pr-8">
-              <h2 id="tracking-title" className="font-display text-2xl font-bold text-zinc-100">Tracking Detail</h2>
-              <p className="text-zinc-400 font-mono text-sm mt-1" aria-label="Tracking Number">{activeTrackingShipment.trackingNumber}</p>
-            </div>
-
-            <TrackingTimeline shipment={activeTrackingShipment} />
-            
+            <TrackingTimeline shipment={activeTrackingShipment as any} />
           </div>
         </div>
+      )}
+
+      {/* Bill of Lading Modal */}
+      {activeBolShipment && (
+        <BillOfLadingModal
+          shipment={activeBolShipment}
+          onClose={() => setActiveBolShipment(null)}
+        />
       )}
 
     </div>
