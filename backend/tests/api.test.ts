@@ -2,7 +2,6 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import { app, server } from '../src/server.js';
 import { prisma } from '../src/db.js';
-
 import { resetAndSeedDatabase } from './helpers.js';
 
 let adminCookie: string;
@@ -36,6 +35,16 @@ describe('LogiTrack API Endpoints', () => {
     expect(res.body.length).toBe(5);
   });
 
+  it('should retrieve list of commercial vehicles', async () => {
+    const res = await request(app)
+      .get('/api/vehicles')
+      .set('Cookie', adminCookie);
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBeGreaterThanOrEqual(1);
+    expect(res.body[0]).toHaveProperty('licensePlate');
+  });
+
   it('should retrieve list of drivers', async () => {
     const res = await request(app)
       .get('/api/drivers')
@@ -54,7 +63,7 @@ describe('LogiTrack API Endpoints', () => {
     expect(res.body).toHaveProperty('utilizationRate');
   });
 
-  it('should create a new pending shipment successfully', async () => {
+  it('should create a new assigned shipment successfully', async () => {
     const warehouses = await prisma.warehouse.findMany();
     const origin = warehouses[0].id;
     const dest = warehouses[1].id;
@@ -71,14 +80,28 @@ describe('LogiTrack API Endpoints', () => {
         destinationId: dest,
         driverId: driver?.id,
         targetDispatchDate: futureDate.toISOString(),
+        contentDescription: "Precision Euro-6 Engine Assemblies",
         checkpoints: [{ name: "Checkpoint A" }]
       });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('trackingNumber');
-    expect(res.body.status).toBe('PENDING');
+    expect(res.body.status).toBe('ASSIGNED');
     expect(res.body.driverId).not.toBeNull();
     expect(res.body.checkpoints).toHaveLength(1);
+  });
+
+  it('should allow public tracking without authentication', async () => {
+    const shipment = await prisma.shipment.findFirst();
+    expect(shipment).toBeDefined();
+
+    const res = await request(app)
+      .get(`/api/shipments/public/${shipment?.trackingNumber}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.trackingNumber).toBe(shipment?.trackingNumber);
+    expect(res.body).toHaveProperty('originWarehouse');
+    expect(res.body).toHaveProperty('destinationWarehouse');
   });
 
   it('should block unauthenticated shipment creation', async () => {
@@ -93,59 +116,74 @@ describe('LogiTrack API Endpoints', () => {
     expect(res.status).toBe(401);
   });
 
-  it('should enforce sequential checkpoint completion for drivers', async () => {
+  it('should enforce sequential checkpoint completion and POD delivery', async () => {
     // Login as driver1
     const driverLogin = await request(app)
       .post('/api/auth/login')
       .send({ email: 'driver1@logitrack.com', password: 'Driver@123' });
-    const driverCookies = driverLogin.headers['set-cookie'];
-    const driverCookie = Array.isArray(driverCookies) ? driverCookies.map(c => c.split(';')[0]).join('; ') : driverCookies || '';
+    
+    const driverCookie = driverLogin.headers['set-cookie'].map((c: string) => c.split(';')[0]).join('; ');
 
-    const driverUser = await prisma.user.findUnique({ where: { email: 'driver1@logitrack.com' } });
+    // Create a shipment with 2 checkpoints
     const warehouses = await prisma.warehouse.findMany();
+    const driver = await prisma.driver.findFirst({ where: { user: { email: 'driver1@logitrack.com' } } });
 
-    // Create a shipment assigned to driver1 with 3 checkpoints
-    const shipment = await prisma.shipment.create({
-      data: {
-        trackingNumber: `TRK-TEST-SEQ-${Date.now()}`,
-        status: 'EN_ROUTE',
-        originWarehouseId: warehouses[0].id,
-        destinationWarehouseId: warehouses[1].id,
-        driverId: driverUser?.driverId,
-        targetDispatchDate: new Date(),
-        checkpoints: {
-          create: [
-            { name: 'Stop 1', orderIndex: 1 },
-            { name: 'Stop 2', orderIndex: 2 },
-            { name: 'Stop 3', orderIndex: 3 }
-          ]
-        }
-      },
-      include: { checkpoints: { orderBy: { orderIndex: 'asc' } } }
-    });
+    const createRes = await request(app)
+      .post('/api/shipments')
+      .set('Cookie', adminCookie)
+      .send({
+        originId: warehouses[0].id,
+        destinationId: warehouses[1].id,
+        driverId: driver?.id,
+        targetDispatchDate: new Date().toISOString(),
+        checkpoints: [{ name: "Stop 1" }, { name: "Stop 2" }]
+      });
 
-    const stop1 = shipment.checkpoints[0];
-    const stop2 = shipment.checkpoints[1];
+    const shipmentId = createRes.body.id;
+    const cp1 = createRes.body.checkpoints[0].id;
+    const cp2 = createRes.body.checkpoints[1].id;
 
-    // Attempt to reach Stop 2 before Stop 1
-    const invalidReach = await request(app)
-      .post(`/api/shipments/${shipment.id}/checkpoints/${stop2.id}/reach`)
+    // Dispatch
+    const dispatchRes = await request(app)
+      .post(`/api/shipments/${shipmentId}/dispatch`)
       .set('Cookie', driverCookie);
+    expect(dispatchRes.status).toBe(200);
+    expect(dispatchRes.body.status).toBe('EN_ROUTE');
 
-    expect(invalidReach.status).toBe(400);
-    expect(invalidReach.body.error).toContain('Cannot reach checkpoint out of sequence');
-
-    // Reach Stop 1 first
-    const reach1 = await request(app)
-      .post(`/api/shipments/${shipment.id}/checkpoints/${stop1.id}/reach`)
+    // Try reaching Stop 2 before Stop 1 -> 400 Bad Request
+    const outOfOrderRes = await request(app)
+      .post(`/api/shipments/${shipmentId}/checkpoints/${cp2}/reach`)
       .set('Cookie', driverCookie);
-    expect(reach1.status).toBe(200);
+    expect(outOfOrderRes.status).toBe(400);
 
-    // Now reach Stop 2
-    const reach2 = await request(app)
-      .post(`/api/shipments/${shipment.id}/checkpoints/${stop2.id}/reach`)
+    // Reach Stop 1 in order -> 200 OK
+    const reachCp1 = await request(app)
+      .post(`/api/shipments/${shipmentId}/checkpoints/${cp1}/reach`)
       .set('Cookie', driverCookie);
-    expect(reach2.status).toBe(200);
+    expect(reachCp1.status).toBe(200);
+    expect(reachCp1.body.checkpoints[0].reached).toBe(true);
+
+    // Reach Stop 2 in order -> 200 OK
+    const reachCp2 = await request(app)
+      .post(`/api/shipments/${shipmentId}/checkpoints/${cp2}/reach`)
+      .set('Cookie', driverCookie);
+    expect(reachCp2.status).toBe(200);
+    expect(reachCp2.body.checkpoints[1].reached).toBe(true);
+
+    // Deliver with Proof of Delivery
+    const deliverRes = await request(app)
+      .post(`/api/shipments/${shipmentId}/deliver`)
+      .set('Cookie', driverCookie)
+      .send({
+        receivedBy: 'Vikram Mehta (Supervisor)',
+        signatureData: 'SIG_VERIFIED',
+        notes: 'Cargo inspected and verified in full'
+      });
+
+    expect(deliverRes.status).toBe(200);
+    expect(deliverRes.body.status).toBe('DELIVERED');
+    expect(deliverRes.body.proofOfDelivery).toBeDefined();
+    expect(deliverRes.body.proofOfDelivery.receivedBy).toBe('Vikram Mehta (Supervisor)');
+    expect(deliverRes.body.invoice).toBeDefined();
   });
 });
-
